@@ -1,0 +1,10 @@
+{
+  "package": "express-jwt",
+  "trigger_reason": "patched_pass=false after major version jump (0.1.3 -> 6.0.0)",
+  "tier_1_attempted": true,
+  "tier_1_result": "failed_still_regresses",
+  "tier_2_attempted": true,
+  "tier_2_result": "no_backport_available",
+  "final_status": "manual_review_required",
+  "manual_review_note": "express-jwt v6 changed API: req.user -> req.auth, requires algorithms option. Code migration needed in lib/insecurity.ts. CVE-2020-15084 cannot be auto-resolved without breaking app functionality."
+}

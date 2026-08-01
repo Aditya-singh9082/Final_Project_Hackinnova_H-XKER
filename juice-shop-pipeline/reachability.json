@@ -1,0 +1,313 @@
+{
+  "cves": [
+    {
+      "cve_id": "CVE-2026-55849",
+      "package": "@cyclonedx/cyclonedx-npm",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-3449",
+      "package": "@tootallnate/once",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "GHSA-rvg8-pwq2-xj7q",
+      "package": "base64url",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2023-46233",
+      "package": "crypto-js",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-10732",
+      "package": "decompress",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-53486",
+      "package": "decompress",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-59725",
+      "package": "engine.io",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2022-41940",
+      "package": "engine.io",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2020-15084",
+      "package": "express-jwt",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2026-31808",
+      "package": "file-type",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): routes\\profileImageFileUpload.ts"
+    },
+    {
+      "cve_id": "CVE-2022-33987",
+      "package": "got",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2022-25881",
+      "package": "http-cache-semantics",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2022-23539",
+      "package": "jsonwebtoken",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 3 file(s): lib\\insecurity.ts, routes\\authenticatedUsers.ts..."
+    },
+    {
+      "cve_id": "CVE-2015-9235",
+      "package": "jsonwebtoken",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 3 file(s): lib\\insecurity.ts, routes\\authenticatedUsers.ts..."
+    },
+    {
+      "cve_id": "CVE-2022-23541",
+      "package": "jsonwebtoken",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 3 file(s): lib\\insecurity.ts, routes\\authenticatedUsers.ts..."
+    },
+    {
+      "cve_id": "CVE-2022-23540",
+      "package": "jsonwebtoken",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 3 file(s): lib\\insecurity.ts, routes\\authenticatedUsers.ts..."
+    },
+    {
+      "cve_id": "CVE-2025-65945",
+      "package": "jws",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\insecurity.ts, routes\\verify.ts"
+    },
+    {
+      "cve_id": "CVE-2016-1000223",
+      "package": "jws",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\insecurity.ts, routes\\verify.ts"
+    },
+    {
+      "cve_id": "CVE-2020-8203",
+      "package": "lodash.set",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "GHSA-5mrr-rgp6-x4gr",
+      "package": "marsdb",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): data\\mongodb.ts"
+    },
+    {
+      "cve_id": "CVE-2025-57349",
+      "package": "messageformat",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2025-47935",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2025-47944",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2026-3520",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2026-5079",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2025-7338",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2025-48997",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2026-2359",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2026-3304",
+      "package": "multer",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): server.ts"
+    },
+    {
+      "cve_id": "CVE-2021-23771",
+      "package": "notevil",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 1 file(s): routes\\b2bOrder.ts"
+    },
+    {
+      "cve_id": "CVE-2024-36751",
+      "package": "parseuri",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2016-1000237",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2022-25887",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2021-26540",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2019-25225",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2021-26539",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2024-21501",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2017-16016",
+      "package": "sanitize-html",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\insecurity.ts"
+    },
+    {
+      "cve_id": "CVE-2024-38355",
+      "package": "socket.io",
+      "verdict": "REACHABLE",
+      "evidence": "Imported in 2 file(s): lib\\challengeUtils.ts, lib\\startup\\registerWebsocketEvents.ts"
+    },
+    {
+      "cve_id": "CVE-2026-33151",
+      "package": "socket.io-parser",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2023-32695",
+      "package": "socket.io-parser",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-1525",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-6733",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-1527",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-11525",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-22036",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-9679",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-2229",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-1526",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-12151",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-41907",
+      "package": "uuid",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package not found imported in any scanned source file."
+    }
+  ],
+  "crawl_incomplete": false,
+  "stage_failed": false,
+  "error": ""
+}

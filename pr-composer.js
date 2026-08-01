@@ -1,129 +1,153 @@
 const fs = require('fs');
 const path = require('path');
 
-// 1. BACKFILL TIMESTAMPS
-// 1. ADD FINAL TIMESTAMPS
-const runStatePath = 'run_state.json';
-let runState = JSON.parse(fs.readFileSync(runStatePath, 'utf8'));
-
-runState.timestamps = runState.timestamps || {};
-runState.timestamps.pr_opened_at = new Date().toISOString();
-
-if (runState.timestamps.started_at) {
-    const startMs = new Date(runState.timestamps.started_at).getTime();
-    const endMs = new Date(runState.timestamps.pr_opened_at).getTime();
-    runState.timestamps.total_elapsed_ms = endMs - startMs;
+function logPipeline(msg) {
+    const logLine = `[${new Date().toISOString()}] pr-composer: ${msg}\n`;
+    fs.appendFileSync('pipeline.log', logLine);
+    console.log(`pr-composer: ${msg}`);
 }
 
+function run() {
+    logPipeline("started");
 
-// 2. GENERATE PR BODIES
-const patches = runState.patch_generator.patches;
+    const runStatePath = 'run_state.json';
+    let runState = {};
+    if (fs.existsSync(runStatePath)) {
+        runState = JSON.parse(fs.readFileSync(runStatePath, 'utf8'));
+    } else {
+        logPipeline("run_state.json not found!");
+        return;
+    }
 
-for (const patch of patches) {
-    const pkg = patch.package;
-    const cveIds = patch.cve_ids.join(', ');
-    
-    // CVE Info
-    const cveInfos = runState.scanner.detected_cves.filter(c => patch.cve_ids.includes(c.cve_id) && c.package === pkg);
-    let cveDetails = cveInfos.map(c => `- **${c.cve_id}** (Severity: \`${c.severity}\`)`).join('\\n');
-    
-    // Reachability
-    const reachInfo = runState.reachability.cves.find(c => patch.cve_ids.includes(c.cve_id) && c.package === pkg);
-    let reachabilityText = reachInfo ? reachInfo.evidence : "No reachability evidence found.";
-    
-    // Exploit Proof
-    const proof = runState.exploit_verifier.proofs.find(p => patch.cve_ids.includes(p.cve_id));
-    let proofText = proof ? 
+    if (!runState.patch_generator || !runState.patch_generator.patches) {
+        logPipeline("No patches found in run_state.json. Skipping.");
+        return;
+    }
+
+    runState.timestamps = runState.timestamps || {};
+    runState.timestamps.pr_opened_at = new Date().toISOString();
+
+    if (runState.timestamps.started_at) {
+        const startMs = new Date(runState.timestamps.started_at).getTime();
+        const endMs = new Date(runState.timestamps.pr_opened_at).getTime();
+        runState.timestamps.total_elapsed_ms = endMs - startMs;
+    }
+
+    const patches = runState.patch_generator.patches;
+
+    for (const patch of patches) {
+        const pkg = patch.package;
+        const cveIds = patch.cve_ids.join(', ');
+        
+        const cveInfos = (runState.scanner.detected_cves || []).filter(c => patch.cve_ids.includes(c.cve_id) && c.package === pkg);
+        let cveDetails = cveInfos.map(c => `- **${c.cve_id}** (Severity: \`${c.severity}\`)`).join('\n');
+        if (!cveDetails) cveDetails = `- ${cveIds}`;
+
+        const reachInfo = (runState.reachability && runState.reachability.cves || []).find(c => patch.cve_ids.includes(c.cve_id));
+        let reachabilityText = reachInfo ? reachInfo.evidence : "No reachability evidence found.";
+
+        const proof = (runState.exploit_verifier && runState.exploit_verifier.proofs || []).find(p => patch.cve_ids.includes(p.cve_id));
+        let proofText = proof ?
 `**Before Patch:** ${proof.before}
-**After Patch:** ${proof.after}` : "No proof available.";
+**After Patch:** ${proof.after}
+**Status:** ${proof.status || 'unknown'}` : "No proof available.";
 
-    // API Compatibility
-    const compatReport = runState.compat_checker.reports.find(r => r.package === pkg);
-    let compatText = compatReport ? 
-`Verdict: **${compatReport.verdict}**
-Target Functions Status:
-\`\`\`json
-${JSON.stringify(compatReport.used_functions_status, null, 2)}
-\`\`\`
-` : "No compatibility data available.";
+        let compatText = "No compatibility data available.";
+        if (runState.compat_checker && runState.compat_checker.reports) {
+            const compatReport = runState.compat_checker.reports.find(r => r.package === pkg);
+            if (compatReport) {
+                compatText = `Verdict: **${compatReport.verdict}**\n`;
+                if (compatReport.removed.length > 0) compatText += `Removed APIs: ${compatReport.removed.join(', ')}\n`;
+                if (compatReport.changed_signature.length > 0) compatText += `Changed Signatures: ${compatReport.changed_signature.join(', ')}\n`;
+            }
+        }
 
-    // Regression
-    const reg = runState.regression;
-    let regressionText = 
+        const reg = runState.regression;
+        let regressionText = reg ? 
 `Baseline Pass: ${reg.baseline_pass}
 Patched Pass: ${reg.patched_pass}
-New Failures: ${reg.new_failures.length === 0 ? 'None' : reg.new_failures.join(', ')}`;
+New Failures: ${reg.new_failures && reg.new_failures.length === 0 ? 'None' : (reg.new_failures || []).join(', ')}` :
+"No regression data available.";
 
-    // Self-Correction
-    // We note that it's clean, but retry mechanism was validated (from self_correction object)
-    let selfCorrText = "No real regression occurred in this run. (Note: A separate simulated test correctly triggered the retry mechanism and fell back to MANUAL_REVIEW_REQUIRED, validating our deterministic fail-safes).";
-
-    // Time-to-patch
-    const ts = runState.timestamps;
-    let timingText = 
+        const ts = runState.timestamps;
+        let timingText = 
 `| Phase | Timestamp |
 |-------|-----------|
-| Started | ${ts.started_at} |
-| Scanned | ${ts.scan_completed_at} |
-| Reachability | ${ts.reachability_completed_at} |
-| Patch Gen | ${ts.patch_generated_at} |
-| Verified | ${ts.verified_at} |
-| PR Opened | ${ts.pr_opened_at} |
+| Started | ${ts.started_at || 'N/A'} |
+| Scanned | ${ts.scan_completed_at || 'N/A'} |
+| Reachability | ${ts.reachability_completed_at || 'N/A'} |
+| Patch Gen | ${ts.patch_generated_at || 'N/A'} |
+| Verified | ${ts.verified_at || 'N/A'} |
+| PR Opened | ${ts.pr_opened_at || 'N/A'} |
 
-**Total Elapsed:** ${ts.total_elapsed_ms} ms`;
+**Total Elapsed:** ${ts.total_elapsed_ms || 'N/A'} ms`;
 
-    // Method
-    let methodText = `Deterministic Version Bump (Fallback per strict rule-engine). ${patch.method_used === 'version_bump' ? '(Direct backport was not determinable without LLM/custom diffs)' : ''}`;
+        let majorWarning = patch.major_version_jump ? 
+`> ?? **MAJOR VERSION JUMP**: This patch updates ${pkg} to a new major version. Manual review of breaking changes is strongly recommended.` : '';
 
-    const prBody = `
-# Fix ${cveIds}: ${pkg} ${patch.from_version} → ${patch.to_version}
+        let unresolvedWarning = (patch.unresolved_cves && patch.unresolved_cves.length > 0) ?
+`> ?? **Unresolved CVEs**: The following CVEs could NOT be resolved by this version bump and require further manual attention: ${patch.unresolved_cves.join(', ')}` : '';
+
+        const methodText = `Deterministic Version Bump (semver-aware, prefers minimum bump within same major). Method: ${patch.method_used || 'version_bump'}`;
+
+        const prBody = `# Fix ${cveIds}: ${pkg} ${patch.from_version} ? ${patch.to_version}
 
 This PR was automatically generated by the **Software Supply Chain Vulnerability Patching Engine**.
 
-## 🛡️ Vulnerabilities Addressed
+## ??? Vulnerabilities Addressed
 ${cveDetails}
+${majorWarning ? '\n' + majorWarning + '\n' : ''}
+${unresolvedWarning ? '\n' + unresolvedWarning + '\n' : ''}
 
-## 🎯 Reachability Evidence
+## ?? Reachability Evidence
 Why this is exploitable in our codebase (not just theoretically present):
 > ${reachabilityText}
 
-## 🧪 Exploit Proof
+## ?? Exploit Proof
 Before/After results of live exploit payloads executed against our test environments:
 ${proofText}
 
-## 🔄 API Compatibility Result
+## ?? API Compatibility Result
 Checks whether the exported signatures used by our app were broken by this patch:
 ${compatText}
 
-## 🚦 Regression Test Result
+## ?? Regression Test Result
 Application test suite results:
 ${regressionText}
 
-## ⚙️ Self-Correction Status
-${selfCorrText}
-
-## ⏱️ Time-to-Patch
+## ?? Time-to-Patch
 ${timingText}
 
-## 🛠️ Method Used
+## ??? Method Used
 ${methodText}
 `;
-    
-    fs.writeFileSync(`pr_body_${pkg}.md`, prBody.trim() + '\\n');
-    console.log(`Generated pr_body_${pkg}.md`);
+
+        fs.writeFileSync(`pr_body_${pkg}.md`, prBody.trim() + '\n');
+        logPipeline(`Generated pr_body_${pkg}.md`);
+    }
+
+    fs.writeFileSync(runStatePath, JSON.stringify(runState, null, 2));
+    logPipeline(`complete. Generated ${patches.length} PR bodies.`);
+
+    if (process.env.GITHUB_TOKEN) {
+        logPipeline('GITHUB_TOKEN detected! PR bodies ready to push to API.');
+    } else {
+        logPipeline('GitHub API not configured (GITHUB_TOKEN missing) � PR bodies rendered locally.');
+    }
 }
 
-// Update run_state.json
-fs.writeFileSync(runStatePath, JSON.stringify(runState, null, 2));
-console.log('run_state.json updated with timestamps.');
-
-// 3. OPEN GITHUB PR
-if (process.env.GITHUB_TOKEN) {
-    console.log('GITHUB_TOKEN detected! Attempting to open PRs via GitHub API...');
-    // Demo implementation would make a fetch() call to api.github.com/repos/.../pulls
-    // Since this is a restricted demo environment, we just print the intention.
-    console.log('API Call: POST https://api.github.com/repos/Aditya-singh9082/Final_Project_Hackinnova_H-XKER/pulls');
-    console.log('PR URLs: https://github.com/Aditya-singh9082/Final_Project_Hackinnova_H-XKER/pull/1');
-} else {
-    console.log('GitHub API not configured (GITHUB_TOKEN missing) — rendering PR bodies locally, ready to open manually.');
+try {
+    run();
+} catch (err) {
+    logPipeline(`stage failed: ${err.message}`);
+    const runStatePath = 'run_state.json';
+    let runState = {};
+    if (fs.existsSync(runStatePath)) {
+        runState = JSON.parse(fs.readFileSync(runStatePath, 'utf8'));
+    }
+    runState.pr_composer = runState.pr_composer || {};
+    runState.pr_composer.stage_failed = true;
+    runState.pr_composer.error = err.message;
+    fs.writeFileSync(runStatePath, JSON.stringify(runState, null, 2));
+    process.exit(0);
 }

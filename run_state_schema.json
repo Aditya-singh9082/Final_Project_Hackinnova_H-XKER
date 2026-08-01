@@ -10,16 +10,22 @@
         "affected_range": "string",
         "source": "string"
       }
-    ]
+    ],
+    "failed_packages": ["string"],
+    "stage_failed": "boolean",
+    "error": "string"
   },
   "reachability": {
     "cves": [
       {
         "cve_id": "string",
-        "verdict": "string",
+        "verdict": "string"`n    }],
         "evidence": "string"
       }
-    ]
+    ],
+    "crawl_incomplete": "boolean",
+    "stage_failed": "boolean",
+    "error": "string"
   },
   "patch_generator": {
     "patches": [
@@ -27,9 +33,13 @@
         "package": "string",
         "cve_ids": ["string"],
         "patch_file": "string",
-        "status": "string"
+        "status": "string",
+        "major_version_jump": "boolean",
+        "unresolved_cves": ["string"]
       }
-    ]
+    ],
+    "stage_failed": "boolean",
+    "error": "string"
   },
   "exploit_verifier": {
     "proofs": [
@@ -37,22 +47,29 @@
         "cve_id": "string",
         "before": "string",
         "after": "string",
-        "logs": ["string"]
+        "logs": ["string"],
+        "status": "string"
       }
-    ]
+    ],
+    "stage_failed": "boolean",
+    "error": "string"
   },
   "compat_checker": {
-    "report": {
+    "reports": [{
       "removed": ["string"],
       "changed_signature": ["string"],
       "added": ["string"],
-      "verdict": "string"
-    }
+      "verdict": "string"`n    }]
+    },
+    "stage_failed": "boolean",
+    "error": "string"
   },
   "regression": {
     "baseline_pass": "boolean",
     "patched_pass": "boolean",
-    "new_failures": ["string"]
+    "new_failures": ["string"],
+    "stage_failed": "boolean",
+    "error": "string"
   },
   "timestamps": {
     "started_at": "string",

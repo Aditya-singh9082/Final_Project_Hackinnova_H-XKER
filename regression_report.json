@@ -1,5 +1,7 @@
 {
   "baseline_pass": true,
   "patched_pass": true,
-  "new_failures": []
+  "new_failures": [],
+  "stage_failed": false,
+  "error": ""
 }

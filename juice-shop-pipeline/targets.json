@@ -1,0 +1,10 @@
+[
+  { "package": "sanitize-html", "cve_id": "CVE-2022-25887" },
+  { "package": "sanitize-html", "cve_id": "CVE-2016-1000237" },
+  { "package": "sanitize-html", "cve_id": "CVE-2021-26540" },
+  { "package": "sanitize-html", "cve_id": "CVE-2019-25225" },
+  { "package": "sanitize-html", "cve_id": "CVE-2021-26539" },
+  { "package": "sanitize-html", "cve_id": "CVE-2024-21501" },
+  { "package": "sanitize-html", "cve_id": "CVE-2017-16016" },
+  { "package": "express-jwt", "cve_id": "CVE-2020-15084" }
+]

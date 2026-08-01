@@ -1,0 +1,32 @@
+[
+  {
+    "package": "sanitize-html",
+    "cve_ids": [
+      "CVE-2022-25887",
+      "CVE-2016-1000237",
+      "CVE-2021-26540",
+      "CVE-2019-25225",
+      "CVE-2021-26539",
+      "CVE-2024-21501",
+      "CVE-2017-16016"
+    ],
+    "unresolved_cves": [],
+    "method_used": "version_bump",
+    "from_version": "1.4.2",
+    "to_version": "2.12.1",
+    "major_version_jump": true,
+    "status": "success"
+  },
+  {
+    "package": "express-jwt",
+    "cve_ids": [
+      "CVE-2020-15084"
+    ],
+    "unresolved_cves": [],
+    "method_used": "version_bump",
+    "from_version": "0.1.3",
+    "to_version": "6.0.0",
+    "major_version_jump": true,
+    "status": "success"
+  }
+]

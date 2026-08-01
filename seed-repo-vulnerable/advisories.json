@@ -1,23 +1,5 @@
 [
   {
-    "package": "minimist",
-    "version": "1.2.0",
-    "cve_id": "CVE-2020-7598",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
-    "fixed_version": "0.2.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "minimist",
-    "version": "1.2.0",
-    "cve_id": "CVE-2021-44906",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-    "fixed_version": "1.2.6",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
     "package": "marked",
     "version": "0.3.5",
     "cve_id": "CVE-2022-21681",
@@ -72,6 +54,24 @@
     "source": "OSV"
   },
   {
+    "package": "minimist",
+    "version": "1.2.0",
+    "cve_id": "CVE-2020-7598",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+    "fixed_version": "0.2.1",
+    "affected_range": "unknown",
+    "source": "OSV"
+  },
+  {
+    "package": "minimist",
+    "version": "1.2.0",
+    "cve_id": "CVE-2021-44906",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "fixed_version": "1.2.6",
+    "affected_range": "unknown",
+    "source": "OSV"
+  },
+  {
     "package": "moment",
     "version": "2.24.0",
     "cve_id": "CVE-2022-24785",
@@ -86,42 +86,6 @@
     "cve_id": "CVE-2022-31129",
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
     "fixed_version": "2.29.4",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "lodash",
-    "version": "4.17.15",
-    "cve_id": "CVE-2020-28500",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
-    "fixed_version": "4.17.21",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "lodash",
-    "version": "4.17.15",
-    "cve_id": "CVE-2021-23337",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
-    "fixed_version": "4.17.21",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "lodash",
-    "version": "4.17.15",
-    "cve_id": "CVE-2025-13465",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
-    "fixed_version": "4.18.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "lodash",
-    "version": "4.17.15",
-    "cve_id": "CVE-2020-8203",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
-    "fixed_version": "4.17.19",
     "affected_range": "unknown",
     "source": "OSV"
   },
@@ -347,6 +311,42 @@
     "cve_id": "CVE-2026-42042",
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
     "fixed_version": "1.15.1",
+    "affected_range": "unknown",
+    "source": "OSV"
+  },
+  {
+    "package": "lodash",
+    "version": "4.17.15",
+    "cve_id": "CVE-2020-28500",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+    "fixed_version": "4.17.21",
+    "affected_range": "unknown",
+    "source": "OSV"
+  },
+  {
+    "package": "lodash",
+    "version": "4.17.15",
+    "cve_id": "CVE-2021-23337",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+    "fixed_version": "4.17.21",
+    "affected_range": "unknown",
+    "source": "OSV"
+  },
+  {
+    "package": "lodash",
+    "version": "4.17.15",
+    "cve_id": "CVE-2025-13465",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+    "fixed_version": "4.18.0",
+    "affected_range": "unknown",
+    "source": "OSV"
+  },
+  {
+    "package": "lodash",
+    "version": "4.17.15",
+    "cve_id": "CVE-2020-8203",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+    "fixed_version": "4.17.19",
     "affected_range": "unknown",
     "source": "OSV"
   }

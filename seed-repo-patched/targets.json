@@ -1,0 +1,4 @@
+[
+  { "package": "lodash", "cve_id": "CVE-2020-8203" },
+  { "package": "marked", "cve_id": "CVE-2017-16114" }
+]

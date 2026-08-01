@@ -2,24 +2,6 @@
   "scanner": {
     "detected_cves": [
       {
-        "package": "minimist",
-        "version": "1.2.0",
-        "cve_id": "CVE-2020-7598",
-        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
-        "fixed_version": "0.2.1",
-        "affected_range": "unknown",
-        "source": "OSV"
-      },
-      {
-        "package": "minimist",
-        "version": "1.2.0",
-        "cve_id": "CVE-2021-44906",
-        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-        "fixed_version": "1.2.6",
-        "affected_range": "unknown",
-        "source": "OSV"
-      },
-      {
         "package": "marked",
         "version": "0.3.5",
         "cve_id": "CVE-2022-21681",
@@ -74,6 +56,24 @@
         "source": "OSV"
       },
       {
+        "package": "minimist",
+        "version": "1.2.0",
+        "cve_id": "CVE-2020-7598",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "fixed_version": "0.2.1",
+        "affected_range": "unknown",
+        "source": "OSV"
+      },
+      {
+        "package": "minimist",
+        "version": "1.2.0",
+        "cve_id": "CVE-2021-44906",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "fixed_version": "1.2.6",
+        "affected_range": "unknown",
+        "source": "OSV"
+      },
+      {
         "package": "moment",
         "version": "2.24.0",
         "cve_id": "CVE-2022-24785",
@@ -88,42 +88,6 @@
         "cve_id": "CVE-2022-31129",
         "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
         "fixed_version": "2.29.4",
-        "affected_range": "unknown",
-        "source": "OSV"
-      },
-      {
-        "package": "lodash",
-        "version": "4.17.15",
-        "cve_id": "CVE-2020-28500",
-        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
-        "fixed_version": "4.17.21",
-        "affected_range": "unknown",
-        "source": "OSV"
-      },
-      {
-        "package": "lodash",
-        "version": "4.17.15",
-        "cve_id": "CVE-2021-23337",
-        "severity": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
-        "fixed_version": "4.17.21",
-        "affected_range": "unknown",
-        "source": "OSV"
-      },
-      {
-        "package": "lodash",
-        "version": "4.17.15",
-        "cve_id": "CVE-2025-13465",
-        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
-        "fixed_version": "4.18.0",
-        "affected_range": "unknown",
-        "source": "OSV"
-      },
-      {
-        "package": "lodash",
-        "version": "4.17.15",
-        "cve_id": "CVE-2020-8203",
-        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
-        "fixed_version": "4.17.19",
         "affected_range": "unknown",
         "source": "OSV"
       },
@@ -351,94 +315,120 @@
         "fixed_version": "1.15.1",
         "affected_range": "unknown",
         "source": "OSV"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2020-28500",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "4.17.21",
+        "affected_range": "unknown",
+        "source": "OSV"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2021-23337",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+        "fixed_version": "4.17.21",
+        "affected_range": "unknown",
+        "source": "OSV"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2025-13465",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+        "fixed_version": "4.18.0",
+        "affected_range": "unknown",
+        "source": "OSV"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2020-8203",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+        "fixed_version": "4.17.19",
+        "affected_range": "unknown",
+        "source": "OSV"
       }
-    ]
+    ],
+    "failed_packages": [],
+    "stage_failed": false,
+    "error": ""
+  },
+  "timestamps": {
+    "started_at": "2026-08-01T10:34:01.665Z",
+    "scan_completed_at": "2026-08-01T10:34:01.665Z",
+    "reachability_completed_at": "2026-08-01T10:34:09.492Z",
+    "patch_generated_at": "2026-08-01T10:34:35.731Z",
+    "verified_at": "2026-08-01T10:34:49.567Z",
+    "compat_completed_at": "2026-08-01T10:35:16.409Z",
+    "regression_completed_at": "2026-08-01T10:35:27.969Z",
+    "pr_opened_at": "2026-08-01T10:35:33.519Z",
+    "total_elapsed_ms": 91854
   },
   "reachability": {
     "cves": [
       {
-        "cve_id": "CVE-2020-7598",
-        "package": "minimist",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package is not imported in main entry point."
-      },
-      {
-        "cve_id": "CVE-2021-44906",
-        "package": "minimist",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package is not imported in main entry point."
-      },
-      {
         "cve_id": "CVE-2022-21681",
         "package": "marked",
         "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> marked (function call)"
+        "evidence": "Imported as marked and used (function call in index.js...)"
       },
       {
         "cve_id": "CVE-2017-1000427",
         "package": "marked",
         "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> marked (function call)"
+        "evidence": "Imported as marked and used (function call in index.js...)"
       },
       {
         "cve_id": "CVE-2018-25110",
         "package": "marked",
         "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> marked (function call)"
+        "evidence": "Imported as marked and used (function call in index.js...)"
       },
       {
         "cve_id": "CVE-2022-21680",
         "package": "marked",
         "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> marked (function call)"
+        "evidence": "Imported as marked and used (function call in index.js...)"
       },
       {
         "cve_id": "CVE-2016-10531",
         "package": "marked",
         "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> marked (function call)"
+        "evidence": "Imported as marked and used (function call in index.js...)"
       },
       {
         "cve_id": "CVE-2017-16114",
         "package": "marked",
         "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> marked (function call)"
+        "evidence": "Imported as marked and used (function call in index.js...)"
+      },
+      {
+        "cve_id": "CVE-2020-7598",
+        "package": "minimist",
+        "verdict": "REACHABLE",
+        "evidence": "Imported as minimist and used (function call in build.js...)"
+      },
+      {
+        "cve_id": "CVE-2021-44906",
+        "package": "minimist",
+        "verdict": "REACHABLE",
+        "evidence": "Imported as minimist and used (function call in build.js...)"
       },
       {
         "cve_id": "CVE-2022-24785",
         "package": "moment",
         "verdict": "NOT_REACHABLE",
-        "evidence": "Package is not imported in main entry point."
+        "evidence": "Package is not imported in scanned source files."
       },
       {
         "cve_id": "CVE-2022-31129",
         "package": "moment",
         "verdict": "NOT_REACHABLE",
-        "evidence": "Package is not imported in main entry point."
-      },
-      {
-        "cve_id": "CVE-2020-28500",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
-      },
-      {
-        "cve_id": "CVE-2021-23337",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
-      },
-      {
-        "cve_id": "CVE-2025-13465",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
-      },
-      {
-        "cve_id": "CVE-2020-8203",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
+        "evidence": "Package is not imported in scanned source files."
       },
       {
         "cve_id": "CVE-2026-44495",
@@ -589,8 +579,35 @@
         "package": "axios",
         "verdict": "NOT_REACHABLE",
         "evidence": "Package imported as 'axios' but never invoked."
+      },
+      {
+        "cve_id": "CVE-2020-28500",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "evidence": "Imported as _ and used (property access in index.js...)"
+      },
+      {
+        "cve_id": "CVE-2021-23337",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "evidence": "Imported as _ and used (property access in index.js...)"
+      },
+      {
+        "cve_id": "CVE-2025-13465",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "evidence": "Imported as _ and used (property access in index.js...)"
+      },
+      {
+        "cve_id": "CVE-2020-8203",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "evidence": "Imported as _ and used (property access in index.js...)"
       }
-    ]
+    ],
+    "crawl_incomplete": false,
+    "stage_failed": false,
+    "error": ""
   },
   "patch_generator": {
     "patches": [
@@ -599,9 +616,11 @@
         "cve_ids": [
           "CVE-2020-8203"
         ],
+        "unresolved_cves": [],
         "method_used": "version_bump",
-        "from_version": "4.17.19",
+        "from_version": "4.17.15",
         "to_version": "4.17.19",
+        "major_version_jump": false,
         "status": "success"
       },
       {
@@ -609,34 +628,42 @@
         "cve_ids": [
           "CVE-2017-16114"
         ],
+        "unresolved_cves": [],
         "method_used": "version_bump",
-        "from_version": "0.3.9",
+        "from_version": "0.3.5",
         "to_version": "0.3.9",
+        "major_version_jump": false,
         "status": "success"
       }
-    ]
+    ],
+    "stage_failed": false,
+    "error": ""
   },
   "exploit_verifier": {
     "proofs": [
       {
         "cve_id": "CVE-2020-8203",
-        "before": "exploit succeeded — Object.prototype.polluted === true",
-        "after": "exploit blocked — Object.prototype.polluted === false",
+        "before": "exploit succeeded � Object.prototype.polluted === true",
+        "after": "exploit blocked � Object.prototype.polluted === false",
         "logs": [
           "[VULNERABLE] Target: seed-repo-vulnerable | Triggered: true | Detail: Object.prototype.polluted === true",
           "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: Object.prototype.polluted === false"
-        ]
+        ],
+        "status": "verified"
       },
       {
         "cve_id": "CVE-2017-16114",
-        "before": "exploit succeeded — parse took >2000ms, exceeded timeout threshold",
-        "after": "exploit blocked — parse completed in 127ms",
+        "before": "exploit succeeded � parse took >2000ms, exceeded timeout threshold",
+        "after": "exploit blocked � parse completed in 117ms",
         "logs": [
           "[VULNERABLE] Target: seed-repo-vulnerable | Triggered: true | Detail: parse took >2000ms, exceeded timeout threshold",
-          "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: parse completed in 127ms"
-        ]
+          "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: parse completed in 117ms"
+        ],
+        "status": "verified"
       }
-    ]
+    ],
+    "stage_failed": false,
+    "error": ""
   },
   "compat_checker": {
     "reports": [
@@ -645,46 +672,24 @@
         "removed": [],
         "changed_signature": [],
         "added": [],
-        "used_functions_status": {
-          "zipObjectDeep": "unchanged"
-        },
-        "verdict": "PASS"
+        "verdict": "PASS (No exports detected)"
       },
       {
         "package": "marked",
         "removed": [],
         "changed_signature": [],
         "added": [],
-        "used_functions_status": {
-          "marked": "unchanged"
-        },
         "verdict": "PASS"
       }
-    ]
+    ],
+    "stage_failed": false,
+    "error": ""
   },
   "regression": {
     "baseline_pass": true,
     "patched_pass": true,
-    "new_failures": []
-  },
-  "self_correction": {
-    "package": "lodash",
-    "trigger_reason": "baseline_pass=true, patched_pass=false",
-    "tier_1_attempted": true,
-    "tier_1_result": "failed",
-    "tier_2_attempted": true,
-    "tier_2_result": "failed",
-    "final_status": "manual_review_required"
-  },
-  "timestamps": {
-    "started_at": "2026-08-01T06:39:21.755Z",
-    "scan_completed_at": "2026-08-01T06:39:21.757Z",
-    "reachability_completed_at": "2026-08-01T06:39:21.930Z",
-    "patch_generated_at": "2026-08-01T06:39:30.064Z",
-    "verified_at": "2026-08-01T06:39:33.053Z",
-    "pr_opened_at": "2026-08-01T06:39:36.327Z",
-    "total_elapsed_ms": 14572,
-    "compat_completed_at": "2026-08-01T06:39:33.454Z",
-    "regression_completed_at": "2026-08-01T06:39:36.222Z"
+    "new_failures": [],
+    "stage_failed": false,
+    "error": ""
   }
 }

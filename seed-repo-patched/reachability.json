@@ -1,64 +1,64 @@
 {
   "cves": [
     {
-      "cve_id": "CVE-2020-7598",
-      "package": "minimist",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
-    },
-    {
-      "cve_id": "CVE-2021-44906",
-      "package": "minimist",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
-    },
-    {
-      "cve_id": "CVE-2022-24785",
-      "package": "moment",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
-    },
-    {
-      "cve_id": "CVE-2022-31129",
-      "package": "moment",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
-    },
-    {
       "cve_id": "CVE-2022-21681",
       "package": "marked",
       "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> marked (function call)"
+      "evidence": "Imported as marked and used (function call in index.js...)"
+    },
+    {
+      "cve_id": "CVE-2017-1000427",
+      "package": "marked",
+      "verdict": "REACHABLE",
+      "evidence": "Imported as marked and used (function call in index.js...)"
     },
     {
       "cve_id": "CVE-2018-25110",
       "package": "marked",
       "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> marked (function call)"
+      "evidence": "Imported as marked and used (function call in index.js...)"
     },
     {
       "cve_id": "CVE-2022-21680",
       "package": "marked",
       "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> marked (function call)"
+      "evidence": "Imported as marked and used (function call in index.js...)"
     },
     {
-      "cve_id": "CVE-2020-28500",
-      "package": "lodash",
+      "cve_id": "CVE-2016-10531",
+      "package": "marked",
       "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
+      "evidence": "Imported as marked and used (function call in index.js...)"
     },
     {
-      "cve_id": "CVE-2021-23337",
-      "package": "lodash",
+      "cve_id": "CVE-2017-16114",
+      "package": "marked",
       "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
+      "evidence": "Imported as marked and used (function call in index.js...)"
     },
     {
-      "cve_id": "CVE-2025-13465",
-      "package": "lodash",
+      "cve_id": "CVE-2020-7598",
+      "package": "minimist",
       "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
+      "evidence": "Imported as minimist and used (function call in build.js...)"
+    },
+    {
+      "cve_id": "CVE-2021-44906",
+      "package": "minimist",
+      "verdict": "REACHABLE",
+      "evidence": "Imported as minimist and used (function call in build.js...)"
+    },
+    {
+      "cve_id": "CVE-2022-24785",
+      "package": "moment",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package is not imported in scanned source files."
+    },
+    {
+      "cve_id": "CVE-2022-31129",
+      "package": "moment",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package is not imported in scanned source files."
     },
     {
       "cve_id": "CVE-2026-44495",
@@ -209,6 +209,33 @@
       "package": "axios",
       "verdict": "NOT_REACHABLE",
       "evidence": "Package imported as 'axios' but never invoked."
+    },
+    {
+      "cve_id": "CVE-2020-28500",
+      "package": "lodash",
+      "verdict": "REACHABLE",
+      "evidence": "Imported as _ and used (property access in index.js...)"
+    },
+    {
+      "cve_id": "CVE-2021-23337",
+      "package": "lodash",
+      "verdict": "REACHABLE",
+      "evidence": "Imported as _ and used (property access in index.js...)"
+    },
+    {
+      "cve_id": "CVE-2025-13465",
+      "package": "lodash",
+      "verdict": "REACHABLE",
+      "evidence": "Imported as _ and used (property access in index.js...)"
+    },
+    {
+      "cve_id": "CVE-2020-8203",
+      "package": "lodash",
+      "verdict": "REACHABLE",
+      "evidence": "Imported as _ and used (property access in index.js...)"
     }
-  ]
+  ],
+  "crawl_incomplete": false,
+  "stage_failed": false,
+  "error": ""
 }
