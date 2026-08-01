@@ -1,8 +1,8 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 
-const RUN_STATE_PATH = '../juice-shop-run_state.json';
-const LOG_PATH = '../juice-shop-pipeline.log';
+const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
+const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
 const TEST_SCRIPT = 'test:server';
 const TEST_TIMEOUT_MS = 120000;
 
@@ -57,7 +57,7 @@ function run() {
     logPipeline("NOTE: Pre-patch baseline unavailable (in-place patching, no snapshot preserved). Running post-patch test only.");
     logPipeline(`Running npm run ${TEST_SCRIPT}...`);
 
-    const patchedResult = runTest(__dirname, TEST_SCRIPT);
+    const patchedResult = runTest((process.env.TARGET_DIR || __dirname), TEST_SCRIPT);
     logPipeline(`Test result: ${patchedResult.pass ? 'PASS' : 'FAIL'}`);
 
     const new_failures = patchedResult.pass ? [] : extractFailures(patchedResult.output);
@@ -88,3 +88,4 @@ try { run(); } catch(err) {
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(rs, null, 2));
     process.exit(0);
 }
+

@@ -1,8 +1,8 @@
 const fs = require('fs');
 const { execSync } = require('child_process');
 
-const RUN_STATE_PATH = '../juice-shop-run_state.json';
-const LOG_PATH = '../juice-shop-pipeline.log';
+const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
+const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
 
 function logPipeline(msg) {
     const logLine = `[${new Date().toISOString()}] patch-generator: ${msg}\n`;
@@ -130,3 +130,4 @@ try { run(); } catch(err) {
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(rs, null, 2));
     process.exit(0);
 }
+

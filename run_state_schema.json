@@ -19,7 +19,8 @@
     "cves": [
       {
         "cve_id": "string",
-        "verdict": "string"`n    }],
+        "verdict": "string",
+        "context": "string",
         "evidence": "string"
       }
     ],

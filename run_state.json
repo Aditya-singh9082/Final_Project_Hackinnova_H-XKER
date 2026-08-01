@@ -360,254 +360,13 @@
   "timestamps": {
     "started_at": "2026-08-01T10:34:01.665Z",
     "scan_completed_at": "2026-08-01T10:34:01.665Z",
-    "reachability_completed_at": "2026-08-01T10:34:09.492Z",
+    "reachability_completed_at": "2026-08-01T11:55:52.321Z",
     "patch_generated_at": "2026-08-01T10:34:35.731Z",
     "verified_at": "2026-08-01T10:34:49.567Z",
     "compat_completed_at": "2026-08-01T10:35:16.409Z",
     "regression_completed_at": "2026-08-01T10:35:27.969Z",
     "pr_opened_at": "2026-08-01T10:35:33.519Z",
     "total_elapsed_ms": 91854
-  },
-  "reachability": {
-    "cves": [
-      {
-        "cve_id": "CVE-2022-21681",
-        "package": "marked",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as marked and used (function call in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2017-1000427",
-        "package": "marked",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as marked and used (function call in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2018-25110",
-        "package": "marked",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as marked and used (function call in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2022-21680",
-        "package": "marked",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as marked and used (function call in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2016-10531",
-        "package": "marked",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as marked and used (function call in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2017-16114",
-        "package": "marked",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as marked and used (function call in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2020-7598",
-        "package": "minimist",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as minimist and used (function call in build.js...)"
-      },
-      {
-        "cve_id": "CVE-2021-44906",
-        "package": "minimist",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as minimist and used (function call in build.js...)"
-      },
-      {
-        "cve_id": "CVE-2022-24785",
-        "package": "moment",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package is not imported in scanned source files."
-      },
-      {
-        "cve_id": "CVE-2022-31129",
-        "package": "moment",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package is not imported in scanned source files."
-      },
-      {
-        "cve_id": "CVE-2026-44495",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2025-62718",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-25639",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2020-28168",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42034",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42039",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42035",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "GHSA-7q8q-rj6j-mhjq",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-44490",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2021-3749",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-40175",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-44496",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-44486",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2025-27152",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42038",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "GHSA-mmx7-hfxf-jppx",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-44487",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42033",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-44492",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42043",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42036",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42041",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2023-45857",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42040",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2026-42042",
-        "package": "axios",
-        "verdict": "NOT_REACHABLE",
-        "evidence": "Package imported as 'axios' but never invoked."
-      },
-      {
-        "cve_id": "CVE-2020-28500",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as _ and used (property access in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2021-23337",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as _ and used (property access in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2025-13465",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as _ and used (property access in index.js...)"
-      },
-      {
-        "cve_id": "CVE-2020-8203",
-        "package": "lodash",
-        "verdict": "REACHABLE",
-        "evidence": "Imported as _ and used (property access in index.js...)"
-      }
-    ],
-    "crawl_incomplete": false,
-    "stage_failed": false,
-    "error": ""
   },
   "patch_generator": {
     "patches": [
@@ -689,6 +448,286 @@
     "baseline_pass": true,
     "patched_pass": true,
     "new_failures": [],
+    "stage_failed": false,
+    "error": ""
+  },
+  "reachability": {
+    "cves": [
+      {
+        "cve_id": "CVE-2022-21681",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2017-1000427",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2018-25110",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2022-21680",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2016-10531",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2017-16114",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-7598",
+        "package": "minimist",
+        "verdict": "REACHABLE",
+        "context": "build_time",
+        "evidence": "Imported in 1 file(s): build.js"
+      },
+      {
+        "cve_id": "CVE-2021-44906",
+        "package": "minimist",
+        "verdict": "REACHABLE",
+        "context": "build_time",
+        "evidence": "Imported in 1 file(s): build.js"
+      },
+      {
+        "cve_id": "CVE-2022-24785",
+        "package": "moment",
+        "verdict": "NOT_REACHABLE",
+        "context": "n/a",
+        "evidence": "Package not found imported in any scanned source file."
+      },
+      {
+        "cve_id": "CVE-2022-31129",
+        "package": "moment",
+        "verdict": "NOT_REACHABLE",
+        "context": "n/a",
+        "evidence": "Package not found imported in any scanned source file."
+      },
+      {
+        "cve_id": "CVE-2026-44495",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2025-62718",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-25639",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-28168",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42034",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42039",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42035",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "GHSA-7q8q-rj6j-mhjq",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44490",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2021-3749",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-40175",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44496",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44486",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2025-27152",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42038",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "GHSA-mmx7-hfxf-jppx",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44487",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42033",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44492",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42043",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42036",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42041",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2023-45857",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42040",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42042",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-28500",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2021-23337",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2025-13465",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-8203",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      }
+    ],
+    "crawl_incomplete": false,
     "stage_failed": false,
     "error": ""
   }

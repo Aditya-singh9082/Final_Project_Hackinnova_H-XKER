@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const RUN_STATE_PATH = '../juice-shop-run_state.json';
-const LOG_PATH = '../juice-shop-pipeline.log';
+const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
+const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
 
 function logPipeline(msg) {
     const logLine = `[${new Date().toISOString()}] reachability: ${msg}\n`;
@@ -31,9 +31,37 @@ function escapeRegex(s) {
     return s.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
 }
 
+
+function classifyContext(filePath, pkgScripts, mainEntry) {
+    const name = path.basename(filePath);
+    const dirParts = path.dirname(filePath).split(path.sep);
+    
+    if (filePath === mainEntry || dirParts.some(p => ['src', 'routes', 'lib', 'app'].includes(p))) {
+        return 'runtime';
+    }
+    if (['build.js', 'webpack.config.js', 'gulpfile.js'].includes(name) || dirParts.some(p => ['build', 'scripts', 'tools'].includes(p))) {
+        return 'build_time';
+    }
+    if (pkgScripts) {
+        for (const script of Object.values(pkgScripts)) {
+            if (typeof script === 'string' && script.includes(name)) return 'build_time';
+        }
+    }
+    return 'runtime';
+}
+
 function run() {
+
     const startTime = Date.now();
     logPipeline("started");
+
+    let pkgJson = {};
+    if (fs.existsSync('package.json')) {
+        try { pkgJson = JSON.parse(fs.readFileSync('package.json', 'utf8')); } catch(e) {}
+    }
+    const mainEntry = pkgJson.main ? path.normalize(pkgJson.main) : null;
+    const pkgScripts = pkgJson.scripts || null;
+
 
     let runState = {};
     if (fs.existsSync(RUN_STATE_PATH)) {
@@ -112,23 +140,34 @@ function run() {
 
     for (const vuln of advisories) {
         const entry = usageMap.get(vuln.package);
-        let verdict, evidence;
+        let verdict, evidence, context = 'n/a';
 
         if (!entry || entry.usedFiles.length === 0) {
             verdict = 'NOT_REACHABLE';
             evidence = 'Package not found imported in any scanned source file.';
             notReachableCount++;
-        } else if (entry.isAliased) {
-            verdict = 'reachability_uncertain';
-            evidence = `Aliased/chained import detected in: ${entry.usedFiles.slice(0,2).join(', ')}${entry.usedFiles.length > 2 ? '...' : ''}`;
-            uncertainCount++;
         } else {
-            verdict = 'REACHABLE';
-            evidence = `Imported in ${entry.usedFiles.length} file(s): ${entry.usedFiles.slice(0,2).join(', ')}${entry.usedFiles.length > 2 ? '...' : ''}`;
-            reachableCount++;
+            let hasRuntime = false;
+            let hasBuild = false;
+            for (const file of entry.usedFiles) {
+                const ctx = classifyContext(file, pkgScripts, mainEntry);
+                if (ctx === 'runtime') hasRuntime = true;
+                if (ctx === 'build_time') hasBuild = true;
+            }
+            context = hasRuntime ? 'runtime' : (hasBuild ? 'build_time' : 'runtime');
+
+            if (entry.isAliased) {
+                verdict = 'reachability_uncertain';
+                evidence = `Aliased/chained import detected in: ${entry.usedFiles.slice(0,2).join(', ')}${entry.usedFiles.length > 2 ? '...' : ''}`;
+                uncertainCount++;
+            } else {
+                verdict = 'REACHABLE';
+                evidence = `Imported in ${entry.usedFiles.length} file(s): ${entry.usedFiles.slice(0,2).join(', ')}${entry.usedFiles.length > 2 ? '...' : ''}`;
+                reachableCount++;
+            }
         }
 
-        reachabilityCves.push({ cve_id: vuln.cve_id, package: vuln.package, verdict, evidence });
+        reachabilityCves.push({ cve_id: vuln.cve_id, package: vuln.package, verdict, context, evidence });
     }
 
     const reachabilityData = { cves: reachabilityCves, crawl_incomplete: crawlIncomplete, stage_failed: false, error: "" };
@@ -142,7 +181,7 @@ function run() {
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(runState, null, 2));
 
     const elapsedSec = ((Date.now() - startTime)/1000).toFixed(1);
-    logPipeline(`DONE in ${elapsedSec}s: ${advisories.length} CVEs evaluated — REACHABLE: ${reachableCount}, UNCERTAIN: ${uncertainCount}, NOT_REACHABLE: ${notReachableCount}${crawlIncomplete ? ' [CRAWL INCOMPLETE]' : ''}`);
+    logPipeline(`DONE in ${elapsedSec}s: ${advisories.length} CVEs evaluated ï¿½ REACHABLE: ${reachableCount}, UNCERTAIN: ${uncertainCount}, NOT_REACHABLE: ${notReachableCount}${crawlIncomplete ? ' [CRAWL INCOMPLETE]' : ''}`);
 }
 
 try {
@@ -155,3 +194,4 @@ try {
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(runState, null, 2));
     process.exit(0);
 }
+

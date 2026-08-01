@@ -1,0 +1,67 @@
+[
+  {
+    "run_id": "seed-repo-baseline",
+    "repo": "seed-repo",
+    "package": "lodash",
+    "cve_ids": ["CVE-2020-8203"],
+    "method_used": "version_bump",
+    "major_version_jump": false,
+    "exploit_verified": true,
+    "compat_verdict": "PASS",
+    "regression_result": "PASS",
+    "final_outcome": "success",
+    "timestamp": "2026-08-01T10:00:00.000Z"
+  },
+  {
+    "run_id": "seed-repo-baseline",
+    "repo": "seed-repo",
+    "package": "marked",
+    "cve_ids": ["CVE-2017-16114"],
+    "method_used": "direct_backport",
+    "major_version_jump": false,
+    "exploit_verified": true,
+    "compat_verdict": "PASS",
+    "regression_result": "PASS",
+    "final_outcome": "success",
+    "timestamp": "2026-08-01T10:00:00.000Z"
+  },
+  {
+    "run_id": "juice-shop-baseline",
+    "repo": "juice-shop",
+    "package": "sanitize-html",
+    "cve_ids": ["CVE-2022-25887", "CVE-2016-1000237", "CVE-2021-26540", "CVE-2019-25225", "CVE-2021-26539", "CVE-2024-21501", "CVE-2017-16016"],
+    "method_used": "version_bump",
+    "major_version_jump": true,
+    "exploit_verified": "unverified",
+    "compat_verdict": "WARN",
+    "regression_result": "FAIL",
+    "final_outcome": "manual_review_required",
+    "timestamp": "2026-08-01T11:24:52.000Z"
+  },
+  {
+    "run_id": "juice-shop-baseline",
+    "repo": "juice-shop",
+    "package": "express-jwt",
+    "cve_ids": ["CVE-2020-15084"],
+    "method_used": "version_bump",
+    "major_version_jump": true,
+    "exploit_verified": "unverified",
+    "compat_verdict": "WARN",
+    "regression_result": "PASS",
+    "final_outcome": "flagged_for_review",
+    "timestamp": "2026-08-01T11:29:45.000Z"
+  },
+  {
+    "run_id": "juice-shop-baseline",
+    "repo": "juice-shop",
+    "package": "multer",
+    "cve_ids": ["CVE-2025-47935", "CVE-2025-47944", "CVE-2026-3520", "CVE-2026-5079", "CVE-2025-7338", "CVE-2025-48997", "CVE-2026-2359", "CVE-2026-3304"],
+    "method_used": "none",
+    "major_version_jump": true,
+    "exploit_verified": "not_run",
+    "compat_verdict": "not_run",
+    "regression_result": "not_run",
+    "final_outcome": "triaged_excluded",
+    "timestamp": "2026-08-01T11:00:00.000Z"
+  }
+]

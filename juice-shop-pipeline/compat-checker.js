@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const RUN_STATE_PATH = '../juice-shop-run_state.json';
-const LOG_PATH = '../juice-shop-pipeline.log';
+const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
+const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
 
 function logPipeline(msg) {
     const logLine = `[${new Date().toISOString()}] compat-checker: ${msg}\n`;
@@ -52,7 +52,7 @@ function run() {
     }
 
     const reports = [];
-    const TEMP_DIR = path.join(__dirname, '.compat_tmp');
+    const TEMP_DIR = path.join((process.env.TARGET_DIR || __dirname), '.compat_tmp');
 
     for (const patch of runState.patch_generator.patches) {
         if (patch.package !== 'sanitize-html') {
@@ -81,7 +81,7 @@ function run() {
         }
 
         const oldInfo = getExportedKeys(TEMP_DIR, patch.package);
-        const newInfo = getExportedKeys(__dirname, patch.package);
+        const newInfo = getExportedKeys((process.env.TARGET_DIR || __dirname), patch.package);
         logPipeline(`Old (${patch.from_version}): ${oldInfo.type} — keys: ${oldInfo.keys.join(', ') || 'none'}`);
         logPipeline(`New (${patch.to_version}): ${newInfo.type} — keys: ${newInfo.keys.join(', ') || 'none'}`);
 
@@ -112,3 +112,4 @@ try { run(); } catch(err) {
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(rs, null, 2));
     process.exit(0);
 }
+

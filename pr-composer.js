@@ -44,6 +44,11 @@ function run() {
         if (!cveDetails) cveDetails = `- ${cveIds}`;
 
         const reachInfo = (runState.reachability && runState.reachability.cves || []).find(c => patch.cve_ids.includes(c.cve_id));
+        const context = reachInfo ? reachInfo.context : 'n/a';
+        let contextNote = '';
+        if (context === 'build_time') {
+            contextNote = '\n\n### ⚠️ Build-Time Vulnerability\nNote: this vulnerability is only reachable in a build-time script, not the running application — lower production risk, but still recommended to patch since build environments can be a supply-chain attack vector too.';
+        }
         let reachabilityText = reachInfo ? reachInfo.evidence : "No reachability evidence found.";
 
         const proof = (runState.exploit_verifier && runState.exploit_verifier.proofs || []).find(p => patch.cve_ids.includes(p.cve_id));
@@ -126,13 +131,38 @@ ${methodText}
         logPipeline(`Generated pr_body_${pkg}.md`);
     }
 
+    try {
+        const tracker = require(path.join(__dirname, 'run-history-tracker.js'));
+        patches.forEach(patch => {
+            const compat = runState.compat_checker && runState.compat_checker.reports && runState.compat_checker.reports.find(r => r.package === patch.package);
+            const regResult = runState.regression ? (runState.regression.patched_pass ? 'PASS' : 'FAIL') : 'not_run';
+            let outcome = 'success';
+            if (regResult === 'FAIL') outcome = 'manual_review_required';
+            else if (compat && compat.verdict && compat.verdict.startsWith('WARN')) outcome = 'flagged_for_review';
+            tracker.appendHistory({
+                run_id: 'run-' + Date.now(),
+                repo: process.env.TARGET_DIR ? path.basename(process.env.TARGET_DIR) : 'seed-repo',
+                package: patch.package,
+                cve_ids: patch.cve_ids,
+                method_used: patch.method_used,
+                major_version_jump: patch.major_version_jump,
+                exploit_verified: (runState.exploit_verifier && runState.exploit_verifier.proofs && runState.exploit_verifier.proofs.find(p => p.cve_id === patch.cve_ids[0])) ? true : 'unverified',
+                compat_verdict: compat ? (compat.verdict.startsWith('WARN') ? 'WARN' : 'PASS') : 'unknown',
+                regression_result: regResult,
+                final_outcome: outcome
+            });
+        });
+    } catch(e) {
+        logPipeline('Failed to write history: ' + e.message);
+    }
+
     fs.writeFileSync(runStatePath, JSON.stringify(runState, null, 2));
     logPipeline(`complete. Generated ${patches.length} PR bodies.`);
 
     if (process.env.GITHUB_TOKEN) {
         logPipeline('GITHUB_TOKEN detected! PR bodies ready to push to API.');
     } else {
-        logPipeline('GitHub API not configured (GITHUB_TOKEN missing) � PR bodies rendered locally.');
+        logPipeline('GitHub API not configured (GITHUB_TOKEN missing) � PR bodies rendered locally.');
     }
 }
 

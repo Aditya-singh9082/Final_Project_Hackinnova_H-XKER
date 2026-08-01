@@ -2,8 +2,8 @@ const fs = require('fs');
 const https = require('https');
 const path = require('path');
 
-const RUN_STATE_PATH = '../juice-shop-run_state.json';
-const LOG_PATH = '../juice-shop-pipeline.log';
+const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
+const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
 
 function logPipeline(msg) {
     const logLine = `[${new Date().toISOString()}] scanner: ${msg}\n`;
@@ -183,3 +183,4 @@ run().catch(err => {
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(runState, null, 2));
     process.exit(0);
 });
+

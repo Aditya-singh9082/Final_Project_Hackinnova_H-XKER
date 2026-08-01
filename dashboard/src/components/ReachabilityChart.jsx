@@ -8,11 +8,12 @@ const ReachabilityChart = () => {
     fetch('http://localhost:3001/api/reachability-summary')
       .then(res => res.json())
       .then(json => {
-        // Transform data for stacked chart: 'reachable' and 'notReachable'
+        // Transform data for stacked chart: 'Runtime', 'BuildTime', and 'NotReachable'
         const transformed = json.map(item => ({
           name: item.name,
-          Reachable: item.reachable,
-          NotReachable: item.total - item.reachable,
+          Runtime: item.reachable_runtime || 0,
+          BuildTime: item.reachable_build_time || 0,
+          NotReachable: item.total - (item.reachable || 0),
         }));
         setData(transformed);
       });
@@ -34,8 +35,9 @@ const ReachabilityChart = () => {
               itemStyle={{ fontFamily: 'JetBrains Mono' }}
             />
             <Legend wrapperStyle={{ fontFamily: 'Space Grotesk', paddingTop: '10px' }} />
-            <Bar dataKey="Reachable" stackId="a" fill="#8B3A3A" />
-            <Bar dataKey="NotReachable" stackId="a" fill="#4A7C59" />
+            <Bar dataKey="Runtime" stackId="a" fill="#8B3A3A" name="Reachable (Runtime)" />
+            <Bar dataKey="BuildTime" stackId="a" fill="#D48C44" name="Reachable (Build-Time)" />
+            <Bar dataKey="NotReachable" stackId="a" fill="#4A7C59" name="Not Reachable" />
           </BarChart>
         </ResponsiveContainer>
       </div>

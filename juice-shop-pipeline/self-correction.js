@@ -1,8 +1,8 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 
-const RUN_STATE_PATH = '../juice-shop-run_state.json';
-const LOG_PATH = '../juice-shop-pipeline.log';
+const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
+const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
 const TEST_SCRIPT = 'test:server';
 
 function logPipeline(msg) {
@@ -14,7 +14,7 @@ function logPipeline(msg) {
 function runTest() {
     try {
         execSync(`npm run ${TEST_SCRIPT}`, {
-            cwd: __dirname, encoding: 'utf8', stdio: ['pipe','pipe','pipe'], timeout: 120000
+            cwd: (process.env.TARGET_DIR || __dirname), encoding: 'utf8', stdio: ['pipe','pipe','pipe'], timeout: 120000
         });
         return { pass: true };
     } catch(e) { return { pass: false, output: (e.stdout || '') + '\n' + (e.stderr || '') }; }
@@ -83,14 +83,14 @@ function run() {
         const candidate = tier1Versions[tier1Versions.length - 1]; // try latest in same major
         logPipeline(`Tier 1: Trying latest same-major candidate: express-jwt@${candidate}`);
         try {
-            execSync(`npm install express-jwt@${candidate} --legacy-peer-deps`, { cwd: __dirname, stdio: 'ignore', timeout: 60000 });
+            execSync(`npm install express-jwt@${candidate} --legacy-peer-deps`, { cwd: (process.env.TARGET_DIR || __dirname), stdio: 'ignore', timeout: 60000 });
             const testResult = runTest();
             tier1Pass = testResult.pass;
             tier1Result = tier1Pass ? 'success' : 'failed_still_regresses';
             logPipeline(`Tier 1 install express-jwt@${candidate}: test_pass=${tier1Pass}`);
             if (!tier1Pass) {
                 logPipeline("Tier 1 candidate still fails tests AND does not fix CVE. Reverting.");
-                execSync(`npm install express-jwt@${expressJwtPatch.to_version} --legacy-peer-deps`, { cwd: __dirname, stdio: 'ignore', timeout: 60000 });
+                execSync(`npm install express-jwt@${expressJwtPatch.to_version} --legacy-peer-deps`, { cwd: (process.env.TARGET_DIR || __dirname), stdio: 'ignore', timeout: 60000 });
             }
         } catch(e) { logPipeline(`Tier 1 install failed: ${e.message}`); }
     } else {
@@ -106,7 +106,7 @@ function run() {
         logPipeline("--- Tier 2: Backport Retry ---");
         logPipeline(`Reverting to original express-jwt@${expressJwtPatch.from_version} (still vulnerable, but restores functionality)...`);
         try {
-            execSync(`npm install express-jwt@${expressJwtPatch.from_version} --legacy-peer-deps`, { cwd: __dirname, stdio: 'ignore', timeout: 60000 });
+            execSync(`npm install express-jwt@${expressJwtPatch.from_version} --legacy-peer-deps`, { cwd: (process.env.TARGET_DIR || __dirname), stdio: 'ignore', timeout: 60000 });
             logPipeline("Attempting fuzzy diff application of CVE-2020-15084 security patch...");
             logPipeline("No backport diff available for express-jwt@0.x — OSV advisory only provides fix in v6+");
             logPipeline("Tier 2: Cannot apply security fix to major 0.x — architectural change required (req.user -> req.auth migration)");
@@ -148,3 +148,4 @@ try { run(); } catch(err) {
     logPipeline(`stage failed: ${err.message}`);
     process.exit(0);
 }
+
