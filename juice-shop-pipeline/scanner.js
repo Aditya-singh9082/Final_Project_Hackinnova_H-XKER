@@ -204,10 +204,11 @@ async function run() {
     const detected_cves = Array.from(uniqueCves.values());
     const elapsedSec = ((Date.now() - startTime)/1000).toFixed(1);
 
-    runState = fs.existsSync(RUN_STATE_PATH) ? JSON.parse(fs.readFileSync(RUN_STATE_PATH, 'utf8')) : {};
+    // Clear old state completely for a fresh run, but keep the local_path
+    const local_path = (fs.existsSync(RUN_STATE_PATH) ? JSON.parse(fs.readFileSync(RUN_STATE_PATH, 'utf8')).local_path : null) || process.env.TARGET_DIR || '.';
+    runState = { local_path };
     runState.scanner = { detected_cves, failed_packages, stage_failed: false, error: "", depth_limit_reached };
-    runState.timestamps = runState.timestamps || {};
-    runState.timestamps.started_at = new Date(startTime).toISOString();
+    runState.timestamps = { started_at: new Date(startTime).toISOString() };
     runState.timestamps.scan_completed_at = new Date().toISOString();
     fs.writeFileSync(RUN_STATE_PATH, JSON.stringify(runState, null, 2));
     fs.writeFileSync('advisories.json', JSON.stringify(detected_cves, null, 2));

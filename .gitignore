@@ -1,3 +1,28 @@
 node_modules/
 .DS_Store
 *.log
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+dashboard/.env
+dashboard/.env.local
+
+# Cloned repos from scanner
+scanned-repos/
+
+# Firebase Admin SDK credentials and secrets — NEVER COMMIT
+*firebase-adminsdk*.json
+snehsaathi-hackathon-*.json
+*-CONTAMINATED-*.json
+*.pem
+*.key
+
+# Temp scripts & workers
+update_*.js
+temp_*.js
+marked_worker.js
+find_payload.js
+compare.js
+inject-timestamps*.js
+test_*.js

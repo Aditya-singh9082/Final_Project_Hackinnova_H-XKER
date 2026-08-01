@@ -156,6 +156,13 @@ ${methodText}
         logPipeline('Failed to write history: ' + e.message);
     }
 
+    const prs = patches.map(p => ({
+        package: p.package,
+        file: `pr_body_${p.package}.md`,
+        risk_assessment: p.major_version_jump ? "HIGH" : "LOW"
+    }));
+    runState.pr_composer = { prs, stage_failed: false, error: "" };
+
     fs.writeFileSync(runStatePath, JSON.stringify(runState, null, 2));
     logPipeline(`complete. Generated ${patches.length} PR bodies.`);
 

@@ -88,7 +88,7 @@ async function main() {
     log(`Cloning into ${targetDir}... (Timeout: ${CLONE_TIMEOUT_MS/1000}s)`);
     const startTime = Date.now();
     
-    const cloneResult = spawnSync('git', ['clone', '--depth=1', repoUrl, targetDir], {
+    const cloneResult = spawnSync('git', ['-c', 'core.longpaths=true', 'clone', '--depth=1', repoUrl, targetDir], {
         timeout: CLONE_TIMEOUT_MS,
         encoding: 'utf8'
     });

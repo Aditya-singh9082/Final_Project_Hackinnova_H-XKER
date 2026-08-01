@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const ReachabilityChart = () => {
+const ReachabilityChart = ({ refreshTrigger }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const ReachabilityChart = () => {
         }));
         setData(transformed);
       });
-  }, []);
+  }, [refreshTrigger]);
 
   if (data.length === 0) return null;
 

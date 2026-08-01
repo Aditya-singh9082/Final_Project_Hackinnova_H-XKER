@@ -1,394 +1,1138 @@
 {
-    "timestamps":  {
-                       "started_at":  "2026-08-01T10:34:01.665Z",
-                       "scan_completed_at":  "2026-08-01T10:34:01.665Z",
-                       "reachability_completed_at":  "2026-08-01T11:55:52.321Z",
-                       "patch_generated_at":  "2026-08-01T10:34:35.731Z",
-                       "verified_at":  "2026-08-01T10:34:49.567Z",
-                       "compat_completed_at":  "2026-08-01T10:35:16.409Z",
-                       "regression_completed_at":  "2026-08-01T10:35:27.969Z",
-                       "pr_opened_at":  "2026-08-01T10:35:33.519Z",
-                       "total_elapsed_ms":  91854
-                   },
-    "patch_generator":  {
-                            "patches":  [
-                                            {
-                                                "package":  "lodash",
-                                                "cve_ids":  [
-                                                                "CVE-2020-8203"
-                                                            ],
-                                                "unresolved_cves":  [
-
-                                                                    ],
-                                                "method_used":  "version_bump",
-                                                "from_version":  "4.17.15",
-                                                "to_version":  "4.17.19",
-                                                "major_version_jump":  false,
-                                                "status":  "success"
-                                            },
-                                            {
-                                                "package":  "marked",
-                                                "cve_ids":  [
-                                                                "CVE-2017-16114"
-                                                            ],
-                                                "unresolved_cves":  [
-
-                                                                    ],
-                                                "method_used":  "version_bump",
-                                                "from_version":  "0.3.5",
-                                                "to_version":  "0.3.9",
-                                                "major_version_jump":  false,
-                                                "status":  "success"
-                                            }
-                                        ],
-                            "stage_failed":  false,
-                            "error":  ""
-                        },
-    "exploit_verifier":  {
-                             "proofs":  [
-                                            {
-                                                "cve_id":  "CVE-2020-8203",
-                                                "before":  "exploit succeeded � Object.prototype.polluted === true",
-                                                "after":  "exploit blocked � Object.prototype.polluted === false",
-                                                "logs":  [
-                                                             "[VULNERABLE] Target: seed-repo-vulnerable | Triggered: true | Detail: Object.prototype.polluted === true",
-                                                             "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: Object.prototype.polluted === false"
-                                                         ],
-                                                "status":  "verified"
-                                            },
-                                            {
-                                                "cve_id":  "CVE-2017-16114",
-                                                "before":  "exploit succeeded � parse took \u003e2000ms, exceeded timeout threshold",
-                                                "after":  "exploit blocked � parse completed in 117ms",
-                                                "logs":  [
-                                                             "[VULNERABLE] Target: seed-repo-vulnerable | Triggered: true | Detail: parse took \u003e2000ms, exceeded timeout threshold",
-                                                             "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: parse completed in 117ms"
-                                                         ],
-                                                "status":  "verified"
-                                            }
-                                        ],
-                             "stage_failed":  false,
-                             "error":  ""
-                         },
-    "compat_checker":  {
-                           "reports":  [
-                                           {
-                                               "package":  "lodash",
-                                               "removed":  [
-
-                                                           ],
-                                               "changed_signature":  [
-
-                                                                     ],
-                                               "added":  [
-
-                                                         ],
-                                               "verdict":  "PASS (No exports detected)"
-                                           },
-                                           {
-                                               "package":  "marked",
-                                               "removed":  [
-
-                                                           ],
-                                               "changed_signature":  [
-
-                                                                     ],
-                                               "added":  [
-
-                                                         ],
-                                               "verdict":  "PASS"
-                                           }
-                                       ],
-                           "stage_failed":  false,
-                           "error":  ""
-                       },
-    "regression":  {
-                       "baseline_pass":  true,
-                       "patched_pass":  true,
-                       "new_failures":  [
-
-                                        ],
-                       "stage_failed":  false,
-                       "error":  ""
-                   },
-    "reachability":  {
-                         "cves":  [
-                                      {
-                                          "cve_id":  "CVE-2022-21681",
-                                          "package":  "marked",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2017-1000427",
-                                          "package":  "marked",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2018-25110",
-                                          "package":  "marked",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2022-21680",
-                                          "package":  "marked",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2016-10531",
-                                          "package":  "marked",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2017-16114",
-                                          "package":  "marked",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2020-7598",
-                                          "package":  "minimist",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "build_time",
-                                          "evidence":  "Imported in 1 file(s): build.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2021-44906",
-                                          "package":  "minimist",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "build_time",
-                                          "evidence":  "Imported in 1 file(s): build.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2022-24785",
-                                          "package":  "moment",
-                                          "verdict":  "NOT_REACHABLE",
-                                          "context":  "n/a",
-                                          "evidence":  "Package not found imported in any scanned source file."
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2022-31129",
-                                          "package":  "moment",
-                                          "verdict":  "NOT_REACHABLE",
-                                          "context":  "n/a",
-                                          "evidence":  "Package not found imported in any scanned source file."
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-44495",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2025-62718",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-25639",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2020-28168",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42034",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42039",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42035",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "GHSA-7q8q-rj6j-mhjq",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-44490",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2021-3749",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-40175",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-44496",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-44486",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2025-27152",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42038",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "GHSA-mmx7-hfxf-jppx",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-44487",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42033",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-44492",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42043",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42036",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42041",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2023-45857",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42040",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2026-42042",
-                                          "package":  "axios",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2020-28500",
-                                          "package":  "lodash",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2021-23337",
-                                          "package":  "lodash",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2025-13465",
-                                          "package":  "lodash",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      },
-                                      {
-                                          "cve_id":  "CVE-2020-8203",
-                                          "package":  "lodash",
-                                          "verdict":  "REACHABLE",
-                                          "context":  "runtime",
-                                          "evidence":  "Imported in 1 file(s): index.js"
-                                      }
-                                  ],
-                         "crawl_incomplete":  false,
-                         "stage_failed":  false,
-                         "error":  ""
-                     }
+  "timestamps": {
+    "started_at": "2026-08-01T14:03:20.723Z",
+    "scan_completed_at": "2026-08-01T14:03:46.814Z",
+    "reachability_completed_at": "2026-08-01T11:55:52.321Z",
+    "patch_generated_at": "2026-08-01T10:34:35.731Z",
+    "verified_at": "2026-08-01T10:34:49.567Z",
+    "compat_completed_at": "2026-08-01T10:35:16.409Z",
+    "regression_completed_at": "2026-08-01T10:35:27.969Z",
+    "pr_opened_at": "2026-08-01T16:21:59.414Z",
+    "total_elapsed_ms": 8318691,
+    "pr_composed_at": "2026-08-01T14:03:49.298Z"
+  },
+  "patch_generator": {
+    "patches": [
+      {
+        "package": "lodash",
+        "cve_ids": [
+          "CVE-2020-8203"
+        ],
+        "unresolved_cves": [],
+        "method_used": "version_bump",
+        "from_version": "4.17.15",
+        "to_version": "4.17.19",
+        "major_version_jump": false,
+        "status": "success"
+      },
+      {
+        "package": "marked",
+        "cve_ids": [
+          "CVE-2017-16114"
+        ],
+        "unresolved_cves": [],
+        "method_used": "version_bump",
+        "from_version": "0.3.5",
+        "to_version": "0.3.9",
+        "major_version_jump": false,
+        "status": "success"
+      }
+    ],
+    "stage_failed": false,
+    "error": ""
+  },
+  "exploit_verifier": {
+    "proofs": [
+      {
+        "cve_id": "CVE-2020-8203",
+        "before": "exploit succeeded � Object.prototype.polluted === true",
+        "after": "exploit blocked � Object.prototype.polluted === false",
+        "logs": [
+          "[VULNERABLE] Target: seed-repo-vulnerable | Triggered: true | Detail: Object.prototype.polluted === true",
+          "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: Object.prototype.polluted === false"
+        ],
+        "status": "verified"
+      },
+      {
+        "cve_id": "CVE-2017-16114",
+        "before": "exploit succeeded � parse took >2000ms, exceeded timeout threshold",
+        "after": "exploit blocked � parse completed in 117ms",
+        "logs": [
+          "[VULNERABLE] Target: seed-repo-vulnerable | Triggered: true | Detail: parse took >2000ms, exceeded timeout threshold",
+          "[PATCHED] Target: seed-repo-patched | Triggered: false | Detail: parse completed in 117ms"
+        ],
+        "status": "verified"
+      }
+    ],
+    "stage_failed": false,
+    "error": ""
+  },
+  "compat_checker": {
+    "reports": [
+      {
+        "package": "lodash",
+        "removed": [],
+        "changed_signature": [],
+        "added": [],
+        "verdict": "PASS (No exports detected)"
+      },
+      {
+        "package": "marked",
+        "removed": [],
+        "changed_signature": [],
+        "added": [],
+        "verdict": "PASS"
+      }
+    ],
+    "stage_failed": false,
+    "error": ""
+  },
+  "regression": {
+    "baseline_pass": true,
+    "patched_pass": true,
+    "new_failures": [],
+    "stage_failed": false,
+    "error": ""
+  },
+  "reachability": {
+    "cves": [
+      {
+        "cve_id": "CVE-2022-21681",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2017-1000427",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2018-25110",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2022-21680",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2016-10531",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2017-16114",
+        "package": "marked",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-7598",
+        "package": "minimist",
+        "verdict": "REACHABLE",
+        "context": "build_time",
+        "evidence": "Imported in 1 file(s): build.js"
+      },
+      {
+        "cve_id": "CVE-2021-44906",
+        "package": "minimist",
+        "verdict": "REACHABLE",
+        "context": "build_time",
+        "evidence": "Imported in 1 file(s): build.js"
+      },
+      {
+        "cve_id": "CVE-2022-24785",
+        "package": "moment",
+        "verdict": "NOT_REACHABLE",
+        "context": "n/a",
+        "evidence": "Package not found imported in any scanned source file."
+      },
+      {
+        "cve_id": "CVE-2022-31129",
+        "package": "moment",
+        "verdict": "NOT_REACHABLE",
+        "context": "n/a",
+        "evidence": "Package not found imported in any scanned source file."
+      },
+      {
+        "cve_id": "CVE-2026-44495",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2025-62718",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-25639",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-28168",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42034",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42039",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42035",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "GHSA-7q8q-rj6j-mhjq",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44490",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2021-3749",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-40175",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44496",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44486",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2025-27152",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42038",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "GHSA-mmx7-hfxf-jppx",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44487",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42033",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-44492",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42043",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42036",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42041",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2023-45857",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42040",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2026-42042",
+        "package": "axios",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-28500",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2021-23337",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2025-13465",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      },
+      {
+        "cve_id": "CVE-2020-8203",
+        "package": "lodash",
+        "verdict": "REACHABLE",
+        "context": "runtime",
+        "evidence": "Imported in 1 file(s): index.js"
+      }
+    ],
+    "crawl_incomplete": false,
+    "stage_failed": false,
+    "error": ""
+  },
+  "scanner": {
+    "detected_cves": [
+      {
+        "package": "file-type",
+        "version": "16.5.4",
+        "cve_id": "CVE-2026-31808",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "21.3.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "file-type"
+      },
+      {
+        "package": "jsonwebtoken",
+        "version": "0.4.0",
+        "cve_id": "CVE-2022-23539",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+        "fixed_version": "9.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "jsonwebtoken"
+      },
+      {
+        "package": "jsonwebtoken",
+        "version": "0.4.0",
+        "cve_id": "CVE-2015-9235",
+        "severity": "CRITICAL",
+        "fixed_version": "4.2.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "jsonwebtoken"
+      },
+      {
+        "package": "jsonwebtoken",
+        "version": "0.4.0",
+        "cve_id": "CVE-2022-23541",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
+        "fixed_version": "9.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "jsonwebtoken"
+      },
+      {
+        "package": "jsonwebtoken",
+        "version": "0.4.0",
+        "cve_id": "CVE-2022-23540",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L",
+        "fixed_version": "9.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "jsonwebtoken"
+      },
+      {
+        "package": "notevil",
+        "version": "1.3.3",
+        "cve_id": "CVE-2021-23771",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "fixed_version": "unknown",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "notevil"
+      },
+      {
+        "package": "marsdb",
+        "version": "0.6.11",
+        "cve_id": "GHSA-5mrr-rgp6-x4gr",
+        "severity": "CRITICAL",
+        "fixed_version": "unknown",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marsdb"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2025-47935",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "2.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2025-47944",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "2.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2026-3520",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "fixed_version": "2.1.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2026-5079",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "2.2.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2025-7338",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "2.0.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2025-48997",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "fixed_version": "2.0.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2026-2359",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "fixed_version": "2.1.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "multer",
+        "version": "1.4.5-lts.2",
+        "cve_id": "CVE-2026-3304",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "fixed_version": "2.1.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "multer"
+      },
+      {
+        "package": "socket.io",
+        "version": "3.1.2",
+        "cve_id": "CVE-2024-38355",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "fixed_version": "2.5.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "socket.io"
+      },
+      {
+        "package": "sanitize-html",
+        "version": "1.27.5",
+        "cve_id": "CVE-2022-25887",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "2.7.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "sanitize-html"
+      },
+      {
+        "package": "sanitize-html",
+        "version": "1.27.5",
+        "cve_id": "CVE-2021-26540",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "2.3.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "sanitize-html"
+      },
+      {
+        "package": "sanitize-html",
+        "version": "1.27.5",
+        "cve_id": "CVE-2019-25225",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "fixed_version": "2.0.0-beta",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "sanitize-html"
+      },
+      {
+        "package": "sanitize-html",
+        "version": "1.27.5",
+        "cve_id": "CVE-2021-26539",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "2.3.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "sanitize-html"
+      },
+      {
+        "package": "sanitize-html",
+        "version": "1.27.5",
+        "cve_id": "CVE-2024-21501",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+        "fixed_version": "2.12.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "sanitize-html"
+      },
+      {
+        "package": "sanitize-html",
+        "version": "1.27.5",
+        "cve_id": "CVE-2026-53606",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+        "fixed_version": "2.17.5",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "sanitize-html"
+      },
+      {
+        "package": "got",
+        "version": "8.3.2",
+        "cve_id": "CVE-2022-33987",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "12.1.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "download -> got"
+      },
+      {
+        "package": "decompress",
+        "version": "4.2.1",
+        "cve_id": "CVE-2026-10732",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:H/A:L",
+        "fixed_version": "unknown",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "download -> decompress"
+      },
+      {
+        "package": "decompress",
+        "version": "4.2.1",
+        "cve_id": "CVE-2026-53486",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "fixed_version": "10.2.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "download -> decompress"
+      },
+      {
+        "package": "lodash.set",
+        "version": "4.3.2",
+        "cve_id": "CVE-2020-8203",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+        "fixed_version": "4.17.19",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "express-jwt -> lodash.set"
+      },
+      {
+        "package": "messageformat",
+        "version": "2.3.0",
+        "cve_id": "CVE-2025-57349",
+        "severity": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:U",
+        "fixed_version": "3.0.0-beta.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "i18n -> messageformat"
+      },
+      {
+        "package": "jws",
+        "version": "0.2.6",
+        "cve_id": "CVE-2025-65945",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "fixed_version": "3.2.3",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "jsonwebtoken -> jws"
+      },
+      {
+        "package": "jws",
+        "version": "0.2.6",
+        "cve_id": "CVE-2016-1000223",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N",
+        "fixed_version": "3.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "jsonwebtoken -> jws"
+      },
+      {
+        "package": "crypto-js",
+        "version": "3.3.0",
+        "cve_id": "CVE-2023-46233",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "fixed_version": "4.2.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "pdfkit -> crypto-js"
+      },
+      {
+        "package": "minimatch",
+        "version": "3.0.5",
+        "cve_id": "CVE-2026-27904",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "10.2.3",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "replace -> minimatch"
+      },
+      {
+        "package": "minimatch",
+        "version": "3.0.5",
+        "cve_id": "CVE-2026-26996",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "fixed_version": "10.2.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "replace -> minimatch"
+      },
+      {
+        "package": "minimatch",
+        "version": "3.0.5",
+        "cve_id": "CVE-2026-27903",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "10.2.3",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "replace -> minimatch"
+      },
+      {
+        "package": "postcss",
+        "version": "7.0.39",
+        "cve_id": "CVE-2026-45623",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "fixed_version": "8.5.12",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sanitize-html -> postcss"
+      },
+      {
+        "package": "postcss",
+        "version": "7.0.39",
+        "cve_id": "CVE-2023-44270",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "8.4.31",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sanitize-html -> postcss"
+      },
+      {
+        "package": "postcss",
+        "version": "7.0.39",
+        "cve_id": "CVE-2026-41305",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "fixed_version": "8.5.10",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sanitize-html -> postcss"
+      },
+      {
+        "package": "postcss",
+        "version": "7.0.39",
+        "cve_id": "GHSA-r28c-9q8g-f849",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "fixed_version": "8.5.18",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sanitize-html -> postcss"
+      },
+      {
+        "package": "uuid",
+        "version": "8.3.2",
+        "cve_id": "CVE-2026-41907",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "fixed_version": "11.1.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sequelize -> uuid"
+      },
+      {
+        "package": "engine.io",
+        "version": "4.1.2",
+        "cve_id": "CVE-2026-59725",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "6.6.7",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "socket.io -> engine.io"
+      },
+      {
+        "package": "engine.io",
+        "version": "4.1.2",
+        "cve_id": "CVE-2022-41940",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "3.6.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "socket.io -> engine.io"
+      },
+      {
+        "package": "socket.io-parser",
+        "version": "4.0.5",
+        "cve_id": "CVE-2026-33151",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "fixed_version": "3.3.5",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "socket.io -> socket.io-parser"
+      },
+      {
+        "package": "socket.io-parser",
+        "version": "4.0.5",
+        "cve_id": "CVE-2023-32695",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "fixed_version": "4.2.3",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "socket.io -> socket.io-parser"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-59873",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "7.5.19",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-24842",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+        "fixed_version": "7.5.7",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-26960",
+        "severity": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+        "fixed_version": "7.5.8",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-23745",
+        "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N",
+        "fixed_version": "7.5.3",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-59874",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "7.5.18",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-31802",
+        "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:H/SA:N",
+        "fixed_version": "7.5.11",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-59875",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "7.5.17",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-29786",
+        "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:L/SC:N/SI:H/SA:L",
+        "fixed_version": "7.5.10",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "GHSA-r292-9mhp-454m",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "7.5.21",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-23950",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+        "fixed_version": "7.5.4",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-53655",
+        "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+        "fixed_version": "7.5.16",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "tar",
+        "version": "6.2.1",
+        "cve_id": "CVE-2026-59871",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "7.5.18",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 2,
+        "dependency_path": "sqlite3 -> tar"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-1525",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+        "fixed_version": "6.24.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-6733",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "6.27.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-1527",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:N",
+        "fixed_version": "6.24.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-11525",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "6.27.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-22036",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "7.18.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-9679",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "fixed_version": "6.27.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-2229",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "6.24.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-1526",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "6.24.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "undici",
+        "version": "5.29.0",
+        "cve_id": "CVE-2026-12151",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "6.27.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+      },
+      {
+        "package": "base64url",
+        "version": "0.0.6",
+        "cve_id": "GHSA-rvg8-pwq2-xj7q",
+        "severity": "MODERATE",
+        "fixed_version": "3.0.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "jsonwebtoken -> jws -> base64url"
+      },
+      {
+        "package": "cookie",
+        "version": "0.4.2",
+        "cve_id": "CVE-2024-47764",
+        "severity": "LOW",
+        "fixed_version": "0.7.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "socket.io -> engine.io -> cookie"
+      },
+      {
+        "package": "ws",
+        "version": "7.4.6",
+        "cve_id": "CVE-2024-37890",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "5.2.4",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "socket.io -> engine.io -> ws"
+      },
+      {
+        "package": "ws",
+        "version": "7.4.6",
+        "cve_id": "CVE-2026-48779",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "5.2.5",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 3,
+        "dependency_path": "socket.io -> engine.io -> ws"
+      }
+    ],
+    "failed_packages": [],
+    "stage_failed": false,
+    "error": "",
+    "depth_limit_reached": false
+  },
+  "pr_composer": {
+    "prs": [
+      {
+        "package": "lodash",
+        "file": "pr_body_lodash.md",
+        "risk_assessment": "LOW"
+      },
+      {
+        "package": "marked",
+        "file": "pr_body_marked.md",
+        "risk_assessment": "LOW"
+      }
+    ],
+    "stage_failed": false,
+    "error": ""
+  }
 }

@@ -36,6 +36,20 @@
       "evidence": "Package not found imported in any scanned source file."
     },
     {
+      "cve_id": "GHSA-5mrr-rgp6-x4gr",
+      "package": "marsdb",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2021-23771",
+      "package": "notevil",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
       "cve_id": "CVE-2025-47935",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
@@ -92,20 +106,6 @@
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2021-23771",
-      "package": "notevil",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "GHSA-5mrr-rgp6-x4gr",
-      "package": "marsdb",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
       "cve_id": "CVE-2024-38355",
       "package": "socket.io",
       "verdict": "NOT_REACHABLE",
@@ -155,13 +155,6 @@
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2022-33987",
-      "package": "got",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
       "cve_id": "CVE-2026-10732",
       "package": "decompress",
       "verdict": "NOT_REACHABLE",
@@ -176,8 +169,22 @@
       "evidence": "Package not found imported in any scanned source file."
     },
     {
+      "cve_id": "CVE-2022-33987",
+      "package": "got",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
       "cve_id": "CVE-2020-8203",
       "package": "lodash.set",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2025-57349",
+      "package": "messageformat",
       "verdict": "NOT_REACHABLE",
       "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
@@ -197,36 +204,8 @@
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2025-57349",
-      "package": "messageformat",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
       "cve_id": "CVE-2023-46233",
       "package": "crypto-js",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-27904",
-      "package": "minimatch",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-26996",
-      "package": "minimatch",
-      "verdict": "NOT_REACHABLE",
-      "context": "n/a",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-27903",
-      "package": "minimatch",
       "verdict": "NOT_REACHABLE",
       "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
@@ -255,6 +234,27 @@
     {
       "cve_id": "GHSA-r28c-9q8g-f849",
       "package": "postcss",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-27904",
+      "package": "minimatch",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-26996",
+      "package": "minimatch",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-27903",
+      "package": "minimatch",
       "verdict": "NOT_REACHABLE",
       "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."

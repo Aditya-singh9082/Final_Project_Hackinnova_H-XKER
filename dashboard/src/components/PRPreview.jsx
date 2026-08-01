@@ -8,8 +8,11 @@ const PRPreview = ({ packageKey }) => {
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/pr/${packageKey}`)
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to fetch");
+      .then(async res => {
+        if (!res.ok) {
+          const errText = await res.text().catch(() => '');
+          throw new Error(errText || `Failed to fetch (Status: ${res.status})`);
+        }
         return res.text();
       })
       .then(text => {

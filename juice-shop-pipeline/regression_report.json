@@ -1,12 +1,10 @@
 {
   "baseline_pass": null,
-  "baseline_note": "Not available � Juice Shop patched in-place, no pre-patch snapshot. Post-patch test result used as quality gate.",
-  "patched_pass": false,
-  "test_script_used": "test:server",
-  "scope_note": "Server unit tests only (test/server/**/*.unit.test.ts). Cypress e2e excluded deliberately � unrelated to patched packages, exceeds timeout.",
-  "new_failures": [
-    "npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\\Users\\Aditya Singh\\OneDrive\\Desktop\\project_final\\scanned-repos\\Final_Project_Hackinnova_H-XKER-1785587054461\\package.json'"
-  ],
+  "baseline_note": "Not available - target patched in-place.",
+  "patched_pass": true,
+  "test_script_used": "none (no package.json)",
+  "scope_note": "Server unit tests or configured target package scripts only.",
+  "new_failures": [],
   "stage_failed": false,
   "error": ""
 }
