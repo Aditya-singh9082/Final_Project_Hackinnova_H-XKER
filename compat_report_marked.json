@@ -1,0 +1,10 @@
+{
+  "package": "marked",
+  "removed": [],
+  "changed_signature": [],
+  "added": [],
+  "used_functions_status": {
+    "marked": "unchanged"
+  },
+  "verdict": "PASS"
+}

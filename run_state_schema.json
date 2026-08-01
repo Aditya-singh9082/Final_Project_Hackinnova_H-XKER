@@ -1,0 +1,66 @@
+{
+  "scanner": {
+    "detected_cves": [
+      {
+        "package": "string",
+        "version": "string",
+        "cve_id": "string",
+        "severity": "string",
+        "fixed_version": "string",
+        "affected_range": "string",
+        "source": "string"
+      }
+    ]
+  },
+  "reachability": {
+    "cves": [
+      {
+        "cve_id": "string",
+        "verdict": "string",
+        "evidence": "string"
+      }
+    ]
+  },
+  "patch_generator": {
+    "patches": [
+      {
+        "package": "string",
+        "cve_ids": ["string"],
+        "patch_file": "string",
+        "status": "string"
+      }
+    ]
+  },
+  "exploit_verifier": {
+    "proofs": [
+      {
+        "cve_id": "string",
+        "before": "string",
+        "after": "string",
+        "logs": ["string"]
+      }
+    ]
+  },
+  "compat_checker": {
+    "report": {
+      "removed": ["string"],
+      "changed_signature": ["string"],
+      "added": ["string"],
+      "verdict": "string"
+    }
+  },
+  "regression": {
+    "baseline_pass": "boolean",
+    "patched_pass": "boolean",
+    "new_failures": ["string"]
+  },
+  "timestamps": {
+    "started_at": "string",
+    "scan_completed_at": "string",
+    "reachability_completed_at": "string",
+    "patch_generated_at": "string",
+    "verified_at": "string",
+    "pr_opened_at": "string",
+    "total_elapsed_ms": "number"
+  }
+}
