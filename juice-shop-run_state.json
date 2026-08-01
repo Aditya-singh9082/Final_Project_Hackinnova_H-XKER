@@ -1,0 +1,443 @@
+{
+  "scanner": {
+    "detected_cves": [
+      {
+        "package": "moment",
+        "version": "2.24.0",
+        "cve_id": "CVE-2022-24785",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "fixed_version": "2.29.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "moment"
+      },
+      {
+        "package": "moment",
+        "version": "2.24.0",
+        "cve_id": "CVE-2022-31129",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "2.29.4",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "moment"
+      },
+      {
+        "package": "marked",
+        "version": "0.3.5",
+        "cve_id": "CVE-2022-21681",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "4.0.10",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marked"
+      },
+      {
+        "package": "marked",
+        "version": "0.3.5",
+        "cve_id": "CVE-2017-1000427",
+        "severity": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "fixed_version": "0.3.7",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marked"
+      },
+      {
+        "package": "marked",
+        "version": "0.3.5",
+        "cve_id": "CVE-2018-25110",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+        "fixed_version": "0.3.17",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marked"
+      },
+      {
+        "package": "marked",
+        "version": "0.3.5",
+        "cve_id": "CVE-2022-21680",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "4.0.10",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marked"
+      },
+      {
+        "package": "marked",
+        "version": "0.3.5",
+        "cve_id": "CVE-2016-10531",
+        "severity": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "fixed_version": "0.3.6",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marked"
+      },
+      {
+        "package": "marked",
+        "version": "0.3.5",
+        "cve_id": "CVE-2017-16114",
+        "severity": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "0.3.9",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "marked"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2020-28500",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "4.17.21",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "lodash"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2021-23337",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+        "fixed_version": "4.17.21",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "lodash"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2025-13465",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+        "fixed_version": "4.18.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "lodash"
+      },
+      {
+        "package": "lodash",
+        "version": "4.17.15",
+        "cve_id": "CVE-2020-8203",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+        "fixed_version": "4.17.19",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "lodash"
+      },
+      {
+        "package": "minimist",
+        "version": "1.2.0",
+        "cve_id": "CVE-2020-7598",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "fixed_version": "0.2.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "minimist"
+      },
+      {
+        "package": "minimist",
+        "version": "1.2.0",
+        "cve_id": "CVE-2021-44906",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "fixed_version": "1.2.6",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "minimist"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-44495",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:L",
+        "fixed_version": "1.15.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2025-62718",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "fixed_version": "1.15.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-25639",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "1.13.5",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2020-28168",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "fixed_version": "0.21.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42034",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42039",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42035",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "GHSA-7q8q-rj6j-mhjq",
+        "severity": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:L/SA:N",
+        "fixed_version": "0.33.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-44490",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
+        "fixed_version": "1.16.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2021-3749",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "0.21.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-40175",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "fixed_version": "1.15.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-44496",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "fixed_version": "1.16.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-44486",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "fixed_version": "1.16.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2025-27152",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P",
+        "fixed_version": "1.8.2",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42038",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "GHSA-mmx7-hfxf-jppx",
+        "severity": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+        "fixed_version": "1.18.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-44487",
+        "severity": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "fixed_version": "1.16.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42033",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-44492",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+        "fixed_version": "1.16.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42043",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42036",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42041",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2023-45857",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
+        "fixed_version": "1.6.0",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42040",
+        "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      },
+      {
+        "package": "axios",
+        "version": "0.21.0",
+        "cve_id": "CVE-2026-42042",
+        "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+        "fixed_version": "1.15.1",
+        "affected_range": "unknown",
+        "source": "OSV",
+        "depth": 1,
+        "dependency_path": "axios"
+      }
+    ],
+    "failed_packages": [],
+    "stage_failed": false,
+    "error": "",
+    "depth_limit_reached": false
+  },
+  "timestamps": {
+    "started_at": "2026-08-01T12:02:00.953Z",
+    "scan_completed_at": "2026-08-01T12:02:02.188Z"
+  }
+}

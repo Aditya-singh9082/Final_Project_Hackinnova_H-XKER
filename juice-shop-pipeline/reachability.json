@@ -1,321 +1,472 @@
 {
   "cves": [
     {
-      "cve_id": "CVE-2026-55849",
-      "package": "@cyclonedx/cyclonedx-npm",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-3449",
-      "package": "@tootallnate/once",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "GHSA-rvg8-pwq2-xj7q",
-      "package": "base64url",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2023-46233",
-      "package": "crypto-js",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-10732",
-      "package": "decompress",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-53486",
-      "package": "decompress",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-59725",
-      "package": "engine.io",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2022-41940",
-      "package": "engine.io",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
       "cve_id": "CVE-2026-31808",
       "package": "file-type",
       "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2022-33987",
-      "package": "got",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2022-25881",
-      "package": "http-cache-semantics",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2025-65945",
-      "package": "jws",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2016-1000223",
-      "package": "jws",
-      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2022-23539",
       "package": "jsonwebtoken",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2015-9235",
       "package": "jsonwebtoken",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2022-23541",
       "package": "jsonwebtoken",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2022-23540",
       "package": "jsonwebtoken",
       "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2020-8203",
-      "package": "lodash.set",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "GHSA-5mrr-rgp6-x4gr",
-      "package": "marsdb",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2025-57349",
-      "package": "messageformat",
-      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2025-47935",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2025-47944",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2026-3520",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2026-5079",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2025-7338",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2025-48997",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2026-2359",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2026-3304",
       "package": "multer",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2021-23771",
       "package": "notevil",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2024-36751",
-      "package": "parseuri",
+      "cve_id": "GHSA-5mrr-rgp6-x4gr",
+      "package": "marsdb",
       "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-45623",
-      "package": "postcss",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2023-44270",
-      "package": "postcss",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-41305",
-      "package": "postcss",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "GHSA-r28c-9q8g-f849",
-      "package": "postcss",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2022-25887",
-      "package": "sanitize-html",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2021-26540",
-      "package": "sanitize-html",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2019-25225",
-      "package": "sanitize-html",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2021-26539",
-      "package": "sanitize-html",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2024-21501",
-      "package": "sanitize-html",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package not found imported in any scanned source file."
-    },
-    {
-      "cve_id": "CVE-2026-53606",
-      "package": "sanitize-html",
-      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2024-38355",
       "package": "socket.io",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-33151",
-      "package": "socket.io-parser",
+      "cve_id": "CVE-2022-25887",
+      "package": "sanitize-html",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2023-32695",
-      "package": "socket.io-parser",
+      "cve_id": "CVE-2021-26540",
+      "package": "sanitize-html",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-1525",
-      "package": "undici",
+      "cve_id": "CVE-2019-25225",
+      "package": "sanitize-html",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-6733",
-      "package": "undici",
+      "cve_id": "CVE-2021-26539",
+      "package": "sanitize-html",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-1527",
-      "package": "undici",
+      "cve_id": "CVE-2024-21501",
+      "package": "sanitize-html",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-11525",
-      "package": "undici",
+      "cve_id": "CVE-2026-53606",
+      "package": "sanitize-html",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-22036",
-      "package": "undici",
+      "cve_id": "CVE-2022-33987",
+      "package": "got",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-9679",
-      "package": "undici",
+      "cve_id": "CVE-2026-10732",
+      "package": "decompress",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-2229",
-      "package": "undici",
+      "cve_id": "CVE-2026-53486",
+      "package": "decompress",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-1526",
-      "package": "undici",
+      "cve_id": "CVE-2020-8203",
+      "package": "lodash.set",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
-      "cve_id": "CVE-2026-12151",
-      "package": "undici",
+      "cve_id": "CVE-2025-65945",
+      "package": "jws",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2016-1000223",
+      "package": "jws",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2025-57349",
+      "package": "messageformat",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2023-46233",
+      "package": "crypto-js",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-27904",
+      "package": "minimatch",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-26996",
+      "package": "minimatch",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-27903",
+      "package": "minimatch",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-45623",
+      "package": "postcss",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2023-44270",
+      "package": "postcss",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-41305",
+      "package": "postcss",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "GHSA-r28c-9q8g-f849",
+      "package": "postcss",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     },
     {
       "cve_id": "CVE-2026-41907",
       "package": "uuid",
       "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-59725",
+      "package": "engine.io",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2022-41940",
+      "package": "engine.io",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-33151",
+      "package": "socket.io-parser",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2023-32695",
+      "package": "socket.io-parser",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-59873",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-24842",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-26960",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-23745",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-59874",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-31802",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-59875",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-29786",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "GHSA-r292-9mhp-454m",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-23950",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-53655",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-59871",
+      "package": "tar",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-1525",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-6733",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-1527",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-11525",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-22036",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-9679",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-2229",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-1526",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-12151",
+      "package": "undici",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "GHSA-rvg8-pwq2-xj7q",
+      "package": "base64url",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2024-47764",
+      "package": "cookie",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2024-37890",
+      "package": "ws",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
+      "evidence": "Package not found imported in any scanned source file."
+    },
+    {
+      "cve_id": "CVE-2026-48779",
+      "package": "ws",
+      "verdict": "NOT_REACHABLE",
+      "context": "n/a",
       "evidence": "Package not found imported in any scanned source file."
     }
   ],

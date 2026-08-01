@@ -22,22 +22,22 @@ const ReachabilityChart = () => {
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-cyber-card border border-cyber-border p-6 h-80 flex flex-col">
-      <h3 className="text-lg font-bold text-cyber-accent mb-4 tracking-wide uppercase">Reachability Filter Breakdown</h3>
+    <div className="glass-card p-6 h-80 flex flex-col">
+      <h3 className="text-lg font-heading font-bold text-cyber-cyan mb-4 tracking-wide uppercase">Reachability Filter Breakdown</h3>
       <div className="flex-1 w-full min-h-0">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2c" vertical={false} />
-            <XAxis dataKey="name" stroke="#e5e7eb" tick={{ fontFamily: 'JetBrains Mono', fontSize: 12 }} />
-            <YAxis stroke="#e5e7eb" tick={{ fontFamily: 'JetBrains Mono', fontSize: 12 }} allowDecimals={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
+            <XAxis dataKey="name" stroke="#9ca3af" tick={{ fontFamily: 'JetBrains Mono', fontSize: 12 }} />
+            <YAxis stroke="#9ca3af" tick={{ fontFamily: 'JetBrains Mono', fontSize: 12 }} allowDecimals={false} />
             <Tooltip 
-              contentStyle={{ backgroundColor: '#141416', borderColor: '#E85D2F', fontFamily: 'JetBrains Mono' }}
+              contentStyle={{ backgroundColor: '#111827', borderColor: '#00F0FF', fontFamily: 'JetBrains Mono' }}
               itemStyle={{ fontFamily: 'JetBrains Mono' }}
             />
-            <Legend wrapperStyle={{ fontFamily: 'Space Grotesk', paddingTop: '10px' }} />
-            <Bar dataKey="Runtime" stackId="a" fill="#8B3A3A" name="Reachable (Runtime)" />
-            <Bar dataKey="BuildTime" stackId="a" fill="#D48C44" name="Reachable (Build-Time)" />
-            <Bar dataKey="NotReachable" stackId="a" fill="#4A7C59" name="Not Reachable" />
+            <Legend wrapperStyle={{ fontFamily: 'Inter', paddingTop: '10px' }} />
+            <Bar dataKey="Runtime" stackId="a" fill="#EF4444" name="Reachable (Runtime)" />
+            <Bar dataKey="BuildTime" stackId="a" fill="#F59E0B" name="Reachable (Build-Time)" />
+            <Bar dataKey="NotReachable" stackId="a" fill="#10B981" name="Not Reachable" />
           </BarChart>
         </ResponsiveContainer>
       </div>

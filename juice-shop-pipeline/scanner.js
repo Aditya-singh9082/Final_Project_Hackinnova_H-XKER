@@ -24,65 +24,104 @@ async function run() {
         }
     }
 
-    const packagesToScan = new Map();
+        const packagesToScan = new Map();
+    let depth_limit_reached = false;
+    const MAX_DEPTH = 3;
+    const MAX_PACKAGES = 2000;
 
-    // Strategy 1: Read from package-lock.json if present
+    function resolvePackagePath(packages, currentPath, depName) {
+        let searchPath = currentPath;
+        while (searchPath !== undefined) {
+            const checkPath = searchPath === "" ? `node_modules/${depName}` : `${searchPath}/node_modules/${depName}`;
+            if (packages[checkPath]) return checkPath;
+            if (searchPath === "") break;
+            const lastIndex = searchPath.lastIndexOf('/node_modules/');
+            if (lastIndex >= 0) searchPath = searchPath.substring(0, lastIndex);
+            else searchPath = "";
+        }
+        return null;
+    }
+
     if (fs.existsSync('package-lock.json')) {
-        logPipeline("Reading from package-lock.json");
+        logPipeline("Reading from package-lock.json with BFS traversal (depth=" + MAX_DEPTH + ")");
         const lockfileData = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));
         if (lockfileData.packages) {
-            for (const [pkgPath, pkgData] of Object.entries(lockfileData.packages)) {
-                if (pkgPath === '' || !pkgData.version || pkgData.dev) continue;
-                const name = pkgPath.replace(/^.*node_modules\//, '');
-                if (!name.includes('/') || name.startsWith('@')) {
-                    packagesToScan.set(name, pkgData.version);
+            const rootPkg = lockfileData.packages[""];
+            const queue = [];
+            
+            if (rootPkg && rootPkg.dependencies) {
+                for (const depName of Object.keys(rootPkg.dependencies)) {
+                    queue.push({ name: depName, currentPath: "", depth: 1, pathString: depName });
+                }
+            }
+
+            let processedCount = 0;
+            while (queue.length > 0) {
+                if (processedCount >= MAX_PACKAGES) {
+                    depth_limit_reached = true;
+                    logPipeline(`WARNING: Depth limit / MAX_PACKAGES (${MAX_PACKAGES}) reached. Stopping traversal.`);
+                    break;
+                }
+                const { name, currentPath, depth, pathString } = queue.shift();
+                
+                const resolvedPath = resolvePackagePath(lockfileData.packages, currentPath, name);
+                if (!resolvedPath) continue;
+                const pkgData = lockfileData.packages[resolvedPath];
+                if (pkgData.dev) continue;
+                
+                const version = pkgData.version;
+                if (!version) continue;
+
+                const mapKey = `${name}@${version}`;
+                if (!packagesToScan.has(mapKey)) {
+                    packagesToScan.set(mapKey, { name, version, depth, dependency_path: pathString });
+                    processedCount++;
+                    
+                    if (depth < MAX_DEPTH && pkgData.dependencies) {
+                        for (const subDepName of Object.keys(pkgData.dependencies)) {
+                            queue.push({
+                                name: subDepName,
+                                currentPath: resolvedPath,
+                                depth: depth + 1,
+                                pathString: `${pathString} -> ${subDepName}`
+                            });
+                        }
+                    }
                 }
             }
         } else if (lockfileData.dependencies) {
             for (const [name, dep] of Object.entries(lockfileData.dependencies)) {
-                packagesToScan.set(name, dep.version);
+                packagesToScan.set(`${name}@${dep.version}`, { name, version: dep.version, depth: 1, dependency_path: name });
             }
         }
     } else {
-        // Strategy 2: Read directly from node_modules (when package-lock=false in .npmrc)
-        logPipeline("No package-lock.json found (package-lock=false). Reading from node_modules directly...");
+        logPipeline("No package-lock.json found. Reading from node_modules directly...");
         const nodeModulesPath = 'node_modules';
-        if (!fs.existsSync(nodeModulesPath)) {
-            logPipeline("ERROR: node_modules not found. Run npm install first.");
-            return;
-        }
-        const entries = fs.readdirSync(nodeModulesPath, { withFileTypes: true });
-        for (const entry of entries) {
-            if (!entry.isDirectory()) continue;
-            if (entry.name.startsWith('.')) continue;
-            
-            if (entry.name.startsWith('@')) {
-                // Scoped package — check sub-entries
-                const scopedPath = path.join(nodeModulesPath, entry.name);
-                const scopedEntries = fs.readdirSync(scopedPath, { withFileTypes: true });
-                for (const se of scopedEntries) {
-                    if (!se.isDirectory()) continue;
-                    const pkgJsonPath = path.join(scopedPath, se.name, 'package.json');
-                    if (fs.existsSync(pkgJsonPath)) {
+        if (fs.existsSync(nodeModulesPath)) {
+            const entries = fs.readdirSync(nodeModulesPath, { withFileTypes: true });
+            for (const entry of entries) {
+                if (!entry.isDirectory() || entry.name.startsWith('.')) continue;
+                if (entry.name.startsWith('@')) {
+                    const scopedEntries = fs.readdirSync(nodeModulesPath + '/' + entry.name, { withFileTypes: true });
+                    for (const se of scopedEntries) {
+                        if (!se.isDirectory()) continue;
                         try {
-                            const p = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
-                            packagesToScan.set(`${entry.name}/${se.name}`, p.version);
+                            const p = JSON.parse(fs.readFileSync(nodeModulesPath + '/' + entry.name + '/' + se.name + '/package.json', 'utf8'));
+                            const n = `${entry.name}/${se.name}`;
+                            packagesToScan.set(`${n}@${p.version}`, { name: n, version: p.version, depth: 1, dependency_path: n });
                         } catch(e) {}
                     }
-                }
-            } else {
-                const pkgJsonPath = path.join(nodeModulesPath, entry.name, 'package.json');
-                if (fs.existsSync(pkgJsonPath)) {
+                } else {
                     try {
-                        const p = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
-                        packagesToScan.set(entry.name, p.version);
+                        const p = JSON.parse(fs.readFileSync(nodeModulesPath + '/' + entry.name + '/package.json', 'utf8'));
+                        packagesToScan.set(`${entry.name}@${p.version}`, { name: entry.name, version: p.version, depth: 1, dependency_path: entry.name });
                     } catch(e) {}
                 }
             }
         }
     }
 
-    const packagesList = Array.from(packagesToScan.entries());
+    const packagesList = Array.from(packagesToScan.values());
     logPipeline(`Scanning ${packagesList.length} unique packages against OSV API...`);
 
     if (packagesList.length === 0) {
@@ -132,7 +171,7 @@ async function run() {
         if (batchNum % 5 === 1 || batchNum === totalBatches) {
             logPipeline(`Batch ${batchNum}/${totalBatches} (${i+1}-${Math.min(i+BATCH_SIZE, packagesList.length)} of ${packagesList.length})`);
         }
-        await Promise.all(batch.map(async ([name, version]) => {
+        await Promise.all(batch.map(async ({ name, version, depth, dependency_path }) => {
             try {
                 const result = await fetchOsv(name, version);
                 if (result.vulns && result.vulns.length > 0) {
@@ -151,7 +190,7 @@ async function run() {
                         }
                         const key = `${name}-${cve_id}`;
                         if (!uniqueCves.has(key)) {
-                            uniqueCves.set(key, { package: name, version, cve_id, severity, fixed_version: fixed_version || 'unknown', affected_range: 'unknown', source: 'OSV' });
+                            uniqueCves.set(key, { package: name, version, cve_id, severity, fixed_version: fixed_version || 'unknown', affected_range: 'unknown', source: 'OSV', depth, dependency_path });
                         }
                     }
                 }
@@ -166,7 +205,7 @@ async function run() {
     const elapsedSec = ((Date.now() - startTime)/1000).toFixed(1);
 
     runState = fs.existsSync(RUN_STATE_PATH) ? JSON.parse(fs.readFileSync(RUN_STATE_PATH, 'utf8')) : {};
-    runState.scanner = { detected_cves, failed_packages, stage_failed: false, error: "" };
+    runState.scanner = { detected_cves, failed_packages, stage_failed: false, error: "", depth_limit_reached };
     runState.timestamps = runState.timestamps || {};
     runState.timestamps.started_at = new Date(startTime).toISOString();
     runState.timestamps.scan_completed_at = new Date().toISOString();

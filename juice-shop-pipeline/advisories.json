@@ -1,120 +1,14 @@
 [
   {
-    "package": "@cyclonedx/cyclonedx-npm",
-    "version": "4.2.1",
-    "cve_id": "CVE-2026-55849",
-    "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
-    "fixed_version": "5.0.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "@tootallnate/once",
-    "version": "1.1.2",
-    "cve_id": "CVE-2026-3449",
-    "severity": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
-    "fixed_version": "3.0.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "base64url",
-    "version": "0.0.6",
-    "cve_id": "GHSA-rvg8-pwq2-xj7q",
-    "severity": "MODERATE",
-    "fixed_version": "3.0.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "crypto-js",
-    "version": "3.3.0",
-    "cve_id": "CVE-2023-46233",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
-    "fixed_version": "4.2.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "decompress",
-    "version": "4.2.1",
-    "cve_id": "CVE-2026-10732",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:H/A:L",
-    "fixed_version": "unknown",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "decompress",
-    "version": "4.2.1",
-    "cve_id": "CVE-2026-53486",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
-    "fixed_version": "10.2.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "engine.io",
-    "version": "4.1.2",
-    "cve_id": "CVE-2026-59725",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "6.6.7",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "engine.io",
-    "version": "4.1.2",
-    "cve_id": "CVE-2022-41940",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "3.6.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
     "package": "file-type",
     "version": "16.5.4",
     "cve_id": "CVE-2026-31808",
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
     "fixed_version": "21.3.1",
     "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "got",
-    "version": "8.3.2",
-    "cve_id": "CVE-2022-33987",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
-    "fixed_version": "12.1.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "http-cache-semantics",
-    "version": "3.8.1",
-    "cve_id": "CVE-2022-25881",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "4.1.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "jws",
-    "version": "0.2.6",
-    "cve_id": "CVE-2025-65945",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
-    "fixed_version": "3.2.3",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "jws",
-    "version": "0.2.6",
-    "cve_id": "CVE-2016-1000223",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N",
-    "fixed_version": "3.0.0",
-    "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "file-type"
   },
   {
     "package": "jsonwebtoken",
@@ -123,7 +17,9 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
     "fixed_version": "9.0.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "jsonwebtoken"
   },
   {
     "package": "jsonwebtoken",
@@ -132,7 +28,9 @@
     "severity": "CRITICAL",
     "fixed_version": "4.2.2",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "jsonwebtoken"
   },
   {
     "package": "jsonwebtoken",
@@ -141,7 +39,9 @@
     "severity": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
     "fixed_version": "9.0.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "jsonwebtoken"
   },
   {
     "package": "jsonwebtoken",
@@ -150,34 +50,9 @@
     "severity": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L",
     "fixed_version": "9.0.0",
     "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "lodash.set",
-    "version": "4.3.2",
-    "cve_id": "CVE-2020-8203",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
-    "fixed_version": "4.17.19",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "marsdb",
-    "version": "0.6.11",
-    "cve_id": "GHSA-5mrr-rgp6-x4gr",
-    "severity": "CRITICAL",
-    "fixed_version": "unknown",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "messageformat",
-    "version": "2.3.0",
-    "cve_id": "CVE-2025-57349",
-    "severity": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:U",
-    "fixed_version": "3.0.0-beta.0",
-    "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "jsonwebtoken"
   },
   {
     "package": "multer",
@@ -186,7 +61,9 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
     "fixed_version": "2.0.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -195,7 +72,9 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
     "fixed_version": "2.0.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -204,7 +83,9 @@
     "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
     "fixed_version": "2.1.1",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -213,7 +94,9 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
     "fixed_version": "2.2.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -222,7 +105,9 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
     "fixed_version": "2.0.2",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -231,7 +116,9 @@
     "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
     "fixed_version": "2.0.1",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -240,7 +127,9 @@
     "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
     "fixed_version": "2.1.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "multer",
@@ -249,7 +138,9 @@
     "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
     "fixed_version": "2.1.0",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "multer"
   },
   {
     "package": "notevil",
@@ -258,106 +149,20 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
     "fixed_version": "unknown",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "notevil"
   },
   {
-    "package": "parseuri",
-    "version": "0.0.6",
-    "cve_id": "CVE-2024-36751",
-    "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+    "package": "marsdb",
+    "version": "0.6.11",
+    "cve_id": "GHSA-5mrr-rgp6-x4gr",
+    "severity": "CRITICAL",
     "fixed_version": "unknown",
     "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "postcss",
-    "version": "7.0.39",
-    "cve_id": "CVE-2026-45623",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-    "fixed_version": "8.5.12",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "postcss",
-    "version": "7.0.39",
-    "cve_id": "CVE-2023-44270",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
-    "fixed_version": "8.4.31",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "postcss",
-    "version": "7.0.39",
-    "cve_id": "CVE-2026-41305",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
-    "fixed_version": "8.5.10",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "postcss",
-    "version": "7.0.39",
-    "cve_id": "GHSA-r28c-9q8g-f849",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-    "fixed_version": "8.5.18",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "sanitize-html",
-    "version": "1.27.5",
-    "cve_id": "CVE-2022-25887",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "2.7.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "sanitize-html",
-    "version": "1.27.5",
-    "cve_id": "CVE-2021-26540",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
-    "fixed_version": "2.3.2",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "sanitize-html",
-    "version": "1.27.5",
-    "cve_id": "CVE-2019-25225",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
-    "fixed_version": "2.0.0-beta",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "sanitize-html",
-    "version": "1.27.5",
-    "cve_id": "CVE-2021-26539",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
-    "fixed_version": "2.3.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "sanitize-html",
-    "version": "1.27.5",
-    "cve_id": "CVE-2024-21501",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
-    "fixed_version": "2.12.1",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "sanitize-html",
-    "version": "1.27.5",
-    "cve_id": "CVE-2026-53606",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
-    "fixed_version": "2.17.5",
-    "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "marsdb"
   },
   {
     "package": "socket.io",
@@ -366,106 +171,240 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
     "fixed_version": "2.5.1",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "socket.io"
   },
   {
-    "package": "socket.io-parser",
-    "version": "4.0.5",
-    "cve_id": "CVE-2026-33151",
+    "package": "sanitize-html",
+    "version": "1.27.5",
+    "cve_id": "CVE-2022-25887",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "2.7.1",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "sanitize-html"
+  },
+  {
+    "package": "sanitize-html",
+    "version": "1.27.5",
+    "cve_id": "CVE-2021-26540",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+    "fixed_version": "2.3.2",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "sanitize-html"
+  },
+  {
+    "package": "sanitize-html",
+    "version": "1.27.5",
+    "cve_id": "CVE-2019-25225",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+    "fixed_version": "2.0.0-beta",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "sanitize-html"
+  },
+  {
+    "package": "sanitize-html",
+    "version": "1.27.5",
+    "cve_id": "CVE-2021-26539",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+    "fixed_version": "2.3.1",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "sanitize-html"
+  },
+  {
+    "package": "sanitize-html",
+    "version": "1.27.5",
+    "cve_id": "CVE-2024-21501",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+    "fixed_version": "2.12.1",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "sanitize-html"
+  },
+  {
+    "package": "sanitize-html",
+    "version": "1.27.5",
+    "cve_id": "CVE-2026-53606",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+    "fixed_version": "2.17.5",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 1,
+    "dependency_path": "sanitize-html"
+  },
+  {
+    "package": "got",
+    "version": "8.3.2",
+    "cve_id": "CVE-2022-33987",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+    "fixed_version": "12.1.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "download -> got"
+  },
+  {
+    "package": "decompress",
+    "version": "4.2.1",
+    "cve_id": "CVE-2026-10732",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:H/A:L",
+    "fixed_version": "unknown",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "download -> decompress"
+  },
+  {
+    "package": "decompress",
+    "version": "4.2.1",
+    "cve_id": "CVE-2026-53486",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+    "fixed_version": "10.2.1",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "download -> decompress"
+  },
+  {
+    "package": "lodash.set",
+    "version": "4.3.2",
+    "cve_id": "CVE-2020-8203",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+    "fixed_version": "4.17.19",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "express-jwt -> lodash.set"
+  },
+  {
+    "package": "jws",
+    "version": "0.2.6",
+    "cve_id": "CVE-2025-65945",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+    "fixed_version": "3.2.3",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "jsonwebtoken -> jws"
+  },
+  {
+    "package": "jws",
+    "version": "0.2.6",
+    "cve_id": "CVE-2016-1000223",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N",
+    "fixed_version": "3.0.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "jsonwebtoken -> jws"
+  },
+  {
+    "package": "messageformat",
+    "version": "2.3.0",
+    "cve_id": "CVE-2025-57349",
+    "severity": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:U",
+    "fixed_version": "3.0.0-beta.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "i18n -> messageformat"
+  },
+  {
+    "package": "crypto-js",
+    "version": "3.3.0",
+    "cve_id": "CVE-2023-46233",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+    "fixed_version": "4.2.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "pdfkit -> crypto-js"
+  },
+  {
+    "package": "minimatch",
+    "version": "3.0.5",
+    "cve_id": "CVE-2026-27904",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "10.2.3",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "replace -> minimatch"
+  },
+  {
+    "package": "minimatch",
+    "version": "3.0.5",
+    "cve_id": "CVE-2026-26996",
     "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
-    "fixed_version": "3.3.5",
+    "fixed_version": "10.2.1",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "replace -> minimatch"
   },
   {
-    "package": "socket.io-parser",
-    "version": "4.0.5",
-    "cve_id": "CVE-2023-32695",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
-    "fixed_version": "4.2.3",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-1525",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
-    "fixed_version": "6.24.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-6733",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
-    "fixed_version": "6.27.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-1527",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:N",
-    "fixed_version": "6.24.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-11525",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
-    "fixed_version": "6.27.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-22036",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "7.18.2",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-9679",
-    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
-    "fixed_version": "6.27.0",
-    "affected_range": "unknown",
-    "source": "OSV"
-  },
-  {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-2229",
+    "package": "minimatch",
+    "version": "3.0.5",
+    "cve_id": "CVE-2026-27903",
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "6.24.0",
+    "fixed_version": "10.2.3",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "replace -> minimatch"
   },
   {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-1526",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "6.24.0",
+    "package": "postcss",
+    "version": "7.0.39",
+    "cve_id": "CVE-2026-45623",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "fixed_version": "8.5.12",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sanitize-html -> postcss"
   },
   {
-    "package": "undici",
-    "version": "5.29.0",
-    "cve_id": "CVE-2026-12151",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "6.27.0",
+    "package": "postcss",
+    "version": "7.0.39",
+    "cve_id": "CVE-2023-44270",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+    "fixed_version": "8.4.31",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sanitize-html -> postcss"
+  },
+  {
+    "package": "postcss",
+    "version": "7.0.39",
+    "cve_id": "CVE-2026-41305",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+    "fixed_version": "8.5.10",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sanitize-html -> postcss"
+  },
+  {
+    "package": "postcss",
+    "version": "7.0.39",
+    "cve_id": "GHSA-r28c-9q8g-f849",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "fixed_version": "8.5.18",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sanitize-html -> postcss"
   },
   {
     "package": "uuid",
@@ -474,6 +413,327 @@
     "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
     "fixed_version": "11.1.1",
     "affected_range": "unknown",
-    "source": "OSV"
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sequelize -> uuid"
+  },
+  {
+    "package": "engine.io",
+    "version": "4.1.2",
+    "cve_id": "CVE-2026-59725",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "6.6.7",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "socket.io -> engine.io"
+  },
+  {
+    "package": "engine.io",
+    "version": "4.1.2",
+    "cve_id": "CVE-2022-41940",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "3.6.1",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "socket.io -> engine.io"
+  },
+  {
+    "package": "socket.io-parser",
+    "version": "4.0.5",
+    "cve_id": "CVE-2026-33151",
+    "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+    "fixed_version": "3.3.5",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "socket.io -> socket.io-parser"
+  },
+  {
+    "package": "socket.io-parser",
+    "version": "4.0.5",
+    "cve_id": "CVE-2023-32695",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+    "fixed_version": "4.2.3",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "socket.io -> socket.io-parser"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-59873",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "7.5.19",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-24842",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+    "fixed_version": "7.5.7",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-26960",
+    "severity": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+    "fixed_version": "7.5.8",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-23745",
+    "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N",
+    "fixed_version": "7.5.3",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-59874",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "7.5.18",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-31802",
+    "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:H/SA:N",
+    "fixed_version": "7.5.11",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-59875",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+    "fixed_version": "7.5.17",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-29786",
+    "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:L/SC:N/SI:H/SA:L",
+    "fixed_version": "7.5.10",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "GHSA-r292-9mhp-454m",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+    "fixed_version": "7.5.21",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-23950",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+    "fixed_version": "7.5.4",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-53655",
+    "severity": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+    "fixed_version": "7.5.16",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "tar",
+    "version": "6.2.1",
+    "cve_id": "CVE-2026-59871",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+    "fixed_version": "7.5.18",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "sqlite3 -> tar"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-1525",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+    "fixed_version": "6.24.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-6733",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+    "fixed_version": "6.27.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-1527",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:N",
+    "fixed_version": "6.24.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-11525",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+    "fixed_version": "6.27.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-22036",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "7.18.2",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-9679",
+    "severity": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+    "fixed_version": "6.27.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-2229",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "6.24.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-1526",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "6.24.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "undici",
+    "version": "5.29.0",
+    "cve_id": "CVE-2026-12151",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "6.27.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "@ai-sdk/openai-compatible -> @ai-sdk/provider-utils -> undici"
+  },
+  {
+    "package": "base64url",
+    "version": "0.0.6",
+    "cve_id": "GHSA-rvg8-pwq2-xj7q",
+    "severity": "MODERATE",
+    "fixed_version": "3.0.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "jsonwebtoken -> jws -> base64url"
+  },
+  {
+    "package": "cookie",
+    "version": "0.4.2",
+    "cve_id": "CVE-2024-47764",
+    "severity": "LOW",
+    "fixed_version": "0.7.0",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "socket.io -> engine.io -> cookie"
+  },
+  {
+    "package": "ws",
+    "version": "7.4.6",
+    "cve_id": "CVE-2024-37890",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "5.2.4",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "socket.io -> engine.io -> ws"
+  },
+  {
+    "package": "ws",
+    "version": "7.4.6",
+    "cve_id": "CVE-2026-48779",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "5.2.5",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 3,
+    "dependency_path": "socket.io -> engine.io -> ws"
   }
 ]
