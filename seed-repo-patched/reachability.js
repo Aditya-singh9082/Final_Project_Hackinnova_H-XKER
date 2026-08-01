@@ -70,11 +70,13 @@ const reachabilityData = { cves: reachabilityCves };
 fs.writeFileSync('reachability.json', JSON.stringify(reachabilityData, null, 2));
 
 let runState = {};
-if (fs.existsSync('run_state.json')) {
-    runState = JSON.parse(fs.readFileSync('run_state.json', 'utf8'));
+if (fs.existsSync('../run_state.json')) {
+    runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));
 }
 runState.reachability = reachabilityData;
-fs.writeFileSync('run_state.json', JSON.stringify(runState, null, 2));
+runState.timestamps = runState.timestamps || {};
+runState.timestamps.reachability_completed_at = new Date().toISOString();
+fs.writeFileSync('../run_state.json', JSON.stringify(runState, null, 2));
 
 console.log(`Reachability scan complete.`);
 console.log(`Evaluated ${advisories.length} CVEs.`);

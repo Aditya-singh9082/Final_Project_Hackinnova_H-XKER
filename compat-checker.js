@@ -138,6 +138,8 @@ if (fs.existsSync('run_state.json')) {
 runState.compat_checker = {
     reports: [lodashReport, markedReport]
 };
+runState.timestamps = runState.timestamps || {};
+runState.timestamps.compat_completed_at = new Date().toISOString();
 fs.writeFileSync('run_state.json', JSON.stringify(runState, null, 2));
 
 console.log('\\ncompat_report files written. run_state.json updated.');

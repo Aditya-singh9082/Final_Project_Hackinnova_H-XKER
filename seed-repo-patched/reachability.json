@@ -1,13 +1,31 @@
 {
   "cves": [
     {
-      "cve_id": "CVE-2022-21681",
-      "package": "marked",
-      "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> marked (function call)"
+      "cve_id": "CVE-2020-7598",
+      "package": "minimist",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package is not imported in main entry point."
     },
     {
-      "cve_id": "CVE-2017-1000427",
+      "cve_id": "CVE-2021-44906",
+      "package": "minimist",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package is not imported in main entry point."
+    },
+    {
+      "cve_id": "CVE-2022-24785",
+      "package": "moment",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package is not imported in main entry point."
+    },
+    {
+      "cve_id": "CVE-2022-31129",
+      "package": "moment",
+      "verdict": "NOT_REACHABLE",
+      "evidence": "Package is not imported in main entry point."
+    },
+    {
+      "cve_id": "CVE-2022-21681",
       "package": "marked",
       "verdict": "REACHABLE",
       "evidence": "Called via index.js -> marked (function call)"
@@ -23,30 +41,6 @@
       "package": "marked",
       "verdict": "REACHABLE",
       "evidence": "Called via index.js -> marked (function call)"
-    },
-    {
-      "cve_id": "CVE-2016-10531",
-      "package": "marked",
-      "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> marked (function call)"
-    },
-    {
-      "cve_id": "CVE-2017-16114",
-      "package": "marked",
-      "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> marked (function call)"
-    },
-    {
-      "cve_id": "CVE-2022-24785",
-      "package": "moment",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
-    },
-    {
-      "cve_id": "CVE-2022-31129",
-      "package": "moment",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
     },
     {
       "cve_id": "CVE-2020-28500",
@@ -65,24 +59,6 @@
       "package": "lodash",
       "verdict": "REACHABLE",
       "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
-    },
-    {
-      "cve_id": "CVE-2020-8203",
-      "package": "lodash",
-      "verdict": "REACHABLE",
-      "evidence": "Called via index.js -> _ (property access: zipObjectDeep)"
-    },
-    {
-      "cve_id": "CVE-2020-7598",
-      "package": "minimist",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
-    },
-    {
-      "cve_id": "CVE-2021-44906",
-      "package": "minimist",
-      "verdict": "NOT_REACHABLE",
-      "evidence": "Package is not imported in main entry point."
     },
     {
       "cve_id": "CVE-2026-44495",

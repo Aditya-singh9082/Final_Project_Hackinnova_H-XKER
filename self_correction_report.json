@@ -1,0 +1,9 @@
+{
+  "package": "lodash",
+  "trigger_reason": "baseline_pass=true, patched_pass=false",
+  "tier_1_attempted": true,
+  "tier_1_result": "failed",
+  "tier_2_attempted": true,
+  "tier_2_result": "failed",
+  "final_status": "manual_review_required"
+}

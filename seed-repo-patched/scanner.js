@@ -133,14 +133,17 @@ packagesToScan.forEach((version, name) => {
 
 function saveReport() {
     let runState = {};
-    if (fs.existsSync('run_state.json')) {
-        runState = JSON.parse(fs.readFileSync('run_state.json', 'utf8'));
+    if (fs.existsSync('../run_state.json')) {
+        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));
     }
     runState.scanner = { detected_cves };
     
     // Also save independent advisories.json
     fs.writeFileSync('advisories.json', JSON.stringify(detected_cves, null, 2));
-    fs.writeFileSync('run_state.json', JSON.stringify(runState, null, 2));
+    runState.timestamps = runState.timestamps || {};
+    runState.timestamps.started_at = new Date().toISOString();
+    runState.timestamps.scan_completed_at = new Date().toISOString();
+    fs.writeFileSync('../run_state.json', JSON.stringify(runState, null, 2));
     
     console.log(`Scan complete. Found ${detected_cves.length} total vulnerabilities across all packages.`);
     

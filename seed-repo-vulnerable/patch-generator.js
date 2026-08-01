@@ -71,10 +71,12 @@ targets.forEach(target => {
 fs.writeFileSync('patch_manifest.json', JSON.stringify(patchManifest.patches, null, 2));
 
 let runState = {};
-if (fs.existsSync('run_state.json')) {
-    runState = JSON.parse(fs.readFileSync('run_state.json', 'utf8'));
+if (fs.existsSync('../run_state.json')) {
+    runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));
 }
 runState.patch_generator = { patches: patchManifest.patches };
-fs.writeFileSync('run_state.json', JSON.stringify(runState, null, 2));
+runState.timestamps = runState.timestamps || {};
+runState.timestamps.patch_generated_at = new Date().toISOString();
+fs.writeFileSync('../run_state.json', JSON.stringify(runState, null, 2));
 
 console.log(`Patch Generator complete.`);
