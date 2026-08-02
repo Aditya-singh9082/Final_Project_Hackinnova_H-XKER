@@ -133,7 +133,6 @@ export default function CodeQualityPanel({ user, initialReport }) {
                             Detects verbose, redundant, and overly complex code. Suggestions are never auto-applied.
                         </p>
                     </div>
-                    </div>
                 </div>
 
                 {/* Score & Breakdown Cards */}
