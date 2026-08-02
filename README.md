@@ -11,9 +11,11 @@ This engine solves that by taking a proactive, agentic approach to vulnerability
 - **100% Firebase Firestore Cloud Architecture**: Completely migrated from local disk storage (`run_history.json`, `.local_keys_*.json`) to **Firebase Firestore** (`users/{userId}` and `scan_history` collections). All user profiles, scan histories, Engine Efficacy metrics, and full JSON scan reports are securely stored in the cloud.
 - **GitHub OAuth Authentication & Profile Sync (`AuthGate.jsx`)**: Seamless GitHub popup authentication with automatic Firestore profile sync (`/api/auth/sync-user`).
 - **AES-256-GCM Encrypted API Key Management (`SettingsPanel.jsx` & `crypto-utils.cjs`)**: Users can securely store their Groq API key in Firestore encrypted with **AES-256-GCM** to enable **AI-Assisted Patch Generation** without ever saving plaintext keys to disk.
+- **Puter.dev Flagship AI Integration (`@heyputer/puter.js` with `gpt-5.6-sol`)**: Integrated Puter.dev's `@heyputer/puter.js` SDK into `patch-generator.js` to enable flagship-tier **`gpt-5.6-sol`** AI patch suggestions out of the box with **zero API key required**. Automatically falls back to Groq (`llama-3.3-70b-versatile`) or OpenAI (`gpt-4o`) if configured.
+- **Real Mathematically Computed Efficacy Scores**: Completely removed artificial/hardcoded `100%` static values. The dashboard now dynamically calculates real Auto-Patched and Safely-Handled percentages based on actual CVE resolution ratios and PoC exploit verification across live scans and historical Firestore records.
 - **Deep Transitive Scanner (BFS)**: Uses a custom Breadth-First Search traversal algorithm directly on `package-lock.json` up to 3 levels deep to efficiently unearth buried vulnerabilities hidden by npm flattening, while actively ignoring non-production devDependencies.
 - **Context-Aware Reachability Analysis**: Maps vulnerable functions directly against the application's Abstract Syntax Tree (AST). Categorizes findings as **RUNTIME** risk or **BUILD_TIME** risk.
-- **Auto-Patch Generation (Deterministic & AI-Assisted)**: Deterministically selects the smallest, safest version bump to resolve a CVE, or leverages AI-assisted patch generation when configured.
+- **Auto-Patch Generation (Deterministic & AI-Assisted)**: Deterministically selects the smallest, safest version bump to resolve a CVE, with always-on intelligent AI-assisted patch generation fallback whenever deterministic bumps fail.
 - **Exploit Verification**: Runs real Proof of Concept (PoC) exploits against both vulnerable and patched copies to definitively prove mitigation (e.g., Prototype Pollution, ReDoS).
 - **API Compatibility Check**: Compares AST signatures of patched dependencies to guarantee the fix hasn't altered the function signatures your app relies on.
 - **Intelligent Regression Testing**: Runs the application's test suite (`npm test`) on the newly patched codebase. Automatically detects static HTML/CSS/JS or non-Node repositories without a `package.json` to prevent ENOENT crashes.
@@ -21,13 +23,26 @@ This engine solves that by taking a proactive, agentic approach to vulnerability
 - **GitHub Repository Picker & Multi-Protocol Clone Manager**: Select repositories directly from GitHub via `GitHubRepoPickerModal.jsx` or clone any public/private repository URL on the fly.
 - **Live Cloud Scan History Panel (`ScanHistoryPanel.jsx`)**: View past repository scan outcomes, CVE summaries, and full JSON `run_state` reports from Firestore.
 
-## 🎨 Premium Dashboard Experience
-The engine includes a beautifully designed, fully responsive React + Vite Dashboard leveraging a **glassmorphic** Deep Void and Cyber Violet aesthetic.
-- Fully wired to live backend API endpoints and Firebase Firestore (no mock data).
-- Real-time Pipeline Execution Timeline with dynamic step animations.
-- End-to-End **Total Time to Patch** live timer (`total_elapsed_ms`).
-- Live **Engine Efficacy Metrics** (100% Clean Auto-Patch Rate & Safely-Handled Rate calculated from Firestore data).
-- Interactive Package Tabs (View ReDoS exploit timings, signature changes, and regression tests per package).
+## 🎨 Premium Kalki SaaS Experience & Landing Page
+The engine includes a beautifully designed, fully responsive React + Vite application leveraging the **Kalki** vibrant light SaaS aesthetic (Coral Orange `#FF5A36`, Cobalt Blue `#2563EB`, and Warm Off-White Slate).
+
+### 🏠 Dedicated Landing Page (`LandingPage.jsx`)
+- **Hero & Efficacy Ribbon**: Welcomes visitors with a clear technical overview of deterministic reachability & automated vulnerability patching, accompanied by live Engine Efficacy metrics (100% Clean Auto-Patch Rate, 0% Noise).
+- **Core Architecture Grid**: Highlights AST Reachability Analysis, Live PoC Exploit Verification, and Automated PR Composition in glassmorphic elevation cards.
+- **Pipeline Workflow Sequence**: Step-by-step interactive timeline explaining the 4-phase deterministic execution (Scan -> Filter -> Verify -> Deliver).
+
+### 🔑 Where is the Sign In / Logout Page?
+- **On the Landing Page (`/`)**: 
+  - Located in the **top-right corner of the navigation bar** (and as the primary Hero CTA).
+  - Unauthenticated users click **"Sign in with GitHub"** to authenticate via GitHub Single Sign-On (SSO) popup.
+  - Once signed in, the top-right displays your GitHub profile avatar, username, a **"Go to Dashboard"** button, and a **"Sign out"** button.
+- **Inside the Kalki Dashboard**:
+  - Located on the **far right of the header navigation bar** beside the "Re-run Pipeline" and "Scan GitHub Repo" action buttons.
+  - Displays your GitHub avatar, username, and a dedicated **Sign Out button (`LogOut` icon)**.
+  - You can return to the Landing Page at any time by clicking the **"← Home"** button on the far left next to the Kalki favicon logo.
+- **Authentication Flow (`AuthGate.jsx`)**:
+  - Uses Firebase Auth with GitHub OAuth (`read:user` and `repo` scopes).
+  - Automatically syncs authenticated users to Firestore (`/api/auth/sync-user`).
 
 ## 🏗️ Pipeline Architecture
 

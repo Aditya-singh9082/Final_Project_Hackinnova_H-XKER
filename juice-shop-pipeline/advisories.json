@@ -330,6 +330,39 @@
     "dependency_path": "pdfkit -> crypto-js"
   },
   {
+    "package": "minimatch",
+    "version": "3.0.5",
+    "cve_id": "CVE-2026-27904",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "10.2.3",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "replace -> minimatch"
+  },
+  {
+    "package": "minimatch",
+    "version": "3.0.5",
+    "cve_id": "CVE-2026-26996",
+    "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+    "fixed_version": "10.2.1",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "replace -> minimatch"
+  },
+  {
+    "package": "minimatch",
+    "version": "3.0.5",
+    "cve_id": "CVE-2026-27903",
+    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "fixed_version": "10.2.3",
+    "affected_range": "unknown",
+    "source": "OSV",
+    "depth": 2,
+    "dependency_path": "replace -> minimatch"
+  },
+  {
     "package": "postcss",
     "version": "7.0.39",
     "cve_id": "CVE-2026-45623",
@@ -372,39 +405,6 @@
     "source": "OSV",
     "depth": 2,
     "dependency_path": "sanitize-html -> postcss"
-  },
-  {
-    "package": "minimatch",
-    "version": "3.0.5",
-    "cve_id": "CVE-2026-27904",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "10.2.3",
-    "affected_range": "unknown",
-    "source": "OSV",
-    "depth": 2,
-    "dependency_path": "replace -> minimatch"
-  },
-  {
-    "package": "minimatch",
-    "version": "3.0.5",
-    "cve_id": "CVE-2026-26996",
-    "severity": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
-    "fixed_version": "10.2.1",
-    "affected_range": "unknown",
-    "source": "OSV",
-    "depth": 2,
-    "dependency_path": "replace -> minimatch"
-  },
-  {
-    "package": "minimatch",
-    "version": "3.0.5",
-    "cve_id": "CVE-2026-27903",
-    "severity": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-    "fixed_version": "10.2.3",
-    "affected_range": "unknown",
-    "source": "OSV",
-    "depth": 2,
-    "dependency_path": "replace -> minimatch"
   },
   {
     "package": "uuid",

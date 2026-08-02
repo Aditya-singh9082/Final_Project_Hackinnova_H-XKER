@@ -18,26 +18,34 @@ try {
 
     const apps = admin.getApps ? admin.getApps() : (admin.apps || []);
     if (apps.length === 0) {
-        const projectId = process.env.FIREBASE_PROJECT_ID;
-        const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-        const rawKey = process.env.FIREBASE_PRIVATE_KEY;
-        const privateKey = rawKey ? rawKey.replace(/\\n/g, '\n') : undefined;
-
-        const isPlaceholder = !projectId || projectId === 'YOUR_FIREBASE_PROJECT_ID';
-
-        if (isPlaceholder || !clientEmail || !privateKey) {
-            console.warn(
-                '[firebase-admin] Firebase credentials not configured. ' +
-                'Fill in root .env to enable Firestore/Auth features. ' +
-                'Server will run in local-only mode.'
-            );
+        const fs = require('fs');
+        const rootDir = path.join(__dirname, '..');
+        const serviceAccountFiles = fs.readdirSync(rootDir).filter(f => f.includes('firebase-adminsdk') && f.endsWith('.json'));
+        let creds = null;
+        if (serviceAccountFiles.length > 0) {
+            const serviceAccountPath = path.join(rootDir, serviceAccountFiles[0]);
+            creds = admin.cert(require(serviceAccountPath));
+            console.log('[firebase-admin] Loaded credentials from service account file:', serviceAccountFiles[0]);
         } else {
+            const projectId = process.env.FIREBASE_PROJECT_ID;
+            const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+            const rawKey = process.env.FIREBASE_PRIVATE_KEY;
+            const privateKey = rawKey ? rawKey.replace(/\\n/g, '\n') : undefined;
+            if (projectId && clientEmail && privateKey && projectId !== 'YOUR_FIREBASE_PROJECT_ID') {
+                creds = admin.cert({ projectId, clientEmail, privateKey });
+                console.log('[firebase-admin] Loaded credentials from environment variables.');
+            }
+        }
+
+        if (creds) {
             admin.initializeApp({
-                credential: admin.cert({ projectId, clientEmail, privateKey }),
+                credential: creds,
             });
-            console.log('[firebase-admin] Initialized successfully. Project:', projectId);
+            console.log('[firebase-admin] Initialized successfully.');
             db = getFirestore();
             adminAuth = getAuth();
+        } else {
+            console.warn('[firebase-admin] Firebase credentials not configured. Fill in root .env or add a service account json file.');
         }
     } else {
         const { getFirestore } = require('firebase-admin/firestore');

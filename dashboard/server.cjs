@@ -199,8 +199,18 @@ app.get('/api/scan-repo', async (req, res) => {
         }
     }
 
-    // Ensure state file is active
+    // Ensure state file is active and reset state so no pipeline stages skip
     activeStateFile = stateFile;
+    try {
+        const initialRunState = {
+            repo_url: req.query.url || targetDir,
+            local_path: targetDir,
+            timestamps: { started_at: new Date().toISOString() }
+        };
+        fs.writeFileSync(stateFile, JSON.stringify(initialRunState, null, 2));
+    } catch (e) {
+        console.error("Failed to reset run_state.json before scan:", e.message);
+    }
 
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
@@ -248,6 +258,12 @@ app.get('/api/scan-repo', async (req, res) => {
                     mode_used: mode,
                 };
                 writeScanHistory(userId, path.basename(targetDir), summary, stateData);
+                // Automatically remove temporary clone from disk so no scanned repo is stored locally
+                if (targetDir && targetDir.includes('scanned-repos') && fs.existsSync(targetDir)) {
+                    fs.rm(targetDir, { recursive: true, force: true }, (err) => {
+                        if (!err) console.log(`[cleanup] Successfully removed temporary local clone: ${targetDir}`);
+                    });
+                }
             } catch (e) {
                 console.error('[scan-repo] History write error:', e.message);
             }
@@ -403,6 +419,24 @@ app.get('/api/scan-history/:userId', async (req, res) => {
         // Sort in memory by timestamp descending
         entries.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         res.json(entries);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+// POST /api/auth/delete-user
+// Removes user document and scan_history from Firestore
+app.post('/api/auth/delete-user', async (req, res) => {
+    const { userId } = req.body;
+    if (!userId) return res.status(400).json({ error: 'Missing userId' });
+    if (!db) return res.status(500).json({ error: 'Firebase Firestore not initialized' });
+    try {
+        await db.collection('users').doc(userId).delete();
+        const snap = await db.collection('scan_history').where('userId', '==', userId).get();
+        const batch = db.batch();
+        snap.docs.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
+        res.json({ success: true });
     } catch (e) {
         res.status(500).json({ error: e.message });
     }

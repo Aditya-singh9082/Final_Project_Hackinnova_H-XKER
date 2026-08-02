@@ -42,9 +42,11 @@ async function run() {
         return null;
     }
 
-    if (fs.existsSync('package-lock.json')) {
-        logPipeline("Reading from package-lock.json with BFS traversal (depth=" + MAX_DEPTH + ")");
-        const lockfileData = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));
+    const targetDir = (process.env.TARGET_DIR || '.');
+    const lockfileTarget = fs.existsSync(path.join(targetDir, 'package-lock.json')) ? path.join(targetDir, 'package-lock.json') : (fs.existsSync('package-lock.json') ? 'package-lock.json' : null);
+    if (lockfileTarget) {
+        logPipeline("Reading from " + lockfileTarget + " with BFS traversal (depth=" + MAX_DEPTH + ")");
+        const lockfileData = JSON.parse(fs.readFileSync(lockfileTarget, 'utf8'));
         if (lockfileData.packages) {
             const rootPkg = lockfileData.packages[""];
             const queue = [];

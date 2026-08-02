@@ -1,173 +1,106 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { History, CheckCircle2, XCircle, AlertTriangle, RefreshCw, Clock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { History, Shield, CheckCircle, AlertTriangle, Clock, ChevronRight, RefreshCw } from 'lucide-react';
+import { getScanHistories } from '../firebase.js';
 
-const API_BASE = 'http://localhost:3001';
-
-const OUTCOME_STYLE = {
-    success: {
-        Icon: CheckCircle2,
-        color: 'text-green-400',
-        bg: 'bg-green-500/10 border-green-500/30',
-        label: 'Auto-Patched',
-    },
-    flagged_for_review: {
-        Icon: AlertTriangle,
-        color: 'text-amber-400',
-        bg: 'bg-amber-500/10 border-amber-500/30',
-        label: 'Flagged',
-    },
-    manual_review_required: {
-        Icon: AlertTriangle,
-        color: 'text-amber-400',
-        bg: 'bg-amber-500/10 border-amber-500/30',
-        label: 'Manual Review',
-    },
-    triaged_excluded: {
-        Icon: XCircle,
-        color: 'text-gray-400',
-        bg: 'bg-gray-500/10 border-gray-500/30',
-        label: 'Excluded',
-    },
-    unknown: {
-        Icon: XCircle,
-        color: 'text-gray-500',
-        bg: 'bg-gray-700/20 border-gray-700/30',
-        label: 'Unknown',
-    },
-};
-
-export default function ScanHistoryPanel({ user }) {
-    const [history, setHistory] = useState([]);
+export default function ScanHistoryPanel({ user, onSelectHistory }) {
+    const [histories, setHistories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
-    const loadHistory = useCallback(() => {
-        setLoading(true);
-        setError(null);
-        const uid = user?.uid || 'local';
-        fetch(`${API_BASE}/api/scan-history/${uid}`)
-            .then(r => r.json())
-            .then(d => {
-                setHistory(Array.isArray(d) ? d : []);
-                setLoading(false);
-            })
-            .catch(e => {
-                setError(e.message);
-                setLoading(false);
-            });
+    const loadHistory = async () => {
+        try {
+            const uid = user?.uid || 'local';
+            const data = await getScanHistories(uid, 50);
+            setHistories(data);
+        } catch (e) {
+            console.error('Failed to load scan history:', e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        loadHistory();
+        const interval = setInterval(loadHistory, 4000);
+        return () => clearInterval(interval);
     }, [user]);
 
-    useEffect(() => { loadHistory(); }, [loadHistory]);
-
-    if (loading) return (
-        <div className="flex items-center justify-center py-16 gap-3">
-            <RefreshCw size={20} className="text-cyan-400 animate-spin" />
-            <span className="text-gray-500 text-sm font-mono">Loading scan history...</span>
-        </div>
-    );
-
-    if (error) return (
-        <div className="flex items-start gap-2 text-red-400 font-mono text-sm p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
-            <XCircle size={16} className="mt-0.5 flex-shrink-0" />
-            <span>Failed to load history: {error}</span>
-        </div>
-    );
-
-    if (history.length === 0) return (
-        <div className="text-center py-16">
-            <History size={40} className="text-gray-700 mx-auto mb-4" />
-            <p className="text-gray-500 font-mono text-sm">No scan history yet.</p>
-            <p className="text-gray-600 text-xs mt-1">Completed scans will appear here.</p>
-        </div>
-    );
+    const formatTime = (ts) => {
+        if (!ts) return 'Recent';
+        if (typeof ts === 'string') return new Date(ts).toLocaleString();
+        if (ts.seconds) return new Date(ts.seconds * 1000).toLocaleString();
+        return new Date(ts).toLocaleString();
+    };
 
     return (
-        <div className="space-y-3">
-            <div className="flex items-center justify-between">
-                <p className="text-gray-500 text-xs font-mono">
-                    {history.length} scan{history.length !== 1 ? 's' : ''} recorded
-                </p>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-8 shadow-sm space-y-6">
+            {/* Header */}
+            <div className="flex justify-between items-center pb-6 border-b border-slate-100">
+                <div>
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
+                        Cloud Audit Ledger
+                    </span>
+                    <h2 className="text-2xl font-heading font-bold text-slate-900 mt-2 flex items-center gap-2">
+                        <History className="text-blue-600" size={24} />
+                        <span>Recent Scan History (Firestore)</span>
+                    </h2>
+                </div>
+
                 <button
-                    id="btn-refresh-history"
                     onClick={loadHistory}
-                    className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-cyan-400 transition-colors font-mono"
+                    disabled={loading}
+                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-heading font-semibold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 transition-all cursor-pointer"
                 >
-                    <RefreshCw size={11} /> Refresh
+                    <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
+                    <span>Refresh</span>
                 </button>
             </div>
 
-            {[...history].map((entry, idx) => {
-                const outcome = entry.final_outcome || (entry.outcome_summary ? 'success' : 'unknown');
-                const style = OUTCOME_STYLE[outcome] || OUTCOME_STYLE.unknown;
-                const { Icon } = style;
-                const date = entry.timestamp ? new Date(entry.timestamp).toLocaleString() : null;
-                const summary = entry.outcome_summary;
-
-                return (
-                    <div key={entry.id || idx} className={`border rounded-xl p-4 ${style.bg}`}>
-                        {/* Header row */}
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                            <div className="flex items-center gap-2 min-w-0">
-                                <Icon size={14} className={`flex-shrink-0 ${style.color}`} />
-                                <span className="font-mono text-sm text-white font-semibold truncate">
-                                    {entry.repo || entry.repo_name || 'unknown'}
-                                </span>
-                            </div>
-                            <span className={`text-xs font-bold font-mono px-2 py-0.5 rounded flex-shrink-0 ${style.color}`}>
-                                {style.label}
-                            </span>
-                        </div>
-
-                        {/* Details */}
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs font-mono pl-5">
-                            {entry.package && (
-                                <span className="text-gray-400">
-                                    Package: <span className="text-gray-200">{entry.package}</span>
-                                </span>
-                            )}
-                            {entry.method_used && (
-                                <span className="text-gray-400">
-                                    Method: <span className="text-gray-200">{entry.method_used}</span>
-                                </span>
-                            )}
-                            {entry.cve_ids?.length > 0 && (
-                                <span className="col-span-2 text-gray-400">
-                                    CVEs: <span className="text-gray-200">{entry.cve_ids.join(', ')}</span>
-                                </span>
-                            )}
-                            {entry.regression_result && (
-                                <span className="text-gray-400">
-                                    Regression: <span className={entry.regression_result === 'PASS' ? 'text-green-400' : 'text-red-400'}>
-                                        {entry.regression_result}
+            {loading && histories.length === 0 ? (
+                <div className="py-12 flex flex-col items-center justify-center text-slate-500">
+                    <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mb-3" />
+                    <p className="text-sm font-mono">Loading history from Firestore...</p>
+                </div>
+            ) : histories.length === 0 ? (
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center text-slate-500 font-mono">
+                    No scan history found in Firestore yet. Run a repository scan to log records!
+                </div>
+            ) : (
+                <div className="space-y-3">
+                    {histories.map((h, i) => (
+                        <div 
+                            key={i}
+                            onClick={() => onSelectHistory && onSelectHistory(h)}
+                            className="bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all cursor-pointer"
+                        >
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-mono font-bold text-slate-900 text-sm">
+                                        {h.repo_name || h.target_repo || h.run_state?.repo_url || 'Repository Scan'}
                                     </span>
-                                </span>
-                            )}
-                            {summary && (
-                                <>
-                                    {summary.cves_found !== undefined && (
-                                        <span className="text-gray-400">CVEs found: <span className="text-gray-200">{summary.cves_found}</span></span>
-                                    )}
-                                    {summary.patches_generated !== undefined && (
-                                        <span className="text-gray-400">Patches: <span className="text-gray-200">{summary.patches_generated}</span></span>
-                                    )}
-                                    {summary.mode_used && (
-                                        <span className="col-span-2 text-gray-400">
-                                            Mode: <span className="text-cyan-300">{summary.mode_used}</span>
-                                        </span>
-                                    )}
-                                </>
-                            )}
-                        </div>
-
-                        {date && (
-                            <div className="flex items-center gap-1 text-gray-600 text-xs font-mono pl-5 mt-2">
-                                <Clock size={10} />
-                                {date}
+                                    <span className="text-xs font-mono bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md font-semibold">
+                                        SUCCESS
+                                    </span>
+                                </div>
+                                <p className="text-xs text-slate-500 font-mono">
+                                    Scanned at: {formatTime(h.timestamp)}
+                                </p>
                             </div>
-                        )}
-                    </div>
-                );
-            })}
+
+                            <div className="flex items-center gap-4">
+                                <div className="text-right">
+                                    <p className="text-xs font-mono text-slate-700 font-semibold">
+                                        CVEs: {h.summary?.cves_found || 0} • Patched: {h.summary?.patches_generated || 0}
+                                    </p>
+                                    <p className="text-xs font-mono text-slate-500">
+                                        PR: {h.summary?.pr_created ? 'Drafted' : 'Ready'}
+                                    </p>
+                                </div>
+                                <ChevronRight size={18} className="text-slate-400" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

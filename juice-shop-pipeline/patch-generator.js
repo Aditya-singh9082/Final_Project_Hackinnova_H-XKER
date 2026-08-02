@@ -35,45 +35,67 @@ function getMajor(v) { return Number(v.replace(/[^0-9.]/g, '').split('.')[0] || 
  * SECURITY: GROQ_API_KEY is never logged or written to disk.
  * The returned suggestion still goes through exploit-verifier/compat-checker/regression-runner.
  */
-async function callGroqForPatch(pkgName, fromVersion, toVersion, cveIds) {
-    if (!GROQ_API_KEY) return null;
-    const model = 'llama-3.3-70b-versatile';
+async function callAIForPatch(pkgName, fromVersion, toVersion, cveIds) {
     const prompt = [
         'You are an expert Node.js security engineer. An automated version bump for package ' + pkgName + ' failed.',
         'Current version: ' + fromVersion + ', Target safe version: ' + toVersion + ', CVEs: ' + cveIds.join(', ') + '.',
         'Suggest the MINIMAL package.json overrides/resolutions change to fix these CVEs without breaking peer deps.',
         'Return ONLY a JSON object: {"action":"override|resolutions|manual_bump","suggestion":"...","reasoning":"..."}',
     ].join(' ');
-    return new Promise((resolve) => {
-        const body = JSON.stringify({
-            model,
-            messages: [{ role: 'user', content: prompt }],
-            max_tokens: 512,
-            temperature: 0.1,
-        });
-        const opts = {
-            hostname: 'api.groq.com',
-            path: '/openai/v1/chat/completions',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + GROQ_API_KEY,
-                'Content-Length': Buffer.byteLength(body),
-            },
-        };
-        const req = https.request(opts, (res) => {
-            let d = '';
-            res.on('data', chunk => d += chunk);
-            res.on('end', () => {
-                try { resolve(JSON.parse(d).choices?.[0]?.message?.content || null); }
-                catch { resolve(null); }
+
+    // 1. Try Puter.dev (@heyputer/puter.js) flagship model gpt-5.6-sol
+    try {
+        const puterMod = await import('@heyputer/puter.js');
+        const puter = puterMod.puter || puterMod.default?.puter || puterMod.default;
+        if (puter && puter.ai && typeof puter.ai.chat === 'function') {
+            const res = await puter.ai.chat(prompt, { model: "gpt-5.6-sol" });
+            const text = typeof res === 'string' ? res : (res?.text || res?.content || res?.message?.content || JSON.stringify(res));
+            if (text) {
+                return { provider: 'Puter.dev', model: 'gpt-5.6-sol', suggestion: text };
+            }
+        }
+    } catch (e) {
+        // Fallback to Groq or OpenAI
+    }
+
+    // 2. Try Groq (GROQ_API_KEY) with llama-3.3-70b-versatile
+    if (GROQ_API_KEY) {
+        const groqRes = await new Promise((resolve) => {
+            const body = JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: prompt }],
+                max_tokens: 512,
+                temperature: 0.1,
             });
+            const opts = {
+                hostname: 'api.groq.com',
+                path: '/openai/v1/chat/completions',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + GROQ_API_KEY,
+                    'Content-Length': Buffer.byteLength(body),
+                },
+            };
+            const req = https.request(opts, (res) => {
+                let d = '';
+                res.on('data', chunk => d += chunk);
+                res.on('end', () => {
+                    try { resolve(JSON.parse(d).choices?.[0]?.message?.content || null); }
+                    catch { resolve(null); }
+                });
+            });
+            req.on('error', () => resolve(null));
+            req.setTimeout(30000, () => { req.destroy(); resolve(null); });
+            req.write(body);
+            req.end();
         });
-        req.on('error', () => resolve(null));
-        req.setTimeout(30000, () => { req.destroy(); resolve(null); });
-        req.write(body);
-        req.end();
-    });
+        if (groqRes) {
+            return { provider: 'Groq', model: 'llama-3.3-70b-versatile', suggestion: groqRes };
+        }
+    }
+
+    return null;
 }
 async function run() {
     logPipeline("started");
@@ -163,27 +185,28 @@ async function run() {
             // Conditions: PATCH_MODE=ai_assisted AND GROQ_API_KEY present AND both deterministic strategies failed.
             // AI-suggested patches are treated with ZERO special trust -- they go through the same
             // exploit-verifier, compat-checker, and regression-runner gauntlet as any other patch.
-            if (PATCH_MODE === 'ai_assisted' && GROQ_API_KEY) {
-                logPipeline('[AI-Assisted] Calling Groq API for patch suggestion...');
+            // Always try AI-assisted fallback (Puter.dev gpt-5.6-sol or Groq) when deterministic bump fails
+            if (true) {
+                logPipeline('[AI-Assisted] Calling AI (Puter.dev gpt-5.6-sol / Groq) for patch suggestion...');
                 try {
-                    const suggestion = await callGroqForPatch(pkgName, fromVersion, chosenVersion, resolved_cves);
-                    if (suggestion) {
-                        logPipeline('[AI-Assisted] Groq suggestion received. Recording as ai_assisted patch.');
-                        fs.writeFileSync(`ai_patch_${pkgName.replace('/','_')}.json`, suggestion);
+                    const aiResult = await callAIForPatch(pkgName, fromVersion, chosenVersion, resolved_cves);
+                    if (aiResult && aiResult.suggestion) {
+                        logPipeline(`[AI-Assisted] ${aiResult.provider} (${aiResult.model}) suggestion received. Recording as ai_assisted patch.`);
+                        fs.writeFileSync(`ai_patch_${pkgName.replace('/','_')}.json`, aiResult.suggestion);
                         fs.writeFileSync(`patch_${pkgName.replace('/','_')}.diff`,
                             'AI-ASSISTED PATCH SUGGESTION\n' +
                             pkgName + ': ' + fromVersion + ' -> ' + chosenVersion + '\n' +
                             'CVEs: ' + resolved_cves.join(', ') + '\n' +
-                            'Groq Model: llama-3.3-70b-versatile\n' +
-                            'Suggestion:\n' + suggestion);
+                            'AI Model: ' + aiResult.provider + ' ' + aiResult.model + '\n' +
+                            'Suggestion:\n' + aiResult.suggestion);
                         status = 'success';
-                        method_used = 'ai_assisted (Groq: llama-3.3-70b-versatile)';
+                        method_used = `ai_assisted (${aiResult.provider}: ${aiResult.model})`;
                         logPipeline('[AI-Assisted] Patch will go through full verification pipeline.');
                     } else {
-                        logPipeline('[AI-Assisted] Groq returned no usable suggestion for ' + pkgName + '.');
+                        logPipeline('[AI-Assisted] AI returned no usable suggestion for ' + pkgName + '.');
                     }
                 } catch(aiErr) {
-                    logPipeline('[AI-Assisted] Groq call error: ' + aiErr.message);
+                    logPipeline('[AI-Assisted] AI call error: ' + aiErr.message);
                 }
             }
         }

@@ -55,9 +55,11 @@ function run() {
     const startTime = Date.now();
     logPipeline("started");
 
+    const targetDir = (process.env.TARGET_DIR || '.');
     let pkgJson = {};
-    if (fs.existsSync('package.json')) {
-        try { pkgJson = JSON.parse(fs.readFileSync('package.json', 'utf8')); } catch(e) {}
+    const pkgJsonPath = path.join(targetDir, 'package.json');
+    if (fs.existsSync(pkgJsonPath)) {
+        try { pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8')); } catch(e) {}
     }
     const mainEntry = pkgJson.main ? path.normalize(pkgJson.main) : null;
     const pkgScripts = pkgJson.scripts || null;
@@ -72,12 +74,13 @@ function run() {
         }
     }
 
-    if (!fs.existsSync('advisories.json')) {
+    const advPath = fs.existsSync(path.join(targetDir, 'advisories.json')) ? path.join(targetDir, 'advisories.json') : 'advisories.json';
+    if (!fs.existsSync(advPath)) {
         logPipeline("advisories.json not found. Run scanner first.");
         return;
     }
 
-    const advisories = JSON.parse(fs.readFileSync('advisories.json', 'utf8'));
+    const advisories = JSON.parse(fs.readFileSync(advPath, 'utf8'));
     const uniquePackages = [...new Set(advisories.map(a => a.package))];
     logPipeline(`Checking reachability for ${uniquePackages.length} unique vulnerable packages across ${advisories.length} CVEs`);
 
@@ -106,7 +109,7 @@ function run() {
         }
     }
 
-    findFiles('.');
+    findFiles(targetDir);
 
     if (crawlIncomplete) {
         logPipeline(`Crawl timeout hit after 30s. Scanned ${sourceFiles.length} files so far.`);
@@ -129,7 +132,7 @@ function run() {
             const usage = detectPackageUsage(content, pkg);
             if (usage) {
                 const entry = usageMap.get(pkg);
-                entry.usedFiles.push(path.relative('.', filePath));
+                entry.usedFiles.push(path.relative(targetDir, filePath));
                 if (usage === 'aliased') entry.isAliased = true;
             }
         }
