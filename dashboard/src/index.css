@@ -89,3 +89,103 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* ==========================================
+   DARK MODE STYLES & OVERRIDES
+   ========================================== */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #090D16 !important;
+  color: #F1F5F9 !important;
+}
+
+/* Dark Mode Backgrounds */
+html.dark .bg-slate-50 {
+  background-color: #090D16 !important;
+}
+
+html.dark .bg-white {
+  background-color: #111827 !important;
+  color: #F1F5F9;
+}
+
+html.dark .bg-white\/95 {
+  background-color: rgba(17, 24, 39, 0.95) !important;
+}
+
+html.dark .bg-white\/60 {
+  background-color: rgba(17, 24, 39, 0.6) !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #1F2937 !important;
+  color: #F1F5F9 !important;
+}
+
+html.dark .bg-slate-200 {
+  background-color: #374151 !important;
+}
+
+html.dark .bg-slate-900 {
+  background-color: #1F2937 !important;
+  color: #F8FAFC !important;
+}
+
+/* Dark Mode Text Colors */
+html.dark .text-slate-900 {
+  color: #F9FAFB !important;
+}
+
+html.dark .text-slate-800 {
+  color: #F3F4F6 !important;
+}
+
+html.dark .text-slate-700 {
+  color: #E5E7EB !important;
+}
+
+html.dark .text-slate-600 {
+  color: #9CA3AF !important;
+}
+
+html.dark .text-slate-500 {
+  color: #6B7280 !important;
+}
+
+/* Dark Mode Borders */
+html.dark .border-slate-200,
+html.dark .border-slate-200\/90,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-100,
+html.dark .border-slate-300 {
+  border-color: #1F2937 !important;
+}
+
+/* Dark Mode Hover States */
+html.dark .hover\:bg-slate-50:hover {
+  background-color: #1F2937 !important;
+}
+
+html.dark .hover\:bg-slate-100:hover {
+  background-color: #374151 !important;
+}
+
+html.dark .hover\:bg-slate-200:hover {
+  background-color: #4B5563 !important;
+}
+
+/* Dark Mode Cards & Scrollbars */
+html.dark ::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #374151;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4B5563;
+}

@@ -20,7 +20,9 @@ import {
   History,
   LogOut,
   User,
-  ArrowLeft
+  ArrowLeft,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getScanHistories } from './firebase.js';
@@ -43,8 +45,20 @@ export default function App({ user, handleSignIn, handleSignOut }) {
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const [activePackage, setActivePackage] = useState('');
   const [runState, setRunState] = useState(null);
+  const [theme, setTheme] = useState(() => localStorage.getItem('kalki_theme') || 'light');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('kalki_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
 
   const prevUserRef = useRef(null);
 
@@ -555,6 +569,20 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             >
               <Settings size={16} className="text-slate-700" />
               <span>Settings</span>
+            </button>
+
+            {/* Dark / Light Mode Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-heading font-semibold text-sm px-3.5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+            >
+              {theme === 'dark' ? (
+                <Sun size={16} className="text-amber-400" />
+              ) : (
+                <Moon size={16} className="text-slate-700" />
+              )}
+              <span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>
             </button>
 
             {/* Authenticated GitHub User Avatar & Logout (or Sign In button) */}
@@ -1086,6 +1114,8 @@ export default function App({ user, handleSignIn, handleSignOut }) {
         onClose={() => setIsSettingsOpen(false)}
         user={user}
         onSignOut={handleSignOut}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       <GitHubRepoPickerModal

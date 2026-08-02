@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Key, Lock, Check, X, ShieldAlert, Loader2, Save, Trash2, AlertTriangle, Cpu, Zap, Server } from 'lucide-react';
+import { Key, Lock, Check, X, ShieldAlert, Loader2, Save, Trash2, AlertTriangle, Cpu, Zap, Server, Sun, Moon } from 'lucide-react';
 import { saveUserGroqKey, getUserGroqKey } from '../firebase.js';
 
 const AI_PROVIDERS = [
@@ -32,7 +32,7 @@ const AI_PROVIDERS = [
     },
 ];
 
-export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProviderChange }) {
+export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProviderChange, theme, toggleTheme }) {
     const [apiKey, setApiKey] = useState('');
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -356,6 +356,52 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
                             <span className="text-[11px] text-slate-500 mt-0.5 block leading-relaxed">
                                 Automatically stage, commit & publish PRs when safety checks pass.
                             </span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* ========== THEME MODE SELECTOR ========== */}
+                <div className="pt-2 border-t border-slate-100 space-y-3">
+                    <label className="block text-xs font-mono font-semibold uppercase text-slate-700">
+                        Appearance Theme
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                        <button
+                            type="button"
+                            onClick={() => { if (theme !== 'light' && toggleTheme) toggleTheme(); }}
+                            className={`p-3.5 rounded-xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
+                                theme !== 'dark'
+                                    ? 'bg-orange-50 border-orange-400 text-orange-900 ring-2 ring-orange-500/20'
+                                    : 'bg-white border-slate-200 hover:border-slate-300'
+                            }`}
+                        >
+                            <div className="flex items-center gap-2.5">
+                                <Sun size={18} className="text-amber-500" />
+                                <div>
+                                    <span className="text-xs font-heading font-bold block">Light Mode</span>
+                                    <span className="text-[11px] text-slate-500 block">Clean & crisp</span>
+                                </div>
+                            </div>
+                            {theme !== 'dark' && <Check size={16} className="text-orange-600" />}
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => { if (theme !== 'dark' && toggleTheme) toggleTheme(); }}
+                            className={`p-3.5 rounded-xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
+                                theme === 'dark'
+                                    ? 'bg-slate-800 border-blue-500 text-white ring-2 ring-blue-500/20'
+                                    : 'bg-white border-slate-200 hover:border-slate-300'
+                            }`}
+                        >
+                            <div className="flex items-center gap-2.5">
+                                <Moon size={18} className="text-blue-400" />
+                                <div>
+                                    <span className="text-xs font-heading font-bold block">Dark Mode</span>
+                                    <span className="text-[11px] text-slate-400 block">Sleek & cyber</span>
+                                </div>
+                            </div>
+                            {theme === 'dark' && <Check size={16} className="text-blue-400" />}
                         </button>
                     </div>
                 </div>
