@@ -185,37 +185,14 @@ export default function App({ user, handleSignIn, handleSignOut }) {
 
   const handleQualityScan = async (repoUrl) => {
     setActiveTab('quality');
-    const repoName = repoUrl.split('/').pop().replace('.git', '') || 'repository';
-    setLiveLog(`Scanning Code Quality for ${repoName}...`);
-    setIsLiveRunning(true);
-    setLiveStage('quality_scan');
-    try {
-      // Fetch quality scan report from API
-      const res = await fetch(`${API_BASE}/api/quality/scan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetDir: '.' })
-      });
-      const data = await res.json();
-      if (data.success && data.report) {
-        setQualityReport(data.report);
-        setLiveLog('Code Quality Scan complete!');
-      } else {
-        setLiveLog('Code Quality Scan completed.');
-      }
-    } catch (e) {
-      console.error('Failed to fetch quality report for repo:', e);
-      setLiveLog('Code Quality Scan completed.');
-    } finally {
-      setIsLiveRunning(false);
-      setLiveStage(null);
+    if (repoUrl) {
+      handleRepoSelected(repoUrl);
     }
   };
 
   useEffect(() => {
     fetchRunState();
     fetchEfficacyMetrics();
-    fetchQualityReport();
     const interval = setInterval(() => {
       if (!isLiveRunningRef.current) {
         fetchRunState();

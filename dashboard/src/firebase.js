@@ -100,4 +100,4 @@ export async function getUserGroqKey(userId) {
     }
 }
 
-export { auth, githubProvider, isConfigured, db };
+export { isConfigured };

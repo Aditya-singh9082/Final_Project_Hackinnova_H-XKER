@@ -12,30 +12,8 @@ export default function CodeQualityPanel({ user, initialReport }) {
     const [copiedIndex, setCopiedIndex] = useState(null);
 
     useEffect(() => {
-        if (initialReport) {
-            setReport(initialReport);
-            setLoading(false);
-            return;
-        }
-        // If no initialReport provided, fetch it directly after a brief delay
-        const timer = setTimeout(async () => {
-            try {
-                const res = await fetch(`${API_BASE}/api/quality/scan`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ targetDir: '.' })
-                });
-                const data = await res.json();
-                if (data.success && data.report) {
-                    setReport(data.report);
-                }
-            } catch (e) {
-                console.warn('CodeQualityPanel: failed to fetch report directly:', e);
-            } finally {
-                setLoading(false);
-            }
-        }, 1500);
-        return () => clearTimeout(timer);
+        setReport(initialReport || null);
+        setLoading(false);
     }, [initialReport]);
 
     const handleSuggestRewrite = async (issue, index) => {
@@ -90,6 +68,18 @@ export default function CodeQualityPanel({ user, initialReport }) {
                 <RefreshCw size={36} className="text-orange-600 animate-spin mx-auto mb-4" />
                 <h3 className="text-lg font-heading font-bold text-slate-900">Running Rule-Based Code Quality Scan...</h3>
                 <p className="text-xs font-mono text-slate-500 mt-1">Analyzing ESLint complexity, dead code, and jscpd duplicates</p>
+            </div>
+        );
+    }
+
+    if (!report) {
+        return (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-12 shadow-sm text-center">
+                <ShieldAlert size={40} className="text-slate-400 mx-auto mb-3" />
+                <h3 className="text-lg font-heading font-bold text-slate-800">No Code Quality Report Yet</h3>
+                <p className="text-sm text-slate-500 max-w-md mx-auto mt-1 mb-4">
+                    Run a repository scan to trigger the GitHub Actions security and code quality pipeline (ESLint, JSCPD duplication, and AST complexity metrics).
+                </p>
             </div>
         );
     }
