@@ -62,7 +62,8 @@ export default function PatchActionsBar({ runState, draftPrTitle, draftPrBody, u
           title: draftPrTitle,
           body: draftPrBody,
           branch: runState?.scanner?.target_branch || 'main',
-          mode: commitMode
+          mode: commitMode,
+          repoUrl: runState?.repo_url
         })
       });
       const data = await res.json();

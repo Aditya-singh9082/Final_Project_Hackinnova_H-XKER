@@ -591,12 +591,19 @@ app.post('/api/patch/commit-local', async (req, res) => {
 });
 
 app.post('/api/github/publish-pr', async (req, res) => {
-    const { title, body, branch, mode } = req.body;
+    const { title, body, branch, mode, repoUrl } = req.body;
     try {
         // Simulate or publish PR URL
         const prNumber = Math.floor(100 + Math.random() * 900);
-        const prUrl = `https://github.com/security-fixes/juice-shop/pull/${prNumber}`;
-        console.log(`[github] Published PR #${prNumber} (mode: ${mode || 'manual_review'}): ${title}`);
+        let targetRepo = 'security-fixes/juice-shop';
+        if (repoUrl) {
+            const match = repoUrl.match(/^https:\/\/github\.com\/([a-zA-Z0-9_.-]+)\/([a-zA-Z0-9_.-]+)(\.git)?$/);
+            if (match) {
+                targetRepo = `${match[1]}/${match[2].replace(/\.git$/, '')}`;
+            }
+        }
+        const prUrl = `https://github.com/${targetRepo}/pull/${prNumber}`;
+        console.log(`[github] Published PR #${prNumber} to ${targetRepo} (mode: ${mode || 'manual_review'}): ${title}`);
         res.json({ success: true, prUrl, prNumber, mode: mode || 'manual_review' });
     } catch (e) {
         res.status(500).json({ error: e.message });
