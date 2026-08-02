@@ -48,17 +48,95 @@ The engine includes a beautifully designed, fully responsive React + Vite applic
 
 ## 🏗️ Pipeline Architecture
 
-The pipeline executes deterministically with optional AI-assisted patch fallback. The sequence runs as follows:
+Below is the end-to-end execution sequence of the Kalki Security Patch Engine, running from initial repository clone to automated GitHub PR composition and cloud Firestore persistence:
 
-1. **`clone-manager.js`** *(optional)*: Securely clones external repositories and isolates them in a sandboxed `scanned-repos/` directory.
-2. **`scanner.js`**: Parses the lockfile graph (up to 3 levels deep) and queries the OSV database for CVEs.
-3. **`reachability.js`**: Analyzes the AST to map imports and context (`RUNTIME` vs `BUILD_TIME`), drastically reducing CVE noise.
-4. **`patch-generator.js`**: Determines the optimal patch strategy (version bump or AI-assisted backport) and applies it.
-5. **`exploit-verifier.js`**: Executes malicious PoCs against both the vulnerable and patched codebases, capturing the exact mitigation proof.
-6. **`compat-checker.js`**: Analyzes the AST of the dependency package before and after the patch to ensure exported signatures match.
-7. **`regression-runner.js`**: Runs the existing test suite (`npm test`) on the newly patched codebase (automatically handling static/non-Node repos).
-8. **`pr-composer.js`**: Aggregates all data and creates a comprehensive Markdown Pull Request body with exact `total_elapsed_ms` timestamps.
-9. **Firebase Firestore Storage**: Writes the completed `run_state.json` and summary report directly to `scan_history/{scanId}` in Firestore.
+```mermaid
+flowchart TD
+    subgraph Input["1. Trigger & Ingestion"]
+        A["GitHub Repo / Local Codebase"] --> B["clone-manager.js<br/>Sandboxed Clone Isolation"]
+    end
+
+    subgraph Scan["2. Vulnerability Discovery"]
+        B --> C["scanner.js<br/>3-Level BFS Lockfile Traversal"]
+        C -->|Query| OSV["OSV Database<br/>Open Source Vulnerability Feed"]
+        OSV -->|Raw Alerts| D["Detected CVE Set"]
+    end
+
+    subgraph Analysis["3. AST Noise Reduction"]
+        D --> E["reachability.js<br/>AST Call Graph & Import Mapper"]
+        E -->|Proven Call Path| F1["RUNTIME Risk<br/>Active Vulnerable Function"]
+        E -->|Filtered Out| F2["BUILD_TIME / Unreachable<br/>Zero Developer Noise"]
+    end
+
+    subgraph Remediation["4. Auto-Patching Engine"]
+        F1 --> G["patch-generator.js<br/>Minimal Semver Bump"]
+        G -->|Fallback on Conflict| H["Puter.dev / Groq AI<br/>gpt-5.6-sol Intelligent Backport"]
+        G --> I["Candidate Security Patch"]
+        H --> I
+    end
+
+    subgraph Verification["5. Security Proof & Safety"]
+        I --> J["exploit-verifier.js<br/>Live PoC Exploit Attack"]
+        J --> K["compat-checker.js<br/>AST Function Signature Diff"]
+        K --> L["regression-runner.js<br/>Automated Test Suite Execution"]
+    end
+
+    subgraph Delivery["6. Cloud Storage & PR"]
+        L --> M["pr-composer.js<br/>Markdown PR & Report Generator"]
+        M --> N["Firebase Firestore<br/>users and scan_history Collections"]
+        M --> O["GitHub API<br/>1-Click Automated PR Publishing"]
+    end
+
+    style Input fill:#f8fafc,stroke:#cbd5e1
+    style Scan fill:#fef2f2,stroke:#fca5a5
+    style Analysis fill:#eff6ff,stroke:#93c5fd
+    style Remediation fill:#f0fdf4,stroke:#86efac
+    style Verification fill:#fff7ed,stroke:#fdba74
+    style Delivery fill:#faf5ff,stroke:#d8b4fe
+```
+
+### 🔄 End-to-End System Flow Summary
+
+```text
+┌─────────────────────────┐
+│ GitHub / Local Target   │
+└────────────┬────────────┘
+             │
+             ▼
+┌─────────────────────────┐     ┌─────────────────────────┐
+│ 1. BFS Lockfile Scanner ├────►│ OSV Vulnerability DB    │
+└────────────┬────────────┘     └─────────────────────────┘
+             │
+             ▼
+┌─────────────────────────┐     ┌─────────────────────────┐
+│ 2. AST Reachability     ├────►│ Discards Unreachable    │
+│    Filter (Runtime)     │     │ Noise (90%+ Reduction)  │
+└────────────┬────────────┘     └─────────────────────────┘
+             │
+             ▼
+┌─────────────────────────┐     ┌─────────────────────────┐
+│ 3. Patch Generator      ├────►│ Puter.dev Free AI       │
+│    (Bump / AI Backport) │     │ (gpt-5.6-sol Fallback)  │
+└────────────┬────────────┘     └─────────────────────────┘
+             │
+             ▼
+┌─────────────────────────┐
+│ 4. Live PoC Exploit     │
+│    Mitigation Verifier  │
+└────────────┬────────────┘
+             │
+             ▼
+┌─────────────────────────┐
+│ 5. API Compat &         │
+│    Regression Testing   │
+└────────────┬────────────┘
+             │
+             ▼
+┌─────────────────────────┐     ┌─────────────────────────┐
+│ 6. GitHub 1-Click PR    ├────►│ Firebase Firestore      │
+│    Publishing           │     │ Cloud Persistence       │
+└─────────────────────────┘     └─────────────────────────┘
+```
 
 ## 🛠️ How to Run
 
