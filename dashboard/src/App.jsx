@@ -500,6 +500,8 @@ export default function App({ user, handleSignIn, handleSignOut }) {
         handleSignOut={handleSignOut}
         onLaunchDashboard={() => setView('dashboard')}
         efficacyMetrics={efficacyMetrics}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
     );
   }
