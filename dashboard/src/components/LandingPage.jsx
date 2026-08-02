@@ -492,7 +492,7 @@ export default function LandingPage({
                 Feature Announcement
               </span>
               <h3 className="text-xl font-heading font-extrabold">
-                Video Walkthrough Coming Soon! 🎬
+                Video Walkthrough Coming Soon
               </h3>
               <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 The full interactive video demonstration of the Kalki AST Reachability & Auto-Patch Engine is currently being recorded. You can explore the live engine right now in your dashboard!
@@ -548,7 +548,7 @@ export default function LandingPage({
                 Demo Booking
               </span>
               <h3 className="text-xl font-heading font-extrabold">
-                Demo Requests Coming Soon! 🚀
+                Demo Requests Coming Soon
               </h3>
               <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 Interactive 1-on-1 demo scheduling will be available shortly. In the meantime, you can sign in with GitHub right now to test the live Kalki Security Engine!

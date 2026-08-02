@@ -322,7 +322,7 @@ export default function CodeQualityPanel({ user, initialReport }) {
 
                                             {/* Safety Label Badge */}
                                             <span className="text-[11px] font-mono bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300 font-medium">
-                                                ⚠️ {sugg.label}
+                                                {sugg.label}
                                             </span>
                                         </div>
 

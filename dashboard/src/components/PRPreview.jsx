@@ -162,7 +162,7 @@ export default function PRPreview({ activePr, runState, user }) {
               ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
               : 'bg-blue-100 text-blue-800 border-blue-300'
           }`}>
-            {commitMode === 'auto_commit' ? '⚡ AUTO-COMMIT ENABLED' : '🛡️ REVIEW REQUIRED (MANUAL)'}
+            {commitMode === 'auto_commit' ? 'AUTO-COMMIT ENABLED' : 'REVIEW REQUIRED (MANUAL)'}
           </span>
         </div>
 
