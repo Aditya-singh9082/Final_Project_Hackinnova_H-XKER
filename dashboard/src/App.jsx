@@ -527,28 +527,34 @@ export default function App({ user, handleSignIn, handleSignOut }) {
       <div className="max-w-[1440px] mx-auto px-6 py-8 space-y-10 relative z-10">
         
         {/* HEADER WITH FAVICON LOGO & BACK TO LANDING PAGE ON FAR LEFT, GITHUB SSO & LOGOUT ON FAR RIGHT */}
-        <header className="flex flex-col xl:flex-row justify-between gap-6 items-start xl:items-center bg-white/95 border border-slate-200/80 rounded-2xl px-6 py-5 shadow-sm">
+        <header className="flex flex-col xl:flex-row justify-between gap-6 items-start xl:items-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/90 rounded-2xl px-6 py-4.5 shadow-xl shadow-slate-900/5 relative overflow-hidden">
+          {/* Bottom Gradient Glow Accent */}
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500" />
+
           <div className="flex items-center gap-4">
             <button
               onClick={() => setView('landing')}
               title="Return to Landing Page"
-              className="bg-slate-100 hover:bg-slate-200 text-slate-700 p-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer"
+              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 p-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer border border-slate-200/60 dark:border-slate-700/60"
             >
               <ArrowLeft size={16} />
               <span className="text-xs font-heading font-semibold hidden sm:inline">Home</span>
             </button>
 
-            <div className="bg-white border border-slate-200 p-2.5 rounded-xl shadow-md shadow-orange-500/10 flex items-center justify-center">
-              <img src="/favicon.svg" alt="Kalki Favicon Logo" className="w-9 h-9" />
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-600 via-pink-500 to-orange-500 p-0.5 shadow-lg shadow-purple-500/25 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center p-1.5">
+                <img src="/favicon.svg" alt="Kalki Favicon Logo" className="w-7 h-7" />
+              </div>
             </div>
+
             <div>
-              <h1 className="text-3xl font-heading font-bold tracking-tight text-slate-900 flex items-center gap-2">
-                Kalki
+              <h1 className="text-3xl font-heading font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">Kalki</span>
                 <span className="text-slate-400 font-light">—</span>
-                <span className="text-xl font-heading font-medium text-slate-700">Security Patch Engine</span>
+                <span className="text-lg font-heading font-medium text-slate-700 dark:text-slate-300">Security Engine</span>
               </h1>
-              <p className="text-slate-500 font-mono text-xs mt-0.5 flex items-center gap-2">
-                <Activity size={13} className={isLiveRunning ? "text-orange-600 animate-pulse" : "text-emerald-600"} />
+              <p className="text-slate-500 dark:text-slate-400 font-mono text-xs mt-0.5 flex items-center gap-2">
+                <Activity size={13} className={isLiveRunning ? "text-orange-500 animate-pulse" : "text-emerald-500"} />
                 {isLiveRunning ? "Running scan pipeline..." : "Engine Active • Live Monitoring"}
               </p>
             </div>
@@ -559,7 +565,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             <button
               onClick={triggerPipelineRun}
               disabled={isLiveRunning}
-              className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-heading font-semibold text-sm px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-md shadow-orange-600/20 transition-all cursor-pointer"
+              className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 hover:opacity-95 disabled:opacity-50 text-white font-heading font-semibold text-sm px-5 py-2.5 rounded-xl flex items-center gap-2.5 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/35 transition-all cursor-pointer"
             >
               <RefreshCw size={15} className={isLiveRunning ? "animate-spin" : ""} />
               <span>{isLiveRunning ? "Scanning..." : "Re-run Pipeline"}</span>
@@ -567,17 +573,17 @@ export default function App({ user, handleSignIn, handleSignOut }) {
 
             <button
               onClick={() => setIsRepoModalOpen(true)}
-              className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-heading font-semibold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+              className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700/90 text-slate-700 dark:text-slate-200 font-heading font-semibold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
             >
-              <FolderGit2 size={16} className="text-blue-600" />
+              <FolderGit2 size={16} className="text-blue-500" />
               <span>My Repos</span>
             </button>
 
             <button
               onClick={() => setIsSettingsOpen(true)}
-              className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-heading font-semibold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+              className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700/90 text-slate-700 dark:text-slate-200 font-heading font-semibold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
             >
-              <Settings size={16} className="text-slate-700" />
+              <Settings size={16} className="text-slate-600 dark:text-slate-300" />
               <span>Settings</span>
             </button>
 
@@ -585,7 +591,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             <button
               onClick={toggleTheme}
               title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-              className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-heading font-semibold text-sm px-3.5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+              className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700/90 text-slate-700 dark:text-slate-200 font-heading font-semibold text-sm px-3.5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
             >
               {theme === 'dark' ? (
                 <Sun size={16} className="text-amber-400" />
@@ -597,20 +603,20 @@ export default function App({ user, handleSignIn, handleSignOut }) {
 
             {/* Authenticated GitHub User Avatar & Logout (or Sign In button) */}
             {user ? (
-              <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
-                <div className="flex items-center gap-2.5 bg-slate-100 hover:bg-slate-200/70 border border-slate-200/80 px-3 py-1.5 rounded-xl transition-all">
+              <div className="flex items-center gap-3 pl-3 border-l border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-2.5 bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 px-3.5 py-1.5 rounded-xl transition-all shadow-sm">
                   {user.photoURL ? (
                     <img 
                       src={user.photoURL} 
                       alt={user.displayName || "GitHub User"} 
-                      className="w-7 h-7 rounded-full border border-slate-300"
+                      className="w-7 h-7 rounded-full border border-purple-400/60 shadow-sm"
                     />
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                    <div className="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xs">
                       <User size={14} />
                     </div>
                   )}
-                  <span className="text-sm font-semibold text-slate-800">
+                  <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                     {user.reloadUserInfo?.screenName || user.displayName || "User"}
                   </span>
                 </div>
@@ -618,7 +624,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
                 <button
                   onClick={() => setIsSignOutModalOpen(true)}
                   title="Sign out of GitHub"
-                  className="bg-white hover:bg-red-50 border border-slate-200 hover:border-red-200 text-slate-700 hover:text-red-600 p-2.5 rounded-xl shadow-sm transition-all cursor-pointer"
+                  className="bg-white dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 border border-slate-200/90 dark:border-slate-700/90 hover:border-red-200 text-slate-600 dark:text-slate-300 hover:text-red-600 p-2.5 rounded-xl shadow-sm transition-all cursor-pointer"
                 >
                   <LogOut size={16} />
                 </button>
@@ -626,11 +632,8 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             ) : (
               <button
                 onClick={handleSignIn}
-                className="bg-slate-900 hover:bg-slate-800 text-white font-heading font-semibold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer pl-3 border-l border-slate-200"
+                className="bg-gradient-to-r from-purple-600 to-orange-500 hover:opacity-95 text-white font-heading font-semibold text-sm px-4.5 py-2.5 rounded-xl flex items-center gap-2 shadow-md transition-all cursor-pointer pl-3 border-l border-slate-200 dark:border-slate-800"
               >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                </svg>
                 <span>Sign in with GitHub</span>
               </button>
             )}

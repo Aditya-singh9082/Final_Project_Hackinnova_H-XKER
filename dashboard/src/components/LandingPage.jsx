@@ -58,29 +58,34 @@ export default function LandingPage({
       />
 
       {/* NAVBAR */}
-      <header className={`max-w-[1440px] mx-auto px-8 py-6 flex items-center justify-between relative z-20 border-b ${
-        isDark ? 'border-slate-800/60 bg-[#151923]/90' : 'border-slate-200 bg-white/90'
-      } backdrop-blur-md`}>
+      <header className={`my-4 max-w-[1440px] mx-auto px-8 py-4 flex items-center justify-between relative z-20 border rounded-2xl ${
+        isDark 
+          ? 'border-slate-800/80 bg-[#151923]/80 shadow-2xl shadow-purple-900/10' 
+          : 'border-slate-200/90 bg-white/80 shadow-xl shadow-slate-200/50'
+      } backdrop-blur-xl relative overflow-hidden`}>
+        {/* Bottom Accent Glow Line */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500" />
+
         {/* Brand Logo */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={user ? onLaunchDashboard : handleSignIn}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-500 to-orange-500 p-0.5 shadow-lg shadow-purple-500/20">
+        <div className="flex items-center gap-3 cursor-pointer group" onClick={user ? onLaunchDashboard : handleSignIn}>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-500 to-orange-500 p-0.5 shadow-lg shadow-purple-500/25 group-hover:scale-105 transition-transform">
             <div className={`w-full h-full rounded-[10px] flex items-center justify-center ${isDark ? 'bg-[#151923]' : 'bg-white'}`}>
               <Shield className="w-5 h-5 text-pink-500 fill-pink-500/20" />
             </div>
           </div>
           <div>
-            <span className={`text-2xl font-heading font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <span className="text-2xl font-heading font-extrabold tracking-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
               Kalki
             </span>
           </div>
         </div>
 
         {/* Navigation Links */}
-        <nav className={`hidden md:flex items-center gap-8 text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-          <a href="#home" className={`font-semibold transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>Home</a>
-          <a href="#features" className="hover:text-purple-600 dark:hover:text-white transition-colors">Features</a>
-          <a href="#pipeline" className="hover:text-purple-600 dark:hover:text-white transition-colors">Pipeline</a>
-          <a href="#quality" className="hover:text-purple-600 dark:hover:text-white transition-colors">Code Quality</a>
+        <nav className={`hidden md:flex items-center gap-2 text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+          <a href="#home" className={`px-4 py-2 rounded-xl transition-all font-semibold ${isDark ? 'text-white bg-slate-800/60' : 'text-slate-900 bg-slate-100/80'}`}>Home</a>
+          <a href="#features" className="px-4 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-purple-600 dark:hover:text-white transition-all">Features</a>
+          <a href="#pipeline" className="px-4 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-purple-600 dark:hover:text-white transition-all">Pipeline</a>
+          <a href="#quality" className="px-4 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-purple-600 dark:hover:text-white transition-all">Code Quality</a>
         </nav>
 
         {/* Right CTA Actions */}
