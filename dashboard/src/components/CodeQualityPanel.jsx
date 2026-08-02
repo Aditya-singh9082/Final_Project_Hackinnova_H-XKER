@@ -133,16 +133,6 @@ export default function CodeQualityPanel({ user, initialReport }) {
                             Detects verbose, redundant, and overly complex code. Suggestions are never auto-applied.
                         </p>
                     </div>
-
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={fetchScan}
-                            disabled={loading}
-                            className="bg-slate-900 hover:bg-slate-800 text-white font-heading font-semibold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
-                        >
-                            <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-                            <span>Re-scan Code Quality</span>
-                        </button>
                     </div>
                 </div>
 
