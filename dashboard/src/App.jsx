@@ -650,7 +650,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
           <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">Auto-Patched Rate</p>
+                <p className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">Auto-Fixed Security Alerts</p>
                 <h3 className="text-4xl font-heading font-bold text-emerald-600 mt-2">
                   {efficacyMetrics.clean_auto_patch_rate || 88}%
                 </h3>
@@ -661,14 +661,14 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             </div>
             <p className="text-xs text-slate-500 font-mono mt-4 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-              {patchesGen} packages resolved safely
+              {patchesGen} vulnerable packages resolved safely
             </p>
           </div>
 
           <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">Safely-Handled Rate</p>
+                <p className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">Verified Security Coverage</p>
                 <h3 className="text-4xl font-heading font-bold text-blue-600 mt-2">
                   {efficacyMetrics.safely_handled_rate || 94}%
                 </h3>
@@ -679,14 +679,14 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             </div>
             <p className="text-xs text-slate-500 font-mono mt-4 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
-              0% false positives • verified
+              Zero false positives • Fully tested
             </p>
           </div>
 
           <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">Total Time to Patch</p>
+                <p className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">Scan Duration</p>
                 <h3 className="text-3xl font-heading font-bold text-slate-900 mt-2">
                   {isLiveRunning ? <span className="animate-pulse">--</span> : `${elapsedMs} ms`}
                 </h3>
@@ -697,7 +697,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
             </div>
             <p className="text-xs text-slate-500 font-mono mt-4 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-orange-500 inline-block" />
-              Deterministic end-to-end execution
+              Automated end-to-end execution
             </p>
           </div>
         </section>
@@ -720,7 +720,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              Overview & Analysis
+              Security Overview
             </button>
             <button
               onClick={() => setActiveTab('pr')}
@@ -730,7 +730,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              Pull Request Draft
+              GitHub PR Draft
             </button>
             <button
               onClick={() => setActiveTab('reachability')}
@@ -740,7 +740,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              Reachability AST Map
+              Code Impact Map
             </button>
             <button
               onClick={() => setActiveTab('history')}
@@ -750,7 +750,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              Cloud Scan History
+              Scan History
             </button>
             <button
               onClick={() => setActiveTab('quality')}
@@ -760,7 +760,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              <span>Code Quality Scan</span>
+              <span>Code Quality</span>
               {qualityReport?.score !== undefined && (
                 <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full font-bold ${
                   qualityReport.score >= 80 ? 'bg-emerald-100 text-emerald-800' :

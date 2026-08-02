@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, Loader2, Circle, Search, GitBranch, Shield, Bug, Puzzle, FlaskConical, FileText } from 'lucide-react';
 
 const STAGES = [
-  { id: 'scan', label: 'BFS Scanner', key: 'scan_completed_at', icon: Search },
-  { id: 'reach', label: 'Reachability', key: 'reachability_completed_at', icon: GitBranch },
-  { id: 'patch', label: 'Patch Gen', key: 'patch_generated_at', icon: Shield },
-  { id: 'verify', label: 'Exploit Verify', key: 'verified_at', icon: Bug },
-  { id: 'compat', label: 'Compat Check', key: 'compat_completed_at', icon: Puzzle },
-  { id: 'regress', label: 'Regression', key: 'regression_completed_at', icon: FlaskConical },
-  { id: 'pr', label: 'PR Compose', key: 'pr_opened_at', icon: FileText }
+  { id: 'scan', label: 'Dependency Scan', key: 'scan_completed_at', icon: Search },
+  { id: 'reach', label: 'Impact Analysis', key: 'reachability_completed_at', icon: GitBranch },
+  { id: 'patch', label: 'Generate Fix', key: 'patch_generated_at', icon: Shield },
+  { id: 'verify', label: 'Verify Security', key: 'verified_at', icon: Bug },
+  { id: 'compat', label: 'Safety Check', key: 'compat_completed_at', icon: Puzzle },
+  { id: 'regress', label: 'Run Tests', key: 'regression_completed_at', icon: FlaskConical },
+  { id: 'pr', label: 'Draft PR', key: 'pr_opened_at', icon: FileText }
 ];
 
 const PipelineTimeline = ({ timestamps, liveStage }) => {
