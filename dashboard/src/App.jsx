@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getScanHistories } from './firebase.js';
+import { API_BASE } from './apiConfig.js';
 
 import LandingPage from './components/LandingPage.jsx';
 import ReachabilityChart from './components/ReachabilityChart.jsx';
@@ -103,7 +104,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
 
   const fetchRunState = async () => {
     try {
-      const res = await fetch('/api/state');
+      const res = await fetch(`${API_BASE}/api/state`);
       if (!res.ok) throw new Error('Failed to fetch pipeline state');
       const data = await res.json();
       setRunState(data);
@@ -167,7 +168,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
 
   const fetchQualityReport = async () => {
     try {
-      const res = await fetch('/api/quality/scan', {
+      const res = await fetch(`${API_BASE}/api/quality/scan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ targetDir: '../seed-repo-vulnerable' })
@@ -189,7 +190,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     setLiveStage('quality_scan');
     try {
       // Fetch quality scan report from API
-      const res = await fetch('/api/quality/scan', {
+      const res = await fetch(`${API_BASE}/api/quality/scan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ targetDir: '.' })
@@ -253,7 +254,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
       repoUrl: repoUrl || ''
     });
 
-    const es = new EventSource(`/api/scan-repo?${params.toString()}`);
+    const es = new EventSource(`${API_BASE}/api/scan-repo?${params.toString()}`);
     eventSourceRef.current = es;
 
     es.onmessage = (event) => {
@@ -308,7 +309,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     setLiveLog('Preparing to re-run pipeline...');
     try {
       // Get current state to determine targetDir and stateFile
-      const stateRes = await fetch('/api/state');
+      const stateRes = await fetch(`${API_BASE}/api/state`);
       let targetDir, stateFile;
       
       if (stateRes.ok) {
@@ -349,7 +350,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     setLiveLog(`Preparing scan for ${repoName}...`);
     try {
       // Step 1: Clone the repo
-      const cloneRes = await fetch('/api/clone', {
+      const cloneRes = await fetch(`${API_BASE}/api/clone`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: repoUrl, autoInstall: false }),

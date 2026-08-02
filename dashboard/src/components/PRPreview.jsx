@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GitPullRequest, Copy, Check, ExternalLink, Send, ShieldAlert, Loader2, GitCommit, ShieldCheck, Zap, AlertCircle } from 'lucide-react';
+import { API_BASE } from '../apiConfig.js';
 
 export default function PRPreview({ activePr, runState, user }) {
   const [copied, setCopied] = useState(false);
@@ -33,7 +34,7 @@ export default function PRPreview({ activePr, runState, user }) {
     if (!user?.uid) return;
     setModeSaving(true);
     try {
-      await fetch('/api/auth/save-commit-mode', {
+      await fetch(`${API_BASE}/api/auth/save-commit-mode`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.uid, commitMode: mode })
@@ -55,7 +56,7 @@ export default function PRPreview({ activePr, runState, user }) {
     setCommitting(true);
     setCommitResult(null);
     try {
-      const res = await fetch('/api/patch/commit-local', {
+      const res = await fetch(`${API_BASE}/api/patch/commit-local`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -81,7 +82,7 @@ export default function PRPreview({ activePr, runState, user }) {
     setPublishing(true);
     setPublishResult(null);
     try {
-      const res = await fetch('/api/github/publish-pr', {
+      const res = await fetch(`${API_BASE}/api/github/publish-pr`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

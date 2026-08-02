@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { auth, githubProvider, isConfigured } from '../firebase.js';
 import { signInWithPopup, signOut, onAuthStateChanged, GithubAuthProvider } from 'firebase/auth';
 import { Loader2 } from 'lucide-react';
+import { API_BASE } from '../apiConfig.js';
 
 /**
  * AuthGate — manages GitHub authentication state and exposes handleSignIn / handleSignOut
@@ -35,7 +36,7 @@ export default function AuthGate({ children }) {
                 localStorage.setItem('github_token', credential.accessToken);
             }
             if (res?.user) {
-                fetch('/api/auth/sync-user', {
+                fetch(`${API_BASE}/api/auth/sync-user`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

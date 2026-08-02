@@ -5,6 +5,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GithubAuthProvider } from 'firebase/auth';
 import { getFirestore, collection, query, where, orderBy, limit, getDocs, doc, setDoc, getDoc } from 'firebase/firestore';
+import { API_BASE } from './apiConfig.js';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -66,7 +67,7 @@ export async function getScanHistories(userId, limitCount = 50) {
 export async function saveUserGroqKey(userId, apiKey) {
     if (!userId) throw new Error('User not authenticated');
     try {
-        const res = await fetch('/api/auth/save-key', {
+        const res = await fetch(`${API_BASE}/api/auth/save-key`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId, plainKey: apiKey })

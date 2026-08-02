@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { AlertTriangle, CheckSquare, ArrowRight } from 'lucide-react';
+import { API_BASE } from '../apiConfig.js';
 
 const ComparisonPanel = () => {
   const [totals, setTotals] = useState({ total: 0, patched: 0 });
 
   useEffect(() => {
-    fetch('/api/reachability-summary')
+    fetch(`${API_BASE}/api/reachability-summary`)
       .then(res => res.json())
       .then(json => {
         let t = 0;

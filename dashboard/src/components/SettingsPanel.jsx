@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Key, Lock, Check, X, ShieldAlert, Loader2, Save, Trash2, AlertTriangle, Cpu, Zap, Server, Sun, Moon } from 'lucide-react';
 import { saveUserGroqKey, getUserGroqKey } from '../firebase.js';
+import { API_BASE } from '../apiConfig.js';
 
 const AI_PROVIDERS = [
     {
@@ -107,7 +108,7 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
         if (!user?.uid) return;
         setProviderSaving(true);
         try {
-            await fetch('/api/auth/save-provider', {
+            await fetch(`${API_BASE}/api/auth/save-provider`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user.uid, provider: providerId })
@@ -127,7 +128,7 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
         if (!user?.uid) return;
         setCommitModeSaving(true);
         try {
-            await fetch('/api/auth/save-commit-mode', {
+            await fetch(`${API_BASE}/api/auth/save-commit-mode`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user.uid, commitMode: mode })
@@ -146,7 +147,7 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
         setDeleting(true);
         setDeleteError(null);
         try {
-            await fetch('/api/auth/delete-user', {
+            await fetch(`${API_BASE}/api/auth/delete-user`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user.uid })

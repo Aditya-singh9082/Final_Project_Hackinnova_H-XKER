@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GitCommit, Send, Loader2, ShieldCheck, Zap, ChevronRight, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react';
+import { API_BASE } from '../apiConfig.js';
 
 /**
  * PatchActionsBar — A prominent action bar shown on the Overview tab
@@ -29,7 +30,7 @@ export default function PatchActionsBar({ runState, draftPrTitle, draftPrBody, u
     setCommitting(true);
     setCommitResult(null);
     try {
-      const res = await fetch('/api/patch/commit-local', {
+      const res = await fetch(`${API_BASE}/api/patch/commit-local`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -55,7 +56,7 @@ export default function PatchActionsBar({ runState, draftPrTitle, draftPrBody, u
     setPublishing(true);
     setPublishResult(null);
     try {
-      const res = await fetch('/api/github/publish-pr', {
+      const res = await fetch(`${API_BASE}/api/github/publish-pr`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

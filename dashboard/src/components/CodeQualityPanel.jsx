@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldAlert, CheckCircle2, AlertTriangle, RefreshCw, Code, Copy, Check, Sparkles, FileText, ChevronRight, Award, Cpu, Zap } from 'lucide-react';
 import { getUserGroqKey } from '../firebase.js';
+import { API_BASE } from '../apiConfig.js';
 
 export default function CodeQualityPanel({ user, initialReport }) {
     const [report, setReport] = useState(initialReport || null);
@@ -19,7 +20,7 @@ export default function CodeQualityPanel({ user, initialReport }) {
         // If no initialReport provided, fetch it directly after a brief delay
         const timer = setTimeout(async () => {
             try {
-                const res = await fetch('/api/quality/scan', {
+                const res = await fetch(`${API_BASE}/api/quality/scan`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ targetDir: '.' })
@@ -47,7 +48,7 @@ export default function CodeQualityPanel({ user, initialReport }) {
             }
             const provider = apiKey ? 'groq' : 'puter';
 
-            const res = await fetch('/api/quality/suggest-rewrite', {
+            const res = await fetch(`${API_BASE}/api/quality/suggest-rewrite`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
