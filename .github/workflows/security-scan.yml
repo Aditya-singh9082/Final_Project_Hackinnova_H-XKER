@@ -1,0 +1,96 @@
+name: Security Scan Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: 'URL of the repository to scan'
+        required: true
+      user_id:
+        description: 'User ID triggering the scan'
+        required: false
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Scanner Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'juice-shop-pipeline/package.json'
+
+      - name: Extract Target Repo Name
+        id: extract_repo
+        run: |
+          REPO_NAME=$(basename "${{ github.event.inputs.target_repo }}" .git)
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          echo "TARGET_DIR=scanned-repos/$REPO_NAME" >> $GITHUB_ENV
+
+      - name: Clone Target Repository
+        run: |
+          mkdir -p scanned-repos
+          git clone "${{ github.event.inputs.target_repo }}" "$TARGET_DIR"
+
+      - name: Install Pipeline Dependencies
+        working-directory: ./juice-shop-pipeline
+        run: npm install
+
+      # ==========================================
+      # PIPELINE STEPS
+      # ==========================================
+      
+      - name: Run Reachability Analysis
+        working-directory: ./juice-shop-pipeline
+        run: node reachability.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      - name: Run Patch Generator
+        working-directory: ./juice-shop-pipeline
+        run: node patch-generator.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      - name: Run Exploit Verifier
+        working-directory: ./juice-shop-pipeline
+        run: node exploit-verifier.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      - name: Run Compatibility Checker
+        working-directory: ./juice-shop-pipeline
+        run: node compat-checker.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      - name: Run Regression Runner
+        working-directory: ./juice-shop-pipeline
+        run: node regression-runner.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      - name: Run PR Composer
+        working-directory: ./juice-shop-pipeline
+        run: node pr-composer.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      - name: Run Code Quality Scanner
+        working-directory: ./juice-shop-pipeline
+        run: node code-quality-scanner.js "../$TARGET_DIR"
+        continue-on-error: true
+
+      # ==========================================
+      # ARTIFACT UPLOAD
+      # ==========================================
+      
+      - name: Upload Run State
+        uses: actions/upload-artifact@v4
+        with:
+          name: run_state
+          path: juice-shop-pipeline/run_state.json
+          
+      - name: Upload Code Quality Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: code_quality_report
+          path: juice-shop-pipeline/code_quality_report.json

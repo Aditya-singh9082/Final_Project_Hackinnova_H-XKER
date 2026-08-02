@@ -104,6 +104,51 @@ app.post('/api/clone', (req, res) => {
     });
 });
 
+// POST /api/trigger-scan — trigger GitHub Actions workflow
+app.post('/api/trigger-scan', async (req, res) => {
+    const { repoUrl, userId } = req.body;
+    if (!repoUrl) return res.status(400).json({ error: 'Missing repoUrl' });
+
+    const githubPat = process.env.GITHUB_PAT;
+    if (!githubPat) {
+        return res.status(500).json({ error: 'GITHUB_PAT environment variable is not configured.' });
+    }
+
+    try {
+        // We trigger the workflow on our own repo (Aditya-singh9082/Final_Project_Hackinnova_H-XKER)
+        // using the PAT. The workflow will clone the target repoUrl.
+        const owner = 'Aditya-singh9082';
+        const repo = 'Final_Project_Hackinnova_H-XKER';
+        const workflow_id = 'security-scan.yml';
+
+        const ghRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow_id}/dispatches`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': `Bearer ${githubPat}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ref: 'main',
+                inputs: {
+                    target_repo: repoUrl,
+                    user_id: userId || 'anonymous'
+                }
+            })
+        });
+
+        if (!ghRes.ok) {
+            const err = await ghRes.text();
+            throw new Error(`GitHub API Error (${ghRes.status}): ${err}`);
+        }
+
+        res.json({ success: true, message: 'GitHub Action triggered successfully!' });
+    } catch (e) {
+        console.error('Trigger error:', e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 // GET /api/scan-repo — simulated SSE pipeline stream
 app.get('/api/scan-repo', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
