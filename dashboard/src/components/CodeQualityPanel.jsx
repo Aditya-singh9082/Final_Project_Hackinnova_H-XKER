@@ -10,28 +10,12 @@ export default function CodeQualityPanel({ user, initialReport }) {
     const [loadingSuggestion, setLoadingSuggestion] = useState({});
     const [copiedIndex, setCopiedIndex] = useState(null);
 
-    const fetchScan = async () => {
-        setLoading(true);
-        try {
-            const res = await fetch('http://localhost:3001/api/quality/scan', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ targetDir: '../seed-repo-vulnerable' })
-            });
-            const data = await res.json();
-            if (data.success && data.report) {
-                setReport(data.report);
-            }
-        } catch (e) {
-            console.error("Failed to fetch quality report:", e);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        if (!initialReport) {
-            fetchScan();
+        if (initialReport) {
+            setReport(initialReport);
+            setLoading(false);
+        } else {
+            setLoading(true);
         }
     }, [initialReport]);
 
