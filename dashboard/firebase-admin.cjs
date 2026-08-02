@@ -30,7 +30,8 @@ try {
             const projectId = process.env.FIREBASE_PROJECT_ID;
             const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
             const rawKey = process.env.FIREBASE_PRIVATE_KEY;
-            const privateKey = rawKey ? rawKey.replace(/\\n/g, '\n') : undefined;
+            // Remove leading/trailing quotes that some platforms might add, then replace escaped newlines
+            const privateKey = rawKey ? rawKey.replace(/^"|"$/g, '').replace(/\\n/g, '\n') : undefined;
             if (projectId && clientEmail && privateKey && projectId !== 'YOUR_FIREBASE_PROJECT_ID') {
                 creds = admin.cert({ projectId, clientEmail, privateKey });
                 console.log('[firebase-admin] Loaded credentials from environment variables.');
