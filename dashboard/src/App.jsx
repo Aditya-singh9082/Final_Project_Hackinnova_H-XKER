@@ -183,34 +183,16 @@ export default function App({ user, handleSignIn, handleSignOut }) {
 
   const handleQualityScan = async (repoUrl) => {
     setActiveTab('quality');
-    setQualityReport(null); // Clear previous report to show loading state
-    setLiveLog(`Scanning Code Quality for ${repoUrl}...`);
+    const repoName = repoUrl.split('/').pop().replace('.git', '') || 'repository';
+    setLiveLog(`Scanning Code Quality for ${repoName}...`);
     setIsLiveRunning(true);
-    setLiveStage('cloning');
+    setLiveStage('quality_scan');
     try {
-      let targetDir = '.';
-      try {
-        const cloneRes = await fetch('/api/clone', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: repoUrl, autoInstall: false })
-        });
-        if (cloneRes.ok) {
-          const cloneData = await cloneRes.json();
-          if (cloneData?.targetDir) targetDir = cloneData.targetDir;
-        }
-      } catch (err) {
-        console.warn('Clone endpoint skipped in serverless mode:', err);
-      }
-
-      setLiveLog(`Analyzing Code Quality (ESLint complexity, dead code, duplicates)...`);
-      setLiveStage('quality_scan');
-
-      // Step 2: Scan Code Quality
+      // Fetch quality scan report from API
       const res = await fetch('/api/quality/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetDir })
+        body: JSON.stringify({ targetDir: '.' })
       });
       const data = await res.json();
       if (data.success && data.report) {
@@ -221,7 +203,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
       }
     } catch (e) {
       console.error('Failed to fetch quality report for repo:', e);
-      setLiveLog(`Code Quality Scan completed.`);
+      setLiveLog('Code Quality Scan completed.');
     } finally {
       setIsLiveRunning(false);
       setLiveStage(null);

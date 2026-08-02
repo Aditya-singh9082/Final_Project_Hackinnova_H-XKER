@@ -14,9 +14,27 @@ export default function CodeQualityPanel({ user, initialReport }) {
         if (initialReport) {
             setReport(initialReport);
             setLoading(false);
-        } else {
-            setLoading(true);
+            return;
         }
+        // If no initialReport provided, fetch it directly after a brief delay
+        const timer = setTimeout(async () => {
+            try {
+                const res = await fetch('/api/quality/scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ targetDir: '.' })
+                });
+                const data = await res.json();
+                if (data.success && data.report) {
+                    setReport(data.report);
+                }
+            } catch (e) {
+                console.warn('CodeQualityPanel: failed to fetch report directly:', e);
+            } finally {
+                setLoading(false);
+            }
+        }, 1500);
+        return () => clearTimeout(timer);
     }, [initialReport]);
 
     const handleSuggestRewrite = async (issue, index) => {
