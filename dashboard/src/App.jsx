@@ -348,28 +348,6 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     }
   };
 
-  if (loading && !runState) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-800 font-sans">
-        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="font-heading tracking-wide text-sm font-medium">Loading Kalki Engine State...</p>
-      </div>
-    );
-  }
-
-  // If view is landing, render the bright, vibrant Kalki Landing Page!
-  if (view === 'landing') {
-    return (
-      <LandingPage
-        user={user}
-        handleSignIn={handleSignIn}
-        handleSignOut={handleSignOut}
-        onLaunchDashboard={() => setView('dashboard')}
-        efficacyMetrics={efficacyMetrics}
-      />
-    );
-  }
-
   const cves = runState?.scanner?.detected_cves || [];
   const patches = runState?.patch_generator?.patches || [];
   const proofs = runState?.exploit_verifier?.proofs || [];
@@ -456,6 +434,28 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     }
     return data;
   }, [cves, reachablePkgNames, runState]);
+
+  if (loading && !runState) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-800 font-sans">
+        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="font-heading tracking-wide text-sm font-medium">Loading Kalki Engine State...</p>
+      </div>
+    );
+  }
+
+  // If view is landing, render the bright, vibrant Kalki Landing Page!
+  if (view === 'landing') {
+    return (
+      <LandingPage
+        user={user}
+        handleSignIn={handleSignIn}
+        handleSignOut={handleSignOut}
+        onLaunchDashboard={() => setView('dashboard')}
+        efficacyMetrics={efficacyMetrics}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 relative overflow-x-hidden selection:bg-orange-100 selection:text-orange-900">
