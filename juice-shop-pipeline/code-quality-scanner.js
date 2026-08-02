@@ -127,7 +127,9 @@ async function runCodeQualityScan(targetDir, outputFile) {
         const tempOutDir = path.join(__dirname, '.temp_jscpd_out');
         if (!fs.existsSync(tempOutDir)) fs.mkdirSync(tempOutDir, { recursive: true });
 
-        const jscpdCmd = `npx.cmd jscpd "${absDir}" --format javascript,typescript,jsx,tsx --min-tokens 25 --min-lines 4 --reporters json --output "${tempOutDir}" --silent --ignore "**/node_modules/**,**/dist/**,**/build/**"`;
+        const isWin = process.platform === 'win32';
+        const npx = isWin ? 'npx.cmd' : 'npx';
+        const jscpdCmd = `${npx} jscpd "${absDir}" --format javascript,typescript,jsx,tsx --min-tokens 25 --min-lines 4 --reporters json --output "${tempOutDir}" --silent --ignore "**/node_modules/**,**/dist/**,**/build/**"`;
         try {
             execSync(jscpdCmd, { cwd: __dirname, stdio: 'ignore' });
         } catch (e) {
