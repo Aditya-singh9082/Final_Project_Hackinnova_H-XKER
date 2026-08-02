@@ -9,6 +9,9 @@ on:
       user_id:
         description: 'User ID triggering the scan'
         required: false
+      scan_id:
+        description: 'Unique ID for the scan to update Firestore'
+        required: true
 
 jobs:
   security-scan:
@@ -79,8 +82,20 @@ jobs:
         run: node code-quality-scanner.js "../$TARGET_DIR"
         continue-on-error: true
 
+      - name: Upload Results to Firebase
+        working-directory: ./juice-shop-pipeline
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          SCAN_ID: ${{ github.event.inputs.scan_id }}
+          TARGET_REPO: ${{ github.event.inputs.target_repo }}
+        run: |
+          npm install firebase-admin
+          node upload-results.js
+
       # ==========================================
-      # ARTIFACT UPLOAD
+      # ARTIFACT UPLOAD (Backup)
       # ==========================================
       
       - name: Upload Run State

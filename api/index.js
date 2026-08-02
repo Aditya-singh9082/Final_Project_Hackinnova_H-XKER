@@ -106,8 +106,9 @@ app.post('/api/clone', (req, res) => {
 
 // POST /api/trigger-scan — trigger GitHub Actions workflow
 app.post('/api/trigger-scan', async (req, res) => {
-    const { repoUrl, userId } = req.body;
+    const { repoUrl, userId, scanId } = req.body;
     if (!repoUrl) return res.status(400).json({ error: 'Missing repoUrl' });
+    if (!scanId) return res.status(400).json({ error: 'Missing scanId' });
 
     const githubPat = process.env.GITHUB_PAT;
     if (!githubPat) {
@@ -132,7 +133,8 @@ app.post('/api/trigger-scan', async (req, res) => {
                 ref: 'main',
                 inputs: {
                     target_repo: repoUrl,
-                    user_id: userId || 'anonymous'
+                    user_id: userId || 'anonymous',
+                    scan_id: scanId
                 }
             })
         });

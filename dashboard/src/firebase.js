@@ -23,15 +23,12 @@ const isConfigured = !!(
     firebaseConfig.projectId !== 'YOUR_FIREBASE_PROJECT_ID'
 );
 
-let auth = null;
-let githubProvider = null;
-let db = null;
+export const app = isConfigured ? initializeApp(firebaseConfig) : null;
+export const auth = isConfigured ? getAuth(app) : null;
+export const db = isConfigured ? getFirestore(app) : null;
+export const githubProvider = isConfigured ? new GithubAuthProvider() : null;
 
 if (isConfigured) {
-    const app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    githubProvider = new GithubAuthProvider();
     githubProvider.addScope('read:user');
     githubProvider.addScope('repo');
 } else {

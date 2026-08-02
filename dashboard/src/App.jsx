@@ -25,7 +25,8 @@ import {
   Moon
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getScanHistories } from './firebase.js';
+import { getScanHistories, db } from './firebase.js';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { API_BASE } from './apiConfig.js';
 
 import LandingPage from './components/LandingPage.jsx';
@@ -349,28 +350,43 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     const repoName = repoUrl.split('/').pop().replace('.git', '') || 'repository';
     setLiveLog(`Preparing scan for ${repoName}...`);
     try {
+      const scanId = `scan_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+
       // Step 1: Trigger GitHub Action in the background
       const triggerRes = await fetch(`${API_BASE}/api/trigger-scan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ repoUrl: repoUrl, userId: user?.uid || 'anonymous' }),
+        body: JSON.stringify({ repoUrl: repoUrl, userId: user?.uid || 'anonymous', scanId }),
       });
 
       if (!triggerRes.ok) {
         const errData = await triggerRes.json().catch(() => ({}));
-        console.warn('GitHub Action trigger failed (missing PAT?), but continuing demo:', errData);
-      } else {
-        setLiveLog(`GitHub Action triggered successfully. Simulating scan progress...`);
+        setLiveLog(`GitHub Action trigger failed: ${errData.error}`);
+        setIsLiveRunning(false);
+        return;
       }
 
-      // Step 2: Start SSE pipeline stream (simulated) for the demo UI
-      startPipelineSSE(
-        '/tmp/scanned-repos/' + repoName,
-        '/tmp/run_state.json',
-        user?.uid || 'local',
-        'deterministic',
-        repoUrl
-      );
+      setLiveLog(`GitHub Action triggered successfully. Scanning... Please wait 3-4 minutes for the pipeline to finish.`);
+
+      // Step 2: Listen for the results in Firestore
+      if (db) {
+        const unsub = onSnapshot(doc(db, 'scans', scanId), (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.data();
+            if (data.runState && data.runState.status === 'completed') {
+              setRunState(data.runState);
+              if (data.qualityReport) {
+                setQualityReport(data.qualityReport);
+              }
+              setIsLiveRunning(false);
+              setLiveLog('Scan completed successfully!');
+              unsub(); // Stop listening once completed
+            }
+          }
+        });
+      } else {
+        setLiveLog('Firebase is not configured. Cannot listen for results.');
+      }
     } catch (e) {
       setLiveLog(`Network error: ${e.message}`);
       setIsLiveRunning(false);
