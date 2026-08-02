@@ -685,14 +685,18 @@ ${snippet}`;
     }
 });
 
-const server = app.listen(PORT, () => {
-    console.log(`Backend API running at http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.FUNCTION_TARGET) {
+    const server = app.listen(PORT, () => {
+        console.log(`Backend API running at http://localhost:${PORT}`);
+    });
 
-server.on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-        console.warn(`[warning] Port ${PORT} is already in use — backend server is already running on http://localhost:${PORT}`);
-    } else {
-        console.error(`[error] Backend server error:`, err);
-    }
-});
+    server.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.warn(`[warning] Port ${PORT} is already in use — backend server is already running on http://localhost:${PORT}`);
+        } else {
+            console.error(`[error] Backend server error:`, err);
+        }
+    });
+}
+
+module.exports = app;

@@ -5,7 +5,7 @@ const ComparisonPanel = () => {
   const [totals, setTotals] = useState({ total: 0, patched: 0 });
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/reachability-summary')
+    fetch('/api/reachability-summary')
       .then(res => res.json())
       .then(json => {
         let t = 0;

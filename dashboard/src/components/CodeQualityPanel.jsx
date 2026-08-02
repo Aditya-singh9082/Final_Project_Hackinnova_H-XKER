@@ -29,7 +29,7 @@ export default function CodeQualityPanel({ user, initialReport }) {
             }
             const provider = apiKey ? 'groq' : 'puter';
 
-            const res = await fetch('http://localhost:3001/api/quality/suggest-rewrite', {
+            const res = await fetch('/api/quality/suggest-rewrite', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
