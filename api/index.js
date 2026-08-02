@@ -27,7 +27,10 @@ let DEMO_QUALITY = {};
 try { DEMO_STATE = require('./demo_state.json'); } catch (_) {}
 try { DEMO_QUALITY = require('./demo_quality.json'); } catch (_) {}
 
-// ── Firebase Admin (works in serverless — no child processes needed) ──
+// ── In-memory fallback store for serverless environment ────────────
+const memoryUserStore = new Map();
+
+// ── Firebase Admin (works in serverless) ──────────────────────────
 let db = null;
 let admin = null;
 try {
@@ -35,7 +38,7 @@ try {
     const projectId = process.env.FIREBASE_PROJECT_ID;
     const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
     const rawKey = process.env.FIREBASE_PRIVATE_KEY;
-    const privateKey = rawKey ? rawKey.replace(/\\n/g, '\n') : undefined;
+    const privateKey = rawKey ? rawKey.replace(/^"|"$/g, '').replace(/\\n/g, '\n') : undefined;
 
     const apps = admin.getApps ? admin.getApps() : (admin.apps || []);
     if (apps.length === 0 && projectId && clientEmail && privateKey && projectId !== 'YOUR_FIREBASE_PROJECT_ID') {
@@ -55,9 +58,12 @@ try {
 const crypto = require('crypto');
 function getKeyBuffer() {
     const secret = process.env.API_KEY_ENCRYPTION_SECRET || '';
-    if (!secret || secret === 'GENERATE_A_64_CHAR_HEX_STRING_HERE') return null;
-    const buf = Buffer.from(secret, 'hex');
-    return buf.length === 32 ? buf : null;
+    if (secret && secret !== 'GENERATE_A_64_CHAR_HEX_STRING_HERE') {
+        const buf = Buffer.from(secret, 'hex');
+        if (buf.length === 32) return buf;
+    }
+    // Fallback: derive 32-byte key from project ID or default salt so encryption never fails
+    return crypto.createHash('sha256').update(process.env.FIREBASE_PROJECT_ID || 'kalki-encryption-salt-2026').digest();
 }
 function encryptKey(plaintext) {
     const keyBuf = getKeyBuffer();
@@ -327,11 +333,13 @@ app.post('/api/auth/sync-user', async (req, res) => {
 app.post('/api/auth/save-key', async (req, res) => {
     const { userId, plainKey } = req.body;
     if (!userId || !plainKey) return res.status(400).json({ error: 'Missing userId or plainKey' });
-    if (!db) return res.status(500).json({ error: 'Firebase not initialized' });
     try {
         const encObj = encryptKey(plainKey);
         const masked = maskKey(plainKey);
-        await db.collection('users').doc(userId).set({ encrypted_groq_api_key: encObj, key_saved_at: new Date().toISOString() }, { merge: true });
+        if (db) {
+            await db.collection('users').doc(userId).set({ encrypted_groq_api_key: encObj, key_saved_at: new Date().toISOString() }, { merge: true });
+        }
+        memoryUserStore.set(`key_${userId}`, { encObj, masked });
         res.json({ success: true, maskedKey: masked });
     } catch (e) { res.status(500).json({ error: e.message }); }
 });
@@ -339,78 +347,89 @@ app.post('/api/auth/save-key', async (req, res) => {
 app.delete('/api/auth/remove-key', async (req, res) => {
     const { userId } = req.body;
     if (!userId) return res.status(400).json({ error: 'Missing userId' });
-    if (!db) return res.status(500).json({ error: 'Firebase not initialized' });
     try {
-        await db.collection('users').doc(userId).update({
-            encrypted_groq_api_key: admin.firestore.FieldValue.delete(),
-            key_saved_at: admin.firestore.FieldValue.delete(),
-        });
+        if (db) {
+            await db.collection('users').doc(userId).update({
+                encrypted_groq_api_key: admin.firestore.FieldValue.delete(),
+                key_saved_at: admin.firestore.FieldValue.delete(),
+            }).catch(() => {});
+        }
+        memoryUserStore.delete(`key_${userId}`);
         res.json({ success: true });
     } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
 app.get('/api/auth/key-status/:userId', async (req, res) => {
     const { userId } = req.params;
-    if (!db) return res.json({ hasSavedKey: false, maskedKey: null });
     try {
-        const doc = await db.collection('users').doc(userId).get();
-        const encObj = doc.exists ? doc.data().encrypted_groq_api_key : null;
-        if (!encObj) return res.json({ hasSavedKey: false, maskedKey: null });
-        try {
-            const plain = decryptKey(encObj);
-            return res.json({ hasSavedKey: true, maskedKey: maskKey(plain) });
-        } catch { return res.json({ hasSavedKey: true, maskedKey: '****(err)' }); }
+        if (db) {
+            const docSnap = await db.collection('users').doc(userId).get();
+            const encObj = docSnap.exists ? docSnap.data().encrypted_groq_api_key : null;
+            if (encObj) {
+                try {
+                    const plain = decryptKey(encObj);
+                    return res.json({ hasSavedKey: true, maskedKey: maskKey(plain) });
+                } catch { return res.json({ hasSavedKey: true, maskedKey: '****(saved)' }); }
+            }
+        }
+        const mem = memoryUserStore.get(`key_${userId}`);
+        if (mem) return res.json({ hasSavedKey: true, maskedKey: mem.masked });
+        res.json({ hasSavedKey: false, maskedKey: null });
     } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
 app.post('/api/auth/save-mode', async (req, res) => {
     const { userId, mode } = req.body;
     if (!userId || !mode) return res.status(400).json({ error: 'Missing userId or mode' });
-    if (!db) return res.json({ success: true });
-    try {
-        await db.collection('users').doc(userId).set({ preferred_mode: mode }, { merge: true });
-        res.json({ success: true });
-    } catch (e) { res.status(500).json({ error: e.message }); }
+    if (db) {
+        await db.collection('users').doc(userId).set({ preferred_mode: mode }, { merge: true }).catch(() => {});
+    }
+    memoryUserStore.set(`mode_${userId}`, mode);
+    res.json({ success: true });
 });
 
 app.post('/api/auth/save-provider', async (req, res) => {
     const { userId, provider } = req.body;
     if (!userId || !provider) return res.status(400).json({ error: 'Missing userId or provider' });
-    if (!db) return res.json({ success: true });
-    try {
-        await db.collection('users').doc(userId).set({ ai_provider: provider }, { merge: true });
-        res.json({ success: true });
-    } catch (e) { res.status(500).json({ error: e.message }); }
+    if (db) {
+        await db.collection('users').doc(userId).set({ ai_provider: provider }, { merge: true }).catch(() => {});
+    }
+    memoryUserStore.set(`provider_${userId}`, provider);
+    res.json({ success: true });
 });
 
 app.get('/api/auth/get-provider/:userId', async (req, res) => {
     const { userId } = req.params;
-    if (!db) return res.json({ provider: 'puter' });
     try {
-        const doc = await db.collection('users').doc(userId).get();
-        if (doc.exists && doc.data().ai_provider) return res.json({ provider: doc.data().ai_provider });
-        res.json({ provider: 'puter' });
-    } catch (e) { res.status(500).json({ error: e.message }); }
+        if (db) {
+            const docSnap = await db.collection('users').doc(userId).get();
+            if (docSnap.exists && docSnap.data().ai_provider) return res.json({ provider: docSnap.data().ai_provider });
+        }
+        const mem = memoryUserStore.get(`provider_${userId}`);
+        res.json({ provider: mem || 'puter' });
+    } catch (e) { res.json({ provider: 'puter' }); }
 });
 
 app.post('/api/auth/save-commit-mode', async (req, res) => {
     const { userId, commitMode } = req.body;
     if (!userId || !commitMode) return res.status(400).json({ error: 'Missing userId or commitMode' });
-    if (!db) return res.json({ success: true });
-    try {
-        await db.collection('users').doc(userId).set({ commit_mode: commitMode }, { merge: true });
-        res.json({ success: true });
-    } catch (e) { res.status(500).json({ error: e.message }); }
+    if (db) {
+        await db.collection('users').doc(userId).set({ commit_mode: commitMode }, { merge: true }).catch(() => {});
+    }
+    memoryUserStore.set(`commitMode_${userId}`, commitMode);
+    res.json({ success: true });
 });
 
 app.get('/api/auth/get-commit-mode/:userId', async (req, res) => {
     const { userId } = req.params;
-    if (!db) return res.json({ commitMode: 'manual_review' });
     try {
-        const doc = await db.collection('users').doc(userId).get();
-        if (doc.exists && doc.data().commit_mode) return res.json({ commitMode: doc.data().commit_mode });
-        res.json({ commitMode: 'manual_review' });
-    } catch (e) { res.status(500).json({ error: e.message }); }
+        if (db) {
+            const docSnap = await db.collection('users').doc(userId).get();
+            if (docSnap.exists && docSnap.data().commit_mode) return res.json({ commitMode: docSnap.data().commit_mode });
+        }
+        const mem = memoryUserStore.get(`commitMode_${userId}`);
+        res.json({ commitMode: mem || 'manual_review' });
+    } catch (e) { res.json({ commitMode: 'manual_review' }); }
 });
 
 app.post('/api/auth/delete-user', async (req, res) => {

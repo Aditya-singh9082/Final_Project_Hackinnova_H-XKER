@@ -53,30 +53,44 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
     const [deleteError, setDeleteError] = useState(null);
 
     useEffect(() => {
-        if (isOpen && user?.uid) {
-            setLoading(true);
-            getUserGroqKey(user.uid)
-                .then(key => {
-                    if (key) setApiKey(key);
-                })
-                .catch(e => console.error(e))
-                .finally(() => setLoading(false));
+        if (isOpen) {
+            // Restore from localStorage first for instant response
+            const localProv = localStorage.getItem('kalki_ai_provider');
+            if (localProv) setSelectedProvider(localProv);
+            const localCommit = localStorage.getItem('kalki_commit_mode');
+            if (localCommit) setCommitMode(localCommit);
 
-            // Load saved provider preference
-            fetch(`/api/auth/get-provider/${encodeURIComponent(user.uid)}`)
-                .then(r => r.ok ? r.json() : null)
-                .then(data => {
-                    if (data?.provider) setSelectedProvider(data.provider);
-                })
-                .catch(() => {});
+            if (user?.uid) {
+                setLoading(true);
+                getUserGroqKey(user.uid)
+                    .then(key => {
+                        if (key) setApiKey(key);
+                    })
+                    .catch(e => console.error(e))
+                    .finally(() => setLoading(false));
 
-            // Load saved commit mode preference
-            fetch(`/api/auth/get-commit-mode/${encodeURIComponent(user.uid)}`)
-                .then(r => r.ok ? r.json() : null)
-                .then(data => {
-                    if (data?.commitMode) setCommitMode(data.commitMode);
-                })
-                .catch(() => {});
+                // Load saved provider preference from backend
+                fetch(`${API_BASE}/api/auth/get-provider/${encodeURIComponent(user.uid)}`)
+                    .then(r => r.ok ? r.json() : null)
+                    .then(data => {
+                        if (data?.provider) {
+                            setSelectedProvider(data.provider);
+                            localStorage.setItem('kalki_ai_provider', data.provider);
+                        }
+                    })
+                    .catch(() => {});
+
+                // Load saved commit mode preference from backend
+                fetch(`${API_BASE}/api/auth/get-commit-mode/${encodeURIComponent(user.uid)}`)
+                    .then(r => r.ok ? r.json() : null)
+                    .then(data => {
+                        if (data?.commitMode) {
+                            setCommitMode(data.commitMode);
+                            localStorage.setItem('kalki_commit_mode', data.commitMode);
+                        }
+                    })
+                    .catch(() => {});
+            }
         }
         if (!isOpen) {
             setConfirmDelete(false);
@@ -97,7 +111,7 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
         } catch (e) {
-            setError(e.message);
+            setError(e.message || 'Failed to save API key');
         } finally {
             setSaving(false);
         }
@@ -105,6 +119,8 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
 
     const handleProviderSelect = async (providerId) => {
         setSelectedProvider(providerId);
+        localStorage.setItem('kalki_ai_provider', providerId);
+        if (onProviderChange) onProviderChange(providerId);
         if (!user?.uid) return;
         setProviderSaving(true);
         try {
@@ -115,7 +131,6 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
             });
             setProviderSaved(true);
             setTimeout(() => setProviderSaved(false), 3000);
-            if (onProviderChange) onProviderChange(providerId);
         } catch (e) {
             console.error('Failed to save provider preference:', e);
         } finally {
@@ -125,6 +140,7 @@ export default function SettingsPanel({ isOpen, onClose, user, onSignOut, onProv
 
     const handleCommitModeSelect = async (mode) => {
         setCommitMode(mode);
+        localStorage.setItem('kalki_commit_mode', mode);
         if (!user?.uid) return;
         setCommitModeSaving(true);
         try {
