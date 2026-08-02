@@ -33,6 +33,7 @@ import GitHubRepoPickerModal from './components/GitHubRepoPickerModal.jsx';
 import ScanHistoryPanel from './components/ScanHistoryPanel.jsx';
 import PipelineTimeline from './components/PipelineTimeline.jsx';
 import CodeQualityPanel from './components/CodeQualityPanel.jsx';
+import PatchActionsBar from './components/PatchActionsBar.jsx';
 
 export default function App({ user, handleSignIn, handleSignOut }) {
   const [view, setView] = useState('landing'); // 'landing' | 'dashboard'
@@ -798,6 +799,19 @@ export default function App({ user, handleSignIn, handleSignOut }) {
         )}
 
         {activeTab === 'overview' && (
+          <div className="space-y-6">
+
+            {/* ========== PATCH ACTIONS BAR — visible when pipeline done + patches exist ========== */}
+            {!isLiveRunning && patches.length > 0 && (
+              <PatchActionsBar
+                runState={runState}
+                draftPrTitle={activePr?.title || 'chore(security): automated vulnerability remediation via Kalki'}
+                draftPrBody={activePr?.body}
+                user={user}
+                onGoToPR={() => setActiveTab('pr')}
+              />
+            )}
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             {/* LEFT 2 COLUMNS: PACKAGE BREAKDOWN & EXPLOIT PROOF */}
@@ -1057,6 +1071,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
               </div>
             </div>
 
+          </div>
           </div>
         )}
 
