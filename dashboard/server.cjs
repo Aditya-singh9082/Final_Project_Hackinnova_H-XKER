@@ -200,8 +200,17 @@ app.get('/api/scan-repo', async (req, res) => {
     // Ensure state file is active and reset state so no pipeline stages skip
     activeStateFile = stateFile;
     try {
+        let repoUrl = req.query.repoUrl || req.query.url;
+        if (!repoUrl && fs.existsSync(stateFile)) {
+            try {
+                const existing = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+                if (existing.repo_url && existing.repo_url.startsWith('http')) {
+                    repoUrl = existing.repo_url;
+                }
+            } catch (_) {}
+        }
         const initialRunState = {
-            repo_url: req.query.url || targetDir,
+            repo_url: repoUrl || targetDir,
             local_path: targetDir,
             timestamps: { started_at: new Date().toISOString() }
         };
@@ -596,10 +605,11 @@ app.post('/api/github/publish-pr', async (req, res) => {
         // Simulate or publish PR URL
         const prNumber = Math.floor(100 + Math.random() * 900);
         let targetRepo = 'security-fixes/juice-shop';
-        if (repoUrl) {
-            const match = repoUrl.match(/^https:\/\/github\.com\/([a-zA-Z0-9_.-]+)\/([a-zA-Z0-9_.-]+)(\.git)?$/);
+        if (repoUrl && typeof repoUrl === 'string') {
+            const cleanUrl = repoUrl.trim().replace(/\/$/, '');
+            const match = cleanUrl.match(/github\.com[:/]([a-zA-Z0-9_.-]+)\/([a-zA-Z0-9_.-]+?)(\.git)?$/);
             if (match) {
-                targetRepo = `${match[1]}/${match[2].replace(/\.git$/, '')}`;
+                targetRepo = `${match[1]}/${match[2]}`;
             }
         }
         const prUrl = `https://github.com/${targetRepo}/pull/${prNumber}`;

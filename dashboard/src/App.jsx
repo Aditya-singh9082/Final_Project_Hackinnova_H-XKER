@@ -238,7 +238,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
   /**
    * Connects to the SSE /api/scan-repo endpoint and tracks pipeline progress.
    */
-  const startPipelineSSE = (targetDir, stateFile, userId, mode = 'deterministic') => {
+  const startPipelineSSE = (targetDir, stateFile, userId, mode = 'deterministic', repoUrl = '') => {
     // Close any existing SSE connection
     if (eventSourceRef.current) {
       eventSourceRef.current.close();
@@ -253,6 +253,7 @@ export default function App({ user, handleSignIn, handleSignOut }) {
       stateFile,
       userId: userId || 'local',
       mode,
+      repoUrl: repoUrl || ''
     });
 
     const es = new EventSource(`/api/scan-repo?${params.toString()}`);
@@ -370,7 +371,9 @@ export default function App({ user, handleSignIn, handleSignOut }) {
       startPipelineSSE(
         cloneData.targetDir,
         cloneData.stateFile,
-        user?.uid || 'local'
+        user?.uid || 'local',
+        'deterministic',
+        repoUrl
       );
     } catch (e) {
       setLiveLog(`Network error: ${e.message}`);
