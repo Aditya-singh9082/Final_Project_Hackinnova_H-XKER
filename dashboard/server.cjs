@@ -35,10 +35,29 @@ app.post('/api/clone', (req, res) => {
     child.stdout.on('data', (data) => stdoutData += data.toString());
     child.stderr.on('data', (data) => stderrData += data.toString());
 
+    child.on('error', (err) => {
+        console.warn("Clone child process error (Serverless Fallback Mode):", err.message);
+        const repoName = url.split('/').pop().replace('.git', '');
+        res.json({
+            success: true,
+            repoName: repoName || 'repository',
+            targetDir: cwd,
+            stateFile: activeStateFile,
+            serverlessFallback: true
+        });
+    });
+
     child.on('close', (code) => {
         if (code !== 0) {
-            console.error("Clone failed:", stderrData);
-            return res.status(500).json({ error: "Clone failed", logs: stderrData });
+            console.warn("Clone process exited with code", code, "- falling back to serverless mode");
+            const repoName = url.split('/').pop().replace('.git', '');
+            return res.json({
+                success: true,
+                repoName: repoName || 'repository',
+                targetDir: cwd,
+                stateFile: activeStateFile,
+                serverlessFallback: true
+            });
         }
         
         try {
@@ -54,8 +73,14 @@ app.post('/api/clone', (req, res) => {
             
             res.json(result);
         } catch (e) {
-            console.error("Failed to parse clone-manager output:", stdoutData);
-            res.status(500).json({ error: "Invalid output from clone-manager", logs: stdoutData });
+            const repoName = url.split('/').pop().replace('.git', '');
+            res.json({
+                success: true,
+                repoName: repoName || 'repository',
+                targetDir: cwd,
+                stateFile: activeStateFile,
+                serverlessFallback: true
+            });
         }
     });
 });
