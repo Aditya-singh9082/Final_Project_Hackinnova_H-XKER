@@ -1,8 +1,35 @@
-# Deployment Guide — Netlify (Frontend) + Firebase (Backend & Database)
+# Deployment Guide — Vercel / Netlify + Firebase
 
-This project is configured for hybrid cloud deployment:
-- **Frontend**: Hosted on **Netlify** (Vite + React SPA)
-- **Backend & Database**: Hosted on **Firebase** (Express API via Firebase Cloud Functions + Firestore Database & Auth)
+This project is fully configured for seamless cloud hosting:
+- **Option A (Recommended)**: **Vercel + Firebase** (Zero-config Vercel deployment for React Frontend + Express Serverless Functions, with Firebase Auth & Firestore DB)
+- **Option B**: **Netlify (Frontend) + Firebase (Backend & Database)**
+
+---
+
+## ⚡ Option A: Deploying on Vercel + Firebase (Recommended — Zero-Config)
+
+### Step 1: Connect GitHub to Vercel
+1. Log in to [Vercel Dashboard](https://vercel.com/dashboard).
+2. Click **"Add New..." ➔ "Project"**.
+3. Import your GitHub repository (`Aditya-singh9082/Final_Project_Hackinnova_H-XKER`).
+
+### Step 2: Zero-Config Auto Detection
+Vercel will automatically detect `vercel.json` and build:
+- **Framework Preset**: Vite
+- **Build Command**: `cd dashboard && npm run build`
+- **Output Directory**: `dashboard/dist`
+- **API Serverless Function**: Automatically routed via `api/index.js`
+
+### Step 3: Add Environment Variables in Vercel
+Add your Firebase Web API keys under **Settings ➔ Environment Variables**:
+- `VITE_FIREBASE_API_KEY`
+- `VITE_FIREBASE_AUTH_DOMAIN`
+- `VITE_FIREBASE_PROJECT_ID`
+- `VITE_FIREBASE_STORAGE_BUCKET`
+- `VITE_FIREBASE_MESSAGING_SENDER_ID`
+- `VITE_FIREBASE_APP_ID`
+
+Click **Deploy**! Your site and API will be live instantly on `https://your-project.vercel.app`.
 
 ---
 
