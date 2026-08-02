@@ -1,0 +1,271 @@
+{
+  "score": 0,
+  "total_issues": 24,
+  "timestamp": "2026-08-02T05:43:44.333Z",
+  "issues": [
+    {
+      "file": "index.js",
+      "line_range": [
+        3,
+        3
+      ],
+      "issue_type": "unused_code",
+      "description": "[no-unused-vars] 'axios' is assigned a value but never used.",
+      "severity": "info",
+      "snippet": "const axios = require('axios'); // Imported but not used"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        23,
+        31
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (9 lines, 49 tokens) identical to reachability.js:9-18",
+      "severity": "warning",
+      "snippet": "const pa = a.replace(/[^0-9.]/g, '').split('.').map(Number);\n    const pb = b.replace(/[^0-9.]/g, '').split('.').map(Number);\n    for (let i = 0; i < 3; i++) {\n        const na = pa[i] || 0, nb = pb[i] || 0;\n        if (na > nb) return 1;\n        if (na < nb) return -1;\n    }\n    return 0;\n}"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        26,
+        199
+      ],
+      "issue_type": "high_complexity",
+      "description": "[max-lines-per-function] Function 'run' has too many lines (148). Maximum allowed is 60.",
+      "severity": "info",
+      "snippet": "function run() {\n    logPipeline(\"started\");\n    let runState = {};\n    if (fs.existsSync('../run_state.json')) {\n        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));\n        if (runState.patch_generator && runState.patch_generator.stage_failed === false && runState.patch_generator.patches) {\n            logPipeline(\"stage already completed successfully. Skipping.\");\n            return;\n        }\n    }\n\n    const advisories = JSON.parse(fs.readFileSync('advisories.json', 'utf8'));\n    const reachability = JSON.parse(fs.readFileSync('reachability.json', 'utf8'));\n    let packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));\n\n    let targetsToPatch = [];\n    if (fs.existsSync('targets.json')) {\n        targetsToPatch = JSON.parse(fs.readFileSync('targets.json', 'utf8'));\n    } else {\n        reachability.cves.forEach(c => {\n            if (c.verdict === 'REACHABLE') {\n                targetsToPatch.push({ package: c.package, cve_id: c.cve_id });\n            }\n        });\n        \n        // for seed-repo explicitly, ensure we process the 2 known ones if targets.json not present\n        if (targetsToPatch.length === 0) {\n            targetsToPatch = [\n                { package: 'lodash', cve_id: 'CVE-2020-8203' },\n                { package: 'marked', cve_id: 'CVE-2017-16114' }\n            ];\n        }\n    }\n\n    const pkgs = {};\n    for (const t of targetsToPatch) {\n        if (!pkgs[t.package]) pkgs[t.package] = [];\n        const adv = advisories.find(a => a.package === t.package && a.cve_id === t.cve_id);\n        if (adv && adv.fixed_version && adv.fixed_version !== 'unknown') {\n            pkgs[t.package].push({ cve_id: t.cve_id, fixed_version: adv.fixed_version });\n        }\n    }\n\n    const patchManifest = { patches: [] };\n\n    for (const [pkgName, cves] of Object.entries(pkgs)) {\n        logPipeline(`Processing ${pkgName} for ${cves.length} CVEs...`);\n        const fromVersion = packageJson.dependencies[pkgName] || (packageJson.devDependencies && packageJson.devDependencies[pkgName]);\n        if (!fromVersion) {\n            logPipeline(`${pkgName} not found in package.json dependencies.`);\n            continue;\n        }\n\n        const cleanFrom = fromVersion.replace(/[^0-9.]/g, '');\n        const currentMajor = getMajor(cleanFrom);\n\n        let availableVersions = [];\n        try {\n            const out = execSync(`npm view ${pkgName} versions --json`, { encoding: 'utf8' });\n            availableVersions = JSON.parse(out);\n        } catch (e) {\n            logPipeline(`Failed to fetch versions for ${pkgName}`);\n            continue;\n        }\n\n        availableVersions.sort(cmpVer);\n\n        let chosenVersion = null;\n        let major_version_jump = false;\n        let unresolved_cves = [];\n        let resolved_cves = [];\n\n        let candidate = availableVersions.find(v => {\n            if (getMajor(v) !== currentMajor) return false;\n            return cves.every(c => cmpVer(v, c.fixed_version) >= 0);\n        });\n\n        if (candidate) {\n            chosenVersion = candidate;\n            resolved_cves = cves.map(c => c.cve_id);\n        } else {\n            let bestSameMajor = null;\n            let bestSameMajorCount = -1;\n\n            let bestAnyMajor = null;\n            let bestAnyMajorCount = -1;\n\n            for (const v of availableVersions) {\n                let count = 0;\n                for (const c of cves) {\n                    if (cmpVer(v, c.fixed_version) >= 0) count++;\n                }\n                if (count >= bestAnyMajorCount) {\n                    bestAnyMajorCount = count;\n                    bestAnyMajor = v;\n                }\n                if (getMajor(v) === currentMajor && count >= bestSameMajorCount) {\n                    bestSameMajorCount = count;\n                    bestSameMajor = v;\n                }\n            }\n\n            if (bestAnyMajorCount > bestSameMajorCount && bestAnyMajorCount > 0) {\n                chosenVersion = bestAnyMajor;\n                major_version_jump = (getMajor(bestAnyMajor) !== currentMajor);\n            } else if (bestSameMajorCount > 0) {\n                chosenVersion = bestSameMajor;\n            } else {\n                chosenVersion = bestAnyMajor; \n            }\n\n            if (chosenVersion) {\n                for (const c of cves) {\n                    if (cmpVer(chosenVersion, c.fixed_version) >= 0) resolved_cves.push(c.cve_id);\n                    else unresolved_cves.push(c.cve_id);\n                }\n            }\n        }\n\n        if (!chosenVersion) {\n            logPipeline(`Could not find any suitable version for ${pkgName}`);\n            continue;\n        }\n\n        logPipeline(`Targeting update from ${fromVersion} to ${chosenVersion} (major bump: ${major_version_jump})`);\n\n        if (packageJson.dependencies && packageJson.dependencies[pkgName]) packageJson.dependencies[pkgName] = chosenVersion;\n        if (packageJson.devDependencies && packageJson.devDependencies[pkgName]) packageJson.devDependencies[pkgName] = chosenVersion;\n        \n        fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));\n\n        try {\n            execSync('npm install', { stdio: 'ignore' });\n            logPipeline(`Version bump successful for ${pkgName}.`);\n            \n            patchManifest.patches.push({\n                package: pkgName,\n                cve_ids: resolved_cves,\n                unresolved_cves: unresolved_cves,\n                method_used: 'version_bump',\n                from_version: fromVersion,\n                to_version: chosenVersion,\n                major_version_jump: major_version_jump,\n                status: 'success'\n            });\n            fs.writeFileSync(`patch_${pkgName}.diff`, `VERSION BUMP\\nUpdated ${pkgName} from ${fromVersion} to ${chosenVersion}.`);\n        } catch (e) {\n            logPipeline(`npm install failed for ${pkgName}: ${e.message}`);\n            patchManifest.patches.push({\n                package: pkgName,\n                cve_ids: resolved_cves,\n                unresolved_cves: unresolved_cves,\n                method_used: 'failed',\n                from_version: fromVersion,\n                to_version: chosenVersion,\n                major_version_jump: major_version_jump,\n                status: 'failed'\n            });\n        }\n    }\n\n    fs.writeFileSync('patch_manifest.json', JSON.stringify(patchManifest.patches, null, 2));\n\n    runState = {};\n    if (fs.existsSync('../run_state.json')) {\n        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));\n    }\n    runState.patch_generator = { patches: patchManifest.patches, stage_failed: false, error: \"\" };\n    runState.timestamps = runState.timestamps || {};\n    runState.timestamps.patch_generated_at = new Date().toISOString();\n    fs.writeFileSync('../run_state.json', JSON.stringify(runState, null, 2));\n\n    logPipeline(`complete. Generated ${patchManifest.patches.length} patches.`);\n}"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        26,
+        26
+      ],
+      "issue_type": "high_complexity",
+      "description": "[complexity] Function 'run' has a complexity of 38. Maximum allowed is 10.",
+      "severity": "info",
+      "snippet": "function run() {"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        26,
+        31
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (6 lines, 46 tokens) identical to scanner.js:10-16",
+      "severity": "warning",
+      "snippet": "const na = pa[i] || 0, nb = pb[i] || 0;\n        if (na > nb) return 1;\n        if (na < nb) return -1;\n    }\n    return 0;\n}"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        27,
+        31
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (5 lines, 39 tokens) identical to patch-generator.js:204-209",
+      "severity": "warning",
+      "snippet": "if (na > nb) return 1;\n        if (na < nb) return -1;\n    }\n    return 0;\n}"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        31,
+        38
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (8 lines, 29 tokens) identical to reachability.js:18-26",
+      "severity": "warning",
+      "snippet": "}\nfunction getMajor(v) { return Number(v.replace(/[^0-9.]/g, '').split('.')[0] || 0); }\n\n/**\n * callAIForPatch -- calls AI for an AI-assisted patch suggestion.\n * Provider is determined by AI_PROVIDER env var: 'puter' (default), 'groq', or 'deterministic' (skip).\n * SECURITY: GROQ_API_KEY is never logged or written to disk.\n * The returned suggestion still goes through exploit-verifier/compat-checker/regression-runner."
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        86,
+        86
+      ],
+      "issue_type": "unused_code",
+      "description": "[no-unused-vars] 'e' is defined but never used.",
+      "severity": "info",
+      "snippet": "} catch (e) {"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        116,
+        116
+      ],
+      "issue_type": "high_complexity",
+      "description": "[max-depth] Blocks are nested too deeply (5). Maximum allowed is 4.",
+      "severity": "info",
+      "snippet": "if (cmpVer(v, c.fixed_version) >= 0) count++;"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        187,
+        193
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (7 lines, 41 tokens) identical to reachability.js:162-168",
+      "severity": "warning",
+      "snippet": "method_used = 'version_bump';\n            fs.writeFileSync(`patch_${pkgName.replace('/','_')}.diff`,\n                `VERSION BUMP\\n${pkgName}: ${fromVersion} -> ${chosenVersion}\\nResolved: ${resolved_cves.join(', ')}`);\n        } catch(e) {\n            logPipeline(`npm install failed for ${pkgName}: ${e.message}`);\n            // === AI-ASSISTED FALLBACK ===\n            // AI-suggested patches are treated with ZERO special trust -- they go through the same"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        187,
+        193
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (7 lines, 37 tokens) identical to scanner.js:153-159",
+      "severity": "warning",
+      "snippet": "method_used = 'version_bump';\n            fs.writeFileSync(`patch_${pkgName.replace('/','_')}.diff`,\n                `VERSION BUMP\\n${pkgName}: ${fromVersion} -> ${chosenVersion}\\nResolved: ${resolved_cves.join(', ')}`);\n        } catch(e) {\n            logPipeline(`npm install failed for ${pkgName}: ${e.message}`);\n            // === AI-ASSISTED FALLBACK ===\n            // AI-suggested patches are treated with ZERO special trust -- they go through the same"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        198,
+        209
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (12 lines, 61 tokens) identical to reachability.js:173-184",
+      "severity": "warning",
+      "snippet": "try {\n                    const aiResult = await callAIForPatch(pkgName, fromVersion, chosenVersion, resolved_cves);\n                    if (aiResult && aiResult.suggestion) {\n                        logPipeline(`[AI-Assisted] ${aiResult.provider} (${aiResult.model}) suggestion received. Recording as ai_assisted patch.`);\n                        fs.writeFileSync(`ai_patch_${pkgName.replace('/','_')}.json`, aiResult.suggestion);\n                        fs.writeFileSync(`patch_${pkgName.replace('/','_')}.diff`,\n                            'AI-ASSISTED PATCH SUGGESTION\\n' +\n                            pkgName + ': ' + fromVersion + ' -> ' + chosenVersion + '\\n' +\n                            'CVEs: ' + resolved_cves.join(', ') + '\\n' +\n                            'AI Model: ' + aiResult.provider + ' ' + aiResult.model + '\\n' +\n                            'Suggestion:\\n' + aiResult.suggestion);\n                        status = 'success';"
+    },
+    {
+      "file": "patch-generator.js",
+      "line_range": [
+        203,
+        209
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (7 lines, 47 tokens) identical to scanner.js:175-181",
+      "severity": "warning",
+      "snippet": "fs.writeFileSync(`patch_${pkgName.replace('/','_')}.diff`,\n                            'AI-ASSISTED PATCH SUGGESTION\\n' +\n                            pkgName + ': ' + fromVersion + ' -> ' + chosenVersion + '\\n' +\n                            'CVEs: ' + resolved_cves.join(', ') + '\\n' +\n                            'AI Model: ' + aiResult.provider + ' ' + aiResult.model + '\\n' +\n                            'Suggestion:\\n' + aiResult.suggestion);\n                        status = 'success';"
+    },
+    {
+      "file": "reachability.js",
+      "line_range": [
+        12,
+        174
+      ],
+      "issue_type": "high_complexity",
+      "description": "[max-lines-per-function] Function 'run' has too many lines (141). Maximum allowed is 60.",
+      "severity": "info",
+      "snippet": "function run() {\n    logPipeline(\"started\");\n    \n    let runState = {};\n    if (fs.existsSync('../run_state.json')) {\n        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));\n        if (runState.reachability && runState.reachability.stage_failed === false && runState.reachability.cves) {\n            logPipeline(\"stage already completed successfully. Skipping.\");\n            return;\n        }\n    }\n    \n    const advisories = JSON.parse(fs.readFileSync('advisories.json', 'utf8'));\n\n    const excludeDirs = ['node_modules', 'test', 'dist', 'build', '.git'];\n    const jsFiles = [];\n\n    function findJsFiles(dir) {\n        if (excludeDirs.includes(path.basename(dir))) return;\n        const entries = fs.readdirSync(dir, { withFileTypes: true });\n        for (const entry of entries) {\n            const fullPath = path.join(dir, entry.name);\n            if (entry.isDirectory()) {\n                if (!excludeDirs.includes(entry.name)) {\n                    findJsFiles(fullPath);\n                }\n            } else if (entry.name.endsWith('.js')) {\n                jsFiles.push(fullPath);\n            }\n        }\n    }\n    findJsFiles('.');\n\n    const imports = {}; // varName -> { pkgName, isDynamic }\n    const usages = {};  // varName -> array of usage locations\n    \n    let crawlIncomplete = false;\n    const startTime = Date.now();\n\n    for (const file of jsFiles) {\n        if (Date.now() - startTime > 30000) {\n            crawlIncomplete = true;\n            logPipeline(\"Crawl timeout exceeded 30s. Results incomplete.\");\n            break;\n        }\n        \n        try {\n            const code = fs.readFileSync(file, 'utf8');\n            const ast = acorn.parse(code, { ecmaVersion: 2020, allowHashBang: true, sourceType: 'module' });\n            \n            // Pass 1: Find requires and imports\n            walk.simple(ast, {\n                VariableDeclarator(node) {\n                    if (node.init && node.init.type === 'CallExpression' && \n                        node.init.callee.name === 'require' && \n                        node.init.arguments.length > 0) {\n                        const pkgName = node.init.arguments[0].value;\n                        const varName = node.id && node.id.name;\n                        if (varName) {\n                            imports[varName] = { pkgName, isDynamic: false };\n                            if (!usages[varName]) usages[varName] = [];\n                        } else if (node.id && node.id.type === 'ObjectPattern') {\n                            imports['__destructured_' + pkgName] = { pkgName, isDynamic: true };\n                        }\n                    }\n                    if (node.init && node.init.type === 'MemberExpression' &&\n                        node.init.object.type === 'CallExpression' &&\n                        node.init.object.callee.name === 'require' &&\n                        node.init.object.arguments.length > 0) {\n                        const pkgName = node.init.object.arguments[0].value;\n                        const varName = node.id && node.id.name;\n                        if (varName) {\n                            imports[varName] = { pkgName, isDynamic: true };\n                            if (!usages[varName]) usages[varName] = [];\n                        }\n                    }\n                },\n                ImportDeclaration(node) {\n                    if (node.source && node.source.value) {\n                        const pkgName = node.source.value;\n                        for (const spec of node.specifiers) {\n                            if (spec.local && spec.local.name) {\n                                imports[spec.local.name] = { pkgName, isDynamic: false };\n                                if (!usages[spec.local.name]) usages[spec.local.name] = [];\n                            }\n                        }\n                    }\n                }\n            });\n            \n            // Pass 2: Find usages\n            walk.simple(ast, {\n                MemberExpression(node) {\n                    if (node.object.type === 'Identifier' && usages[node.object.name] !== undefined) {\n                        usages[node.object.name].push(`property access in ${file}`);\n                    }\n                },\n                CallExpression(node) {\n                    if (node.callee.type === 'Identifier' && usages[node.callee.name] !== undefined) {\n                        usages[node.callee.name].push(`function call in ${file}`);\n                    }\n                }\n            });\n        } catch (e) {\n            // Ignore parse errors on individual files\n        }\n    }\n\n    const reachabilityCves = [];\n    let reachableCount = 0;\n    let uncertainCount = 0;\n\n    for (const vuln of advisories) {\n        let verdict = \"NOT_REACHABLE\";\n        let evidence = \"Package is not imported in scanned source files.\";\n\n        let importedAs = null;\n        let isDynamic = false;\n        \n        for (const [varName, info] of Object.entries(imports)) {\n            if (info.pkgName === vuln.package) {\n                importedAs = varName;\n                isDynamic = info.isDynamic;\n                break;\n            }\n        }\n\n        if (importedAs) {\n            if (isDynamic) {\n                verdict = \"reachability_uncertain\";\n                evidence = `Dynamically/aliased/destructured import detected, reachability uncertain.`;\n                uncertainCount++;\n            } else if (usages[importedAs] && usages[importedAs].length > 0) {\n                verdict = \"REACHABLE\";\n                evidence = `Imported as ${importedAs} and used (${usages[importedAs].slice(0,2).join(', ')}...)`;\n                reachableCount++;\n            } else {\n                evidence = `Package imported as '${importedAs}' but never invoked.`;\n            }\n        }\n\n        reachabilityCves.push({\n            cve_id: vuln.cve_id,\n            package: vuln.package,\n            verdict: verdict,\n            evidence: evidence\n        });\n    }\n\n    const reachabilityData = { cves: reachabilityCves, crawl_incomplete: crawlIncomplete, stage_failed: false, error: \"\" };\n    fs.writeFileSync('reachability.json', JSON.stringify(reachabilityData, null, 2));\n\n    runState = {};\n    if (fs.existsSync('../run_state.json')) {\n        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));\n    }\n    runState.reachability = reachabilityData;\n    runState.timestamps = runState.timestamps || {};\n    runState.timestamps.reachability_completed_at = new Date().toISOString();\n    fs.writeFileSync('../run_state.json', JSON.stringify(runState, null, 2));\n\n    logPipeline(`complete. ${reachabilityCves.length} CVEs: ${reachableCount} REACHABLE, ${uncertainCount} UNCERTAIN.`);\n}"
+    },
+    {
+      "file": "reachability.js",
+      "line_range": [
+        12,
+        12
+      ],
+      "issue_type": "high_complexity",
+      "description": "[complexity] Function 'run' has a complexity of 17. Maximum allowed is 10.",
+      "severity": "info",
+      "snippet": "function run() {"
+    },
+    {
+      "file": "reachability.js",
+      "line_range": [
+        64,
+        64
+      ],
+      "issue_type": "high_complexity",
+      "description": "[complexity] Method 'VariableDeclarator' has a complexity of 18. Maximum allowed is 10.",
+      "severity": "info",
+      "snippet": "VariableDeclarator(node) {"
+    },
+    {
+      "file": "reachability.js",
+      "line_range": [
+        115,
+        115
+      ],
+      "issue_type": "unused_code",
+      "description": "[no-unused-vars] 'e' is defined but never used.",
+      "severity": "info",
+      "snippet": "} catch (e) {"
+    },
+    {
+      "file": "scanner.js",
+      "line_range": [
+        10,
+        173
+      ],
+      "issue_type": "high_complexity",
+      "description": "[max-lines-per-function] Async function 'run' has too many lines (150). Maximum allowed is 60.",
+      "severity": "info",
+      "snippet": "async function run() {\n    logPipeline(\"started\");\n    \n    let runState = {};\n    if (fs.existsSync('../run_state.json')) {\n        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));\n        if (runState.scanner && runState.scanner.stage_failed === false && runState.scanner.detected_cves) {\n            logPipeline(\"stage already completed successfully. Skipping.\");\n            return;\n        }\n    }\n    \n    const lockfileData = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));\n    const packagesToScan = new Map();\n    function addPackage(name, version) {\n        if (!packagesToScan.has(name)) {\n            packagesToScan.set(name, version);\n        }\n    }\n\n    const rootDeps = lockfileData.packages[\"\"]?.dependencies || {};\n    for (const depName of Object.keys(rootDeps)) {\n        const pkgPath = `node_modules/${depName}`;\n        const pkgData = lockfileData.packages[pkgPath];\n        if (pkgData) {\n            addPackage(depName, pkgData.version);\n            const transDeps = pkgData.dependencies || {};\n            for (const transName of Object.keys(transDeps)) {\n                let transPkg = lockfileData.packages[`node_modules/${depName}/node_modules/${transName}`] \n                            || lockfileData.packages[`node_modules/${transName}`];\n                if (transPkg) {\n                    addPackage(transName, transPkg.version);\n                }\n            }\n        }\n    }\n\n    const packagesList = Array.from(packagesToScan.entries());\n    if (packagesList.length === 0) {\n        logPipeline(\"No dependencies found to scan.\");\n        return;\n    }\n\n    const detected_cves = [];\n    const failed_packages = [];\n    const uniqueCves = new Map();\n\n    async function fetchOsv(name, version) {\n        const postData = JSON.stringify({\n            package: { name: name, ecosystem: 'npm' },\n            version: version\n        });\n\n        for (let attempt = 1; attempt <= 3; attempt++) {\n            try {\n                const result = await new Promise((resolve, reject) => {\n                    const options = {\n                        hostname: 'api.osv.dev',\n                        port: 443,\n                        path: '/v1/query',\n                        method: 'POST',\n                        headers: {\n                            'Content-Type': 'application/json',\n                            'Content-Length': Buffer.byteLength(postData)\n                        },\n                        timeout: 5000\n                    };\n                    const req = https.request(options, (res) => {\n                        if (res.statusCode === 429 || res.statusCode >= 500) {\n                            reject(new Error(`HTTP ${res.statusCode}`));\n                            return;\n                        }\n                        let data = '';\n                        res.on('data', (chunk) => { data += chunk; });\n                        res.on('end', () => resolve(JSON.parse(data)));\n                    });\n                    req.on('timeout', () => {\n                        req.destroy();\n                        reject(new Error('timeout'));\n                    });\n                    req.on('error', (e) => reject(e));\n                    req.write(postData);\n                    req.end();\n                });\n                return result;\n            } catch (err) {\n                if (attempt === 3) throw err;\n                await new Promise(r => setTimeout(r, Math.pow(2, attempt) * 100));\n            }\n        }\n    }\n\n    const BATCH_SIZE = 10;\n    for (let i = 0; i < packagesList.length; i += BATCH_SIZE) {\n        const batch = packagesList.slice(i, i + BATCH_SIZE);\n        await Promise.all(batch.map(async ([name, version]) => {\n            try {\n                const result = await fetchOsv(name, version);\n                if (result.vulns && result.vulns.length > 0) {\n                    for (const vuln of result.vulns) {\n                        const cve = vuln.aliases ? vuln.aliases.find(a => a.startsWith('CVE-')) : vuln.id;\n                        const cve_id = cve || vuln.id;\n                        \n                        let severity = \"UNKNOWN\";\n                        if (vuln.severity && vuln.severity.length > 0) {\n                            severity = vuln.severity[0].score;\n                        } else if (vuln.database_specific && vuln.database_specific.severity) {\n                            severity = vuln.database_specific.severity;\n                        }\n                        \n                        let fixed_version = null;\n                        if (vuln.affected && vuln.affected.length > 0) {\n                            const affected = vuln.affected[0];\n                            if (affected.ranges && affected.ranges.length > 0) {\n                                const range = affected.ranges[0];\n                                for (const event of range.events) {\n                                    if (event.fixed) {\n                                        fixed_version = event.fixed;\n                                    }\n                                }\n                            }\n                        }\n                        const key = `${name}-${cve_id}`;\n                        if (!uniqueCves.has(key)) {\n                            uniqueCves.set(key, {\n                                package: name,\n                                version: version,\n                                cve_id: cve_id,\n                                severity: severity,\n                                fixed_version: fixed_version || 'unknown',\n                                affected_range: 'unknown',\n                                source: 'OSV'\n                            });\n                        }\n                    }\n                }\n            } catch (e) {\n                console.error(`Error querying ${name}: ${e.message}`);\n                failed_packages.push(name);\n            }\n        }));\n    }\n\n    detected_cves.push(...uniqueCves.values());\n\n    runState = {};\n    if (fs.existsSync('../run_state.json')) {\n        runState = JSON.parse(fs.readFileSync('../run_state.json', 'utf8'));\n    }\n    runState.scanner = { \n        detected_cves, \n        failed_packages, \n        stage_failed: false,\n        error: \"\"\n    };\n    \n    fs.writeFileSync('advisories.json', JSON.stringify(detected_cves, null, 2));\n    runState.timestamps = runState.timestamps || {};\n    runState.timestamps.started_at = new Date().toISOString();\n    runState.timestamps.scan_completed_at = new Date().toISOString();\n    fs.writeFileSync('../run_state.json', JSON.stringify(runState, null, 2));\n    \n    logPipeline(`${packagesList.length} packages checked, ${detected_cves.length} CVEs found, ${failed_packages.length} scan failures`);\n}"
+    },
+    {
+      "file": "scanner.js",
+      "line_range": [
+        10,
+        10
+      ],
+      "issue_type": "high_complexity",
+      "description": "[complexity] Async function 'run' has a complexity of 17. Maximum allowed is 10.",
+      "severity": "info",
+      "snippet": "async function run() {"
+    },
+    {
+      "file": "scanner.js",
+      "line_range": [
+        105,
+        105
+      ],
+      "issue_type": "high_complexity",
+      "description": "[complexity] Async arrow function has a complexity of 19. Maximum allowed is 10.",
+      "severity": "info",
+      "snippet": "await Promise.all(batch.map(async ([name, version]) => {"
+    },
+    {
+      "file": "scanner.js",
+      "line_range": [
+        125,
+        129
+      ],
+      "issue_type": "high_complexity",
+      "description": "[max-depth] Blocks are nested too deeply (5). Maximum allowed is 4.",
+      "severity": "info",
+      "snippet": "for (const event of range.events) {\n                                    if (event.fixed) {\n                                        fixed_version = event.fixed;\n                                    }\n                                }"
+    },
+    {
+      "file": "scanner.js",
+      "line_range": [
+        126,
+        128
+      ],
+      "issue_type": "high_complexity",
+      "description": "[max-depth] Blocks are nested too deeply (6). Maximum allowed is 4.",
+      "severity": "info",
+      "snippet": "if (event.fixed) {\n                                        fixed_version = event.fixed;\n                                    }"
+    },
+    {
+      "file": "test-simulated-break.js",
+      "line_range": [
+        5,
+        16
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (12 lines, 34 tokens) identical to test.js:4-13",
+      "severity": "warning",
+      "snippet": ""
+    },
+    {
+      "file": "test-simulated-break.js",
+      "line_range": [
+        18,
+        23
+      ],
+      "issue_type": "duplicate_code",
+      "description": "Duplicate code block (6 lines, 32 tokens) identical to test.js:15-20",
+      "severity": "warning",
+      "snippet": ""
+    }
+  ]
+}

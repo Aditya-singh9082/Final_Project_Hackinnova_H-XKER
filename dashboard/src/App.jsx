@@ -363,29 +363,30 @@ export default function App({ user, handleSignIn, handleSignOut }) {
     setIsLiveRunning(true);
     setRunState(null); // Clear old scan from UI so timeline doesn't show completed prematurely
     setLiveStage('cloning');
-    setLiveLog(`Cloning repository: ${repoUrl}...`);
+    const repoName = repoUrl.split('/').pop().replace('.git', '') || 'repository';
+    setLiveLog(`Preparing scan for ${repoName}...`);
     try {
       // Step 1: Clone the repo
       const cloneRes = await fetch('/api/clone', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: repoUrl, autoInstall: false }), // FAST clone without 5 min npm install delay
+        body: JSON.stringify({ url: repoUrl, autoInstall: false }),
       });
 
       if (!cloneRes.ok) {
         const errData = await cloneRes.json().catch(() => ({}));
-        setLiveLog(`Clone failed: ${errData.error || 'Unknown error'}`);
+        setLiveLog(`Setup failed: ${errData.error || 'Unknown error'}`);
         setIsLiveRunning(false);
         return;
       }
 
       const cloneData = await cloneRes.json();
-      setLiveLog(`Clone complete. Starting pipeline scan on ${cloneData.targetDir}...`);
+      setLiveLog(`Starting security pipeline scan on ${repoName}...`);
 
       // Step 2: Start SSE pipeline stream
       startPipelineSSE(
         cloneData.targetDir,
-        cloneData.stateFile,
+        cloneData.stateFile || '/tmp/run_state.json',
         user?.uid || 'local',
         'deterministic',
         repoUrl
