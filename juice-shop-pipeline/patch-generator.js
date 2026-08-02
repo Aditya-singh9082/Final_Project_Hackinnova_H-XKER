@@ -7,6 +7,8 @@ const https = require('https');
 // GROQ_API_KEY is decrypted server-side and passed here -- NEVER logged or stored.
 const PATCH_MODE = (process.env.PATCH_MODE || 'deterministic');
 const GROQ_API_KEY = (process.env.GROQ_API_KEY || '');
+// AI_PROVIDER: user's preferred AI provider ('puter' | 'groq' | 'deterministic')
+const AI_PROVIDER = (process.env.AI_PROVIDER || 'puter');
 
 const RUN_STATE_PATH = (process.env.RUN_STATE_PATH || '../juice-shop-run_state.json');
 const LOG_PATH = (process.env.LOG_PATH || '../juice-shop-pipeline.log');
@@ -30,8 +32,8 @@ function cmpVer(a, b) {
 function getMajor(v) { return Number(v.replace(/[^0-9.]/g, '').split('.')[0] || 0); }
 
 /**
- * callGroqForPatch -- calls Groq chat completion API for an AI-assisted patch suggestion.
- * Only invoked when PATCH_MODE=ai_assisted AND both deterministic strategies have failed.
+ * callAIForPatch -- calls AI for an AI-assisted patch suggestion.
+ * Provider is determined by AI_PROVIDER env var: 'puter' (default), 'groq', or 'deterministic' (skip).
  * SECURITY: GROQ_API_KEY is never logged or written to disk.
  * The returned suggestion still goes through exploit-verifier/compat-checker/regression-runner.
  */
@@ -44,22 +46,28 @@ async function callAIForPatch(pkgName, fromVersion, toVersion, cveIds) {
     ].join(' ');
 
     // 1. Try Puter.dev (@heyputer/puter.js) flagship model gpt-5.6-sol
-    try {
-        const puterMod = await import('@heyputer/puter.js');
-        const puter = puterMod.puter || puterMod.default?.puter || puterMod.default;
-        if (puter && puter.ai && typeof puter.ai.chat === 'function') {
-            const res = await puter.ai.chat(prompt, { model: "gpt-5.6-sol" });
-            const text = typeof res === 'string' ? res : (res?.text || res?.content || res?.message?.content || JSON.stringify(res));
-            if (text) {
-                return { provider: 'Puter.dev', model: 'gpt-5.6-sol', suggestion: text };
+    // Only when user selected 'puter' provider (or as default fallback)
+    if (AI_PROVIDER === 'puter') {
+        try {
+            logPipeline('[AI] Using Puter.dev (gpt-5.6-sol) as selected AI provider...');
+            const puterMod = await import('@heyputer/puter.js');
+            const puter = puterMod.puter || puterMod.default?.puter || puterMod.default;
+            if (puter && puter.ai && typeof puter.ai.chat === 'function') {
+                const res = await puter.ai.chat(prompt, { model: "gpt-5.6-sol" });
+                const text = typeof res === 'string' ? res : (res?.text || res?.content || res?.message?.content || JSON.stringify(res));
+                if (text) {
+                    return { provider: 'Puter.dev', model: 'gpt-5.6-sol', suggestion: text };
+                }
             }
+        } catch (e) {
+            logPipeline('[AI] Puter.dev call failed: ' + e.message + '. Falling back to Groq if available.');
         }
-    } catch (e) {
-        // Fallback to Groq or OpenAI
     }
 
     // 2. Try Groq (GROQ_API_KEY) with llama-3.3-70b-versatile
-    if (GROQ_API_KEY) {
+    // Used when user selected 'groq' provider, or as fallback from puter
+    if (GROQ_API_KEY && (AI_PROVIDER === 'groq' || AI_PROVIDER === 'puter')) {
+        logPipeline('[AI] Using Groq (llama-3.3-70b-versatile) as ' + (AI_PROVIDER === 'groq' ? 'selected' : 'fallback') + ' AI provider...');
         const groqRes = await new Promise((resolve) => {
             const body = JSON.stringify({
                 model: 'llama-3.3-70b-versatile',
@@ -182,12 +190,11 @@ async function run() {
         } catch(e) {
             logPipeline(`npm install failed for ${pkgName}: ${e.message}`);
             // === AI-ASSISTED FALLBACK ===
-            // Conditions: PATCH_MODE=ai_assisted AND GROQ_API_KEY present AND both deterministic strategies failed.
             // AI-suggested patches are treated with ZERO special trust -- they go through the same
             // exploit-verifier, compat-checker, and regression-runner gauntlet as any other patch.
-            // Always try AI-assisted fallback (Puter.dev gpt-5.6-sol or Groq) when deterministic bump fails
-            if (true) {
-                logPipeline('[AI-Assisted] Calling AI (Puter.dev gpt-5.6-sol / Groq) for patch suggestion...');
+            // Only try AI fallback if user hasn't selected 'deterministic' provider
+            if (AI_PROVIDER !== 'deterministic') {
+                logPipeline(`[AI-Assisted] Calling AI (provider: ${AI_PROVIDER}) for patch suggestion...`);
                 try {
                     const aiResult = await callAIForPatch(pkgName, fromVersion, chosenVersion, resolved_cves);
                     if (aiResult && aiResult.suggestion) {
@@ -208,6 +215,8 @@ async function run() {
                 } catch(aiErr) {
                     logPipeline('[AI-Assisted] AI call error: ' + aiErr.message);
                 }
+            } else {
+                logPipeline('[Deterministic] AI fallback skipped — user selected deterministic-only mode.');
             }
         }
 

@@ -132,13 +132,13 @@ export default function LandingPage({
           <div className="bg-white/80 border border-slate-200/90 rounded-2xl p-5 shadow-sm">
             <p className="text-xs font-mono font-semibold uppercase text-slate-500">Auto-Patch Rate</p>
             <p className="text-3xl font-heading font-bold text-emerald-600 mt-1">
-              {efficacyMetrics?.clean_auto_patch_rate || 100}%
+              {efficacyMetrics?.clean_auto_patch_rate ?? 0}%
             </p>
           </div>
           <div className="bg-white/80 border border-slate-200/90 rounded-2xl p-5 shadow-sm">
             <p className="text-xs font-mono font-semibold uppercase text-slate-500">Safely-Handled Rate</p>
             <p className="text-3xl font-heading font-bold text-blue-600 mt-1">
-              {efficacyMetrics?.safely_handled_rate || 100}%
+              {efficacyMetrics?.safely_handled_rate ?? 0}%
             </p>
           </div>
           <div className="bg-white/80 border border-slate-200/90 rounded-2xl p-5 shadow-sm">

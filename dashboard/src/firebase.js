@@ -50,7 +50,9 @@ export async function getScanHistories(userId, limitCount = 50) {
             limit(limitCount)
         );
         const snapshot = await getDocs(q);
-        const docs = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        const docs = snapshot.docs
+            .map(d => ({ id: d.id, ...d.data() }))
+            .filter(d => !userId || userId === 'local' || d.userId === userId || d.userId === 'local' || !d.userId);
         return docs.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
     } catch (e) {
         console.error('Error fetching scan history from Firestore:', e);

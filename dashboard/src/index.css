@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -29,7 +30,8 @@ body {
   color: #1E293B;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {

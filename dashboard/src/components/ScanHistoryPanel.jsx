@@ -20,7 +20,7 @@ export default function ScanHistoryPanel({ user, onSelectHistory }) {
 
     useEffect(() => {
         loadHistory();
-        const interval = setInterval(loadHistory, 4000);
+        const interval = setInterval(loadHistory, 15000);
         return () => clearInterval(interval);
     }, [user]);
 

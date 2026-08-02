@@ -26,3 +26,5 @@ find_payload.js
 compare.js
 inject-timestamps*.js
 test_*.js
+test-jscpd-out/
+code_quality_report.json

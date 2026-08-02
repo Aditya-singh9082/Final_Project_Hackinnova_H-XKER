@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FolderGit2, X, Search, Globe, Lock, Unlock, Star, ArrowRight, Loader2, RefreshCw, ExternalLink } from 'lucide-react';
 
-export default function GitHubRepoPickerModal({ isOpen, onClose, user, onRepoSelected, onSignIn }) {
+export default function GitHubRepoPickerModal({ isOpen, onClose, user, onRepoSelected, onScanQuality, onSignIn }) {
     const [repos, setRepos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -135,9 +135,24 @@ export default function GitHubRepoPickerModal({ isOpen, onClose, user, onRepoSel
                         />
                         <button
                             type="submit"
-                            className="bg-blue-600 hover:bg-blue-500 text-white font-heading font-semibold text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer shrink-0"
+                            className="bg-blue-600 hover:bg-blue-500 text-white font-heading font-semibold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer shrink-0"
                         >
-                            <span>Scan URL</span>
+                            <span>Scan Vulnerabilities</span>
+                            <ArrowRight size={14} />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (!customUrl.trim()) {
+                                    setCustomError("Please enter a repository URL");
+                                    return;
+                                }
+                                if (onScanQuality) onScanQuality(customUrl.trim());
+                                onClose();
+                            }}
+                            className="bg-purple-600 hover:bg-purple-500 text-white font-heading font-semibold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer shrink-0"
+                        >
+                            <span>Scan Code Quality</span>
                             <ArrowRight size={14} />
                         </button>
                     </div>
@@ -299,9 +314,19 @@ export default function GitHubRepoPickerModal({ isOpen, onClose, user, onRepoSel
                                                 onRepoSelected(repo.html_url);
                                                 onClose();
                                             }}
-                                            className="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold text-xs hover:bg-blue-500 transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+                                            className="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white font-semibold text-xs hover:bg-blue-500 transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
                                         >
-                                            <span>Scan Repo</span>
+                                            <span>Scan Vulnerabilities</span>
+                                            <span>→</span>
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                if (onScanQuality) onScanQuality(repo.html_url);
+                                                onClose();
+                                            }}
+                                            className="px-3.5 py-1.5 rounded-xl bg-purple-600 text-white font-semibold text-xs hover:bg-purple-500 transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+                                        >
+                                            <span>Scan Code Quality</span>
                                             <span>→</span>
                                         </button>
                                     </div>
