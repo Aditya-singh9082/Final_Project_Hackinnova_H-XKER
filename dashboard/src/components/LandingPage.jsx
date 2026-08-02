@@ -24,7 +24,9 @@ import {
   Sun,
   Moon,
   X,
-  Video
+  Video,
+  Sparkles,
+  Calendar
 } from 'lucide-react';
 
 export default function LandingPage({ 
@@ -37,6 +39,7 @@ export default function LandingPage({
   toggleTheme 
 }) {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const isDark = theme === 'dark';
 
@@ -184,7 +187,10 @@ export default function LandingPage({
             {/* Action CTAs */}
             <div className="flex flex-wrap items-center gap-5 pt-2">
               <button
-                onClick={user ? onLaunchDashboard : handleSignIn}
+                onClick={() => {
+                  if (user) onLaunchDashboard();
+                  else setIsDemoModalOpen(true);
+                }}
                 className="bg-slate-900 border-2 border-purple-500/80 hover:border-purple-400 text-white font-heading font-semibold text-sm px-7 py-3.5 rounded-xl flex items-center gap-3 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all cursor-pointer"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-sm shadow-orange-500/80" />
@@ -511,6 +517,62 @@ export default function LandingPage({
                 className="bg-gradient-to-r from-purple-600 to-orange-500 hover:opacity-95 text-white font-heading font-semibold text-xs px-5 py-2.5 rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
               >
                 <span>{user ? 'Launch Dashboard' : 'Sign In to Try'}</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* REQUEST DEMO MODAL POPUP */}
+      {isDemoModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className={`border rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 text-center relative ${
+            isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
+          }`}>
+            <button 
+              onClick={() => setIsDemoModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-orange-500 via-pink-500 to-purple-600 p-0.5 mx-auto shadow-xl shadow-orange-500/25">
+              <div className={`w-full h-full rounded-[14px] flex items-center justify-center ${isDark ? 'bg-slate-950' : 'bg-white'}`}>
+                <Calendar size={28} className="text-orange-500" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-orange-500 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full inline-block">
+                Demo Booking
+              </span>
+              <h3 className="text-xl font-heading font-extrabold">
+                Demo Requests Coming Soon! 🚀
+              </h3>
+              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Interactive 1-on-1 demo scheduling will be available shortly. In the meantime, you can sign in with GitHub right now to test the live Kalki Security Engine!
+              </p>
+            </div>
+
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <button
+                onClick={() => setIsDemoModalOpen(false)}
+                className={`px-4 py-2.5 rounded-xl text-xs font-heading font-semibold border cursor-pointer ${
+                  isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                }`}
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  setIsDemoModalOpen(false);
+                  if (user) onLaunchDashboard();
+                  else handleSignIn();
+                }}
+                className="bg-gradient-to-r from-purple-600 to-orange-500 hover:opacity-95 text-white font-heading font-semibold text-xs px-5 py-2.5 rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
+              >
+                <span>{user ? 'Launch Dashboard' : 'Sign In to Try Live'}</span>
                 <ArrowRight size={14} />
               </button>
             </div>
